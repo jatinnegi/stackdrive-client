@@ -1,33 +1,34 @@
 import { useEffect, useRef } from "react";
-import { SuggestedCardProps } from "@/types";
-import { Box, Typography } from "@mui/material";
-import SuggestedCard from "@/components/SuggestedCard";
-import { ScrollingCarousel } from "@/components/ScrollingCarousel/ScrollingCarousel";
+import { Box } from "@mui/material";
+import { FileProps } from "@/types";
+import { FileCard } from "@/components/ResourceCard";
+import { GridView } from "@/components/Views";
+import SectionHeading from "@/components/SectionHeading";
 import ExcelPreview from "../../public/preview/excel_preview.webp";
 import WordPreview from "../../public/preview/word_preview.webp";
 
-const SuggestedData: SuggestedCardProps[] = [
+const SuggestedData: FileProps[] = [
   {
     id: 1,
-    title: "404 not found.xlsx",
+    name: "404 not found.xlsx",
     type: "excel",
     imgSrc: ExcelPreview,
   },
   {
     id: 2,
-    title: "My Document.docx",
+    name: "My Document.docx",
     type: "word",
     imgSrc: WordPreview,
   },
   {
     id: 3,
-    title: "order data.xlsx",
+    name: "order data.xlsx",
     type: "excel",
     imgSrc: ExcelPreview,
   },
   {
     id: 4,
-    title: "Untitled.docx",
+    name: "Untitled.docx",
     type: "word",
     imgSrc: WordPreview,
   },
@@ -45,60 +46,18 @@ export default function Suggested() {
 
   return (
     <Box component="div" margin={{ xs: "25px 0px", md: "30px 22px" }}>
-      <Typography
-        fontSize={{ xs: "14px", md: "16px" }}
-        sx={{ color: "text.secondary" }}
-      >
-        Suggested
-      </Typography>
-      <Box
-        component="div"
-        gridTemplateColumns={{
-          md: "repeat(3, 1fr)",
-          lg: "repeat(4, 1fr)",
-        }}
-        sx={{
-          display: {
-            xs: "none",
-            lg: "grid",
-          },
-          gap: "10px",
-          margin: "10px 0px",
-        }}
-      >
-        {SuggestedData.map((data: SuggestedCardProps) => (
-          <SuggestedCard
+      <SectionHeading>Suggested</SectionHeading>
+      <GridView>
+        {SuggestedData.map((data: FileProps) => (
+          <FileCard
             key={data.id}
             id={data.id}
-            title={data.title}
+            name={data.name}
             type={data.type}
             imgSrc={data.imgSrc}
           />
         ))}
-      </Box>
-      <Box
-        ref={parentRef}
-        sx={{
-          display: { xs: "block", lg: "none" },
-        }}
-      >
-        <Box
-          ref={childRef}
-          sx={{ position: "absolute", left: "0px", width: "100%" }}
-        >
-          <ScrollingCarousel selector="div.suggested_card" itemMinWidth="250px">
-            {SuggestedData.map((data: SuggestedCardProps) => (
-              <SuggestedCard
-                key={data.id}
-                id={data.id}
-                title={data.title}
-                type={data.type}
-                imgSrc={data.imgSrc}
-              />
-            ))}
-          </ScrollingCarousel>
-        </Box>
-      </Box>
+      </GridView>
     </Box>
   );
 }

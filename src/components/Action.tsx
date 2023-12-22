@@ -54,8 +54,6 @@ const Action: FC<PropsWithChildren> = ({ children }) => {
   };
 
   return (
-    // <Box component="div">
-
     <Box
       component="div"
       sx={{

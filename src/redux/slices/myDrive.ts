@@ -7,7 +7,7 @@ interface IMyDrive {
 }
 
 const initialState: IMyDrive = {
-  view: "list",
+  view: "grid",
 };
 
 interface Payload {

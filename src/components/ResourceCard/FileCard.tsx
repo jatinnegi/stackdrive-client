@@ -1,9 +1,9 @@
 import { FC } from "react";
 import { Box, Typography } from "@mui/material";
-import { SuggestedCardProps } from "@/types";
+import { FileProps } from "@/types";
 import { getFileImage } from "@/utils/helper";
 
-const SuggestedCard: FC<SuggestedCardProps> = ({ id, type, title, imgSrc }) => {
+export const FileCard: FC<FileProps> = ({ id, type, name, imgSrc }) => {
   return (
     <Box
       component="div"
@@ -42,7 +42,7 @@ const SuggestedCard: FC<SuggestedCardProps> = ({ id, type, title, imgSrc }) => {
             textOverflow: "ellipsis",
           }}
         >
-          {title}
+          {name}
         </Typography>
       </Box>
       <Box
@@ -56,5 +56,3 @@ const SuggestedCard: FC<SuggestedCardProps> = ({ id, type, title, imgSrc }) => {
     </Box>
   );
 };
-
-export default SuggestedCard;
