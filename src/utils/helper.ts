@@ -1,4 +1,3 @@
-import { useLocation } from "react-router-dom";
 import supportedFileTypes, {
   SupportedTypes,
   Supported,
@@ -6,9 +5,7 @@ import supportedFileTypes, {
 import FileImage from "../../public/files/ic_file.svg";
 
 export const isActiveLink = (href: string): boolean => {
-  const location = useLocation();
-  const { pathname } = location;
-
+  const pathname = window.location.pathname;
   return pathname === href;
 };
 

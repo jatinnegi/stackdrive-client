@@ -9,8 +9,7 @@ const ResourceCard: FC<ResourceProps> = ({ id, name, type, imgSrc }) => {
       component="div"
       className="suggested_card"
       sx={{
-        // backgroundColor: id === 3 ? "selected.primary" : "background.paper",
-        backgroundColor: "background.paper",
+        backgroundColor: id === 2 ? "selected.primary" : "background.paper",
         borderRadius: "6px",
         padding: "15px 15px",
         overflow: "hidden",

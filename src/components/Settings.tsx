@@ -28,7 +28,7 @@ export default function Settings() {
         zIndex: display ? 30 : 0,
         backgroundColor: "rgba(0, 0, 0, 0)",
       }}
-      onClick={(_: React.MouseEvent<HTMLDivElement>) => {
+      onClick={() => {
         dispatch(toggleDisplay({ display: false }));
       }}
     >
@@ -79,7 +79,7 @@ export default function Settings() {
               />
             </IconButton>
             <IconButton
-              onClick={(_: React.MouseEvent<HTMLButtonElement>) => {
+              onClick={() => {
                 dispatch(toggleDisplay({ display: false }));
               }}
             >
