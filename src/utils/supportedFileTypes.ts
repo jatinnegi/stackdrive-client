@@ -20,7 +20,7 @@ export type SupportedTypes =
   | "zip"
   | "file";
 
-interface Supported {
+export interface Supported {
   id: number;
   type: SupportedTypes;
   img: string;

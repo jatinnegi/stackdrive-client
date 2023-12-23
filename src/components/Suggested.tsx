@@ -1,13 +1,13 @@
 import { useEffect, useRef } from "react";
 import { Box } from "@mui/material";
-import { FileProps } from "@/types";
-import { FileCard } from "@/components/ResourceCard";
+import { ResourceProps } from "@/types";
+import ResourceCard from "@/components/ResourceCard";
 import { GridView } from "@/components/Views";
 import SectionHeading from "@/components/SectionHeading";
 import ExcelPreview from "../../public/preview/excel_preview.webp";
 import WordPreview from "../../public/preview/word_preview.webp";
 
-const SuggestedData: FileProps[] = [
+const SuggestedData: ResourceProps[] = [
   {
     id: 1,
     name: "404 not found.xlsx",
@@ -45,11 +45,11 @@ export default function Suggested() {
   }, []);
 
   return (
-    <Box component="div" margin={{ xs: "25px 0px", md: "30px 22px" }}>
+    <Box component="div">
       <SectionHeading>Suggested</SectionHeading>
       <GridView>
-        {SuggestedData.map((data: FileProps) => (
-          <FileCard
+        {SuggestedData.map((data: ResourceProps) => (
+          <ResourceCard
             key={data.id}
             id={data.id}
             name={data.name}

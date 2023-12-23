@@ -2,26 +2,32 @@ import WordPreview from "../../public/preview/word_preview.webp";
 import ExcelPreview from "../../public/preview/excel_preview.webp";
 import PdfPreview from "../../public/preview/pdf_preview.webp";
 import PngPreview from "../../public/preview/png_preview.webp";
-import { FolderProps, FileProps, ResourceProps } from "@/types";
+import { ResourceProps, ResourcesProps } from "@/types";
 
-export type { FolderProps, FileProps, ResourceProps };
+export type { ResourceProps, ResourcesProps };
 
-export const folders: FolderProps[] = [
+export const folders: ResourceProps[] = [
   {
     id: 1,
     name: "folder_example",
+    type: "folder",
+    imgSrc: null,
   },
   {
     id: 2,
     name: "course_images",
+    type: "folder",
+    imgSrc: null,
   },
   {
     id: 3,
     name: "23-04-2023",
+    type: "folder",
+    imgSrc: null,
   },
 ];
 
-export const files: FileProps[] = [
+export const files: ResourceProps[] = [
   {
     id: 1,
     name: "Untitled document",
@@ -48,7 +54,7 @@ export const files: FileProps[] = [
   },
 ];
 
-export const resources: ResourceProps = {
+export const resources: ResourcesProps = {
   files,
   folders,
 };

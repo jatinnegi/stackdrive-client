@@ -1,18 +1,13 @@
 import { SupportedTypes } from "@/utils/supportedFileTypes";
 
-export interface FolderProps {
-  id: number;
-  name: string;
-}
-
-export interface FileProps {
+export interface ResourceProps {
   id: number;
   name: string;
   type: SupportedTypes;
-  imgSrc: string;
+  imgSrc: string | null;
 }
 
-export interface ResourceProps {
-  files: FileProps[];
-  folders: FolderProps[];
+export interface ResourcesProps {
+  files: ResourceProps[];
+  folders: ResourceProps[];
 }

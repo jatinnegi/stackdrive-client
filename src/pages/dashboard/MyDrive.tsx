@@ -9,8 +9,14 @@ export default function MyDrive() {
     <Box component="div">
       <Action>My Drive</Action>
       <Filters />
-      <Suggested />
-      <Explorer />
+      <Box
+        component="div"
+        margin={{ xs: "25px 0px", md: "30px 22px" }}
+        sx={{ display: "grid", gap: "20px" }}
+      >
+        <Suggested />
+        <Explorer />
+      </Box>
     </Box>
   );
 }

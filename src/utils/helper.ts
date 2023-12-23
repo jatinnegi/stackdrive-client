@@ -1,9 +1,8 @@
 import { useLocation } from "react-router-dom";
-import { SupportedTypes } from "./supportedFileTypes";
-import ExcelImage from "../../public/files/ic_excel.svg";
-import WordImage from "../../public/files/ic_word.svg";
-import PdfImage from "../../public/files/ic_pdf.svg";
-import PhotoImage from "../../public/files/ic_img.svg";
+import supportedFileTypes, {
+  SupportedTypes,
+  Supported,
+} from "./supportedFileTypes";
 import FileImage from "../../public/files/ic_file.svg";
 
 export const isActiveLink = (href: string): boolean => {
@@ -18,9 +17,9 @@ export const capitalize = (text: string) => {
 };
 
 export const getFileImage = (type: SupportedTypes) => {
-  if (type === "word") return WordImage;
-  if (type === "excel") return ExcelImage;
-  if (type === "pdf") return PdfImage;
-  if (type === "photo") return PhotoImage;
+  const file = supportedFileTypes.find((file: Supported) => file.type === type);
+
+  if (file) return file.img;
+
   return FileImage;
 };
