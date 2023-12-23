@@ -54,7 +54,7 @@ export const MobileGridView: FC<PropsWithChildren> = ({ children }) => {
         ref={childRef}
         sx={{ position: "absolute", left: "0px", width: "100%" }}
       >
-        <ScrollingCarousel selector="div.suggested_card" itemMinWidth="250px">
+        <ScrollingCarousel selector="div.resource_card" itemMinWidth="280px">
           {children}
         </ScrollingCarousel>
       </Box>

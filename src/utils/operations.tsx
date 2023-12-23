@@ -16,27 +16,27 @@ const operations: OperationProps[] = [
   {
     id: 1,
     text: "Download",
-    icon: <DownloadIcon />,
+    icon: <DownloadIcon fontSize="small" />,
   },
   {
     id: 2,
     text: "Rename",
-    icon: <RenameIcon />,
+    icon: <RenameIcon fontSize="small" />,
   },
   {
     id: 3,
     text: "Share",
-    icon: <ShareIcon />,
+    icon: <ShareIcon fontSize="small" />,
   },
   {
     id: 4,
     text: "Information",
-    icon: <InfoIcon />,
+    icon: <InfoIcon fontSize="small" />,
   },
   {
     id: 5,
-    text: "Delete Icon",
-    icon: <DeleteIcon />,
+    text: "Delete",
+    icon: <DeleteIcon fontSize="small" />,
   },
 ];
 
