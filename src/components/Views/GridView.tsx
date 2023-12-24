@@ -1,12 +1,18 @@
 import { FC, PropsWithChildren, useEffect, useRef } from "react";
+import { useResize } from "@/hooks";
 import { Box } from "@mui/material";
 import { ScrollingCarousel } from "@/components/ScrollingCarousel/ScrollingCarousel";
 
 export const GridView: FC<PropsWithChildren> = ({ children }) => {
+  const { width } = useResize();
+
   return (
     <>
-      <DefaultGridView>{children}</DefaultGridView>
-      <MobileGridView>{children}</MobileGridView>
+      {width >= 1200 ? (
+        <DefaultGridView>{children}</DefaultGridView>
+      ) : (
+        <MobileGridView>{children}</MobileGridView>
+      )}
     </>
   );
 };
@@ -20,10 +26,7 @@ export const DefaultGridView: FC<PropsWithChildren> = ({ children }) => {
         lg: "repeat(4, 1fr)",
       }}
       sx={{
-        display: {
-          xs: "none",
-          lg: "grid",
-        },
+        display: "grid",
         gap: "10px",
         margin: "10px 0px",
       }}
@@ -44,12 +47,7 @@ export const MobileGridView: FC<PropsWithChildren> = ({ children }) => {
   }, []);
 
   return (
-    <Box
-      ref={parentRef}
-      sx={{
-        display: { xs: "block", lg: "none" },
-      }}
-    >
+    <Box ref={parentRef}>
       <Box
         ref={childRef}
         sx={{ position: "absolute", left: "0px", width: "100%" }}

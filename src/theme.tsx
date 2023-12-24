@@ -7,6 +7,7 @@ interface MyPaletteExtensions {
   };
   filterBackgroundColor?: {
     primary?: string;
+    secondary?: string;
   };
   icon?: {
     default?: string;
@@ -97,6 +98,7 @@ const darkThemeOptions: ThemeOptions = {
     },
     filterBackgroundColor: {
       primary: "rgba(22, 28, 36, 0.9)",
+      secondary: "rgba(33, 43, 54, 0.9)",
     },
     boxShadow: {
       primary: "rgba(22, 28, 36, 0.9)",
@@ -133,6 +135,7 @@ const lightThemeOptions: ThemeOptions = {
     },
     filterBackgroundColor: {
       primary: "rgba(255, 255, 255, 0.9)",
+      secondary: "rgba(255, 255, 255, 0.9)",
     },
     boxShadow: {
       primary: "rgba(145, 158, 171, 0.24)",

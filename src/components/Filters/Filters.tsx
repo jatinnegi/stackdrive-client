@@ -52,8 +52,14 @@ export default function Filters() {
     <>
       <Box
         component="div"
-        margin={{ xs: "10px 0px", md: "18px 22px" }}
         display="flex"
+        margin={{ xs: "10px 0px", md: "18px 22px" }}
+        sx={{
+          margin: {
+            xs: "10px 0px",
+            md: "18px 22px",
+          },
+        }}
         gap={{ xs: "5px", md: "10px" }}
       >
         {filters.map((filter: FilterProps) => (

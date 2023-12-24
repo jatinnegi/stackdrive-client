@@ -36,8 +36,7 @@ export default function Appbar() {
         height: "70px",
         display: "flex",
         alignItems: "center",
-        backdropFilter: "blur(6px)",
-        backgroundColor: "filterBackgroundColor.primary",
+        backgroundColor: "background.default",
         zIndex: 10,
       }}
     >

@@ -22,22 +22,11 @@ export default function DashboardLayout() {
           lg: `calc(100% - ${layout === "full" ? "260px" : "85px"})`,
         }}
         margin={{
-          xs: "75px auto 30px auto",
-          lg: layout === "full" ? "75px 0px 30px 260px" : "75px 0px 30px 85px",
+          xs: "70px auto 30px auto",
+          lg: layout === "full" ? "70px 0px 30px 260px" : "70px 0px 30px 85px",
         }}
       >
-        <Box
-          sx={{
-            width: {
-              xs: "95%",
-              md: "98%",
-            },
-            maxWidth: "1200px",
-            margin: "0px auto",
-          }}
-        >
-          <Outlet />
-        </Box>
+        <Outlet />
       </Box>
     </Box>
   );

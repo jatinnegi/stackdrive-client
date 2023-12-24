@@ -45,7 +45,7 @@ const Toggle = () => {
         borderWidth: "1px",
         borderStyle: "dashed",
         borderColor: "border.primary",
-        zIndex: 10,
+        zIndex: 25,
         "&:hover": { backgroundColor: "background.default" },
         "&:focus": { backgroundColor: "background.default" },
       }}
