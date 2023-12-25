@@ -24,6 +24,16 @@ const ContextMenu: FC<Props> = ({
       anchorReference="anchorPosition"
       anchorPosition={{ top: anchorY, left: anchorX }}
       sx={{ padding: 0 }}
+      slotProps={{
+        paper: {
+          sx: {
+            backgroundImage: "none",
+            backgroundColor: "filterBackgroundColor.secondary",
+            backdropFilter: "blur(20px)",
+            maxHeight: "none",
+          },
+        },
+      }}
     >
       {operations.map((operation: OperationProps) => (
         <MenuItem

@@ -5,6 +5,7 @@ const Container: FC<PropsWithChildren> = ({ children }) => {
   return (
     <Box
       sx={{
+        height: "100%",
         width: {
           xs: "95%",
           md: "98%",

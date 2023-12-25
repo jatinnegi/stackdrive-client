@@ -4,7 +4,7 @@ import { Box } from "@mui/material";
 import Sidebar from "@/components/Sidebar/Sidebar";
 import Toggle from "@/components/Sidebar/Toggle";
 import Appbar from "@/components/Appbar/Appbar";
-import Settings from "@/components/Settings";
+import MobileMenu from "@/components/MobileMenu";
 import { Outlet } from "react-router-dom";
 
 export default function DashboardLayout() {
@@ -13,9 +13,9 @@ export default function DashboardLayout() {
   return (
     <Box sx={{ position: "relative" }} display="flex">
       <Appbar />
+      <MobileMenu />
       <Sidebar />
       <Toggle />
-      <Settings />
       <Box
         width={{
           xs: "100%",

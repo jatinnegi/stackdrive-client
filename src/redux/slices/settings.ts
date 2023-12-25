@@ -14,7 +14,7 @@ const initialState: ISettings = {
   display: false,
   displayMobileMenu: false,
   theme: "dark",
-  layout: "collapse",
+  layout: "scrollable",
 };
 
 interface Payload {
