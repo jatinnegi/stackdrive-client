@@ -3,6 +3,7 @@ import { RootState } from "@/redux/reducers";
 import { Box } from "@mui/material";
 import Sidebar from "@/components/Sidebar/Sidebar";
 import Toggle from "@/components/Sidebar/Toggle";
+import ModifiedFilter from "@/components/Filters/ModifiedFilter";
 import Appbar from "@/components/Appbar/Appbar";
 import MobileMenu from "@/components/MobileMenu";
 import { Outlet } from "react-router-dom";
@@ -16,6 +17,7 @@ export default function DashboardLayout() {
       <MobileMenu />
       <Sidebar />
       <Toggle />
+      <ModifiedFilter />
       <Box
         width={{
           xs: "100%",

@@ -4,14 +4,17 @@ type View = "grid" | "list";
 
 interface IMyDrive {
   view: View;
+  displayModifiedFilter: boolean;
 }
 
 const initialState: IMyDrive = {
   view: "grid",
+  displayModifiedFilter: false,
 };
 
 interface Payload {
   view?: View;
+  displayModifiedFilter?: boolean;
 }
 
 const myDrive = createSlice({
@@ -20,6 +23,9 @@ const myDrive = createSlice({
   reducers: {
     updateMyDrive(state, { payload }: { payload: Payload }) {
       state.view = payload.view || state.view;
+
+      if (typeof payload.displayModifiedFilter !== "undefined")
+        state.displayModifiedFilter = payload.displayModifiedFilter;
     },
   },
 });

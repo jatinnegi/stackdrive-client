@@ -1,17 +1,29 @@
 import { FC } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "@/redux/reducers";
+import { updateMyDrive } from "@/redux/actions";
 import { Box, Backdrop, Typography, Button } from "@mui/material";
 import DateCalendar from "../DateCalendar";
 
-interface Props {
-  open: boolean;
-  handleClose: () => void;
-}
+const ModifiedFilter: FC = () => {
+  const { displayModifiedFilter } = useSelector(
+    (state: RootState) => state.myDrive
+  );
+  const dispatch = useDispatch();
 
-const ModifiedFilter: FC<Props> = ({ open, handleClose }) => {
+  const open = displayModifiedFilter;
+
+  function handleClose() {
+    dispatch(updateMyDrive({ displayModifiedFilter: false }));
+  }
+
   return (
     <Backdrop
       open={open}
-      sx={{ zIndex: 30, backgroundColor: "backdrop.primary" }}
+      sx={{
+        zIndex: 40,
+        backgroundColor: "backdrop.primary",
+      }}
       onClick={handleClose}
     >
       <Box
