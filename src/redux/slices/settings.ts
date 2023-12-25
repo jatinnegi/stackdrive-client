@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 type ThemeType = "light" | "dark";
-type LayoutType = "full" | "collapse" | "scrollable";
+type LayoutType = "full" | "collapse";
 
 interface ISettings {
   display: boolean;
@@ -13,8 +13,8 @@ interface ISettings {
 const initialState: ISettings = {
   display: false,
   displayMobileMenu: false,
-  theme: "dark",
-  layout: "scrollable",
+  theme: "light",
+  layout: "full",
 };
 
 interface Payload {
