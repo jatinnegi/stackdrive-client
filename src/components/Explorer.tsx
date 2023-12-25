@@ -1,10 +1,16 @@
 import { Box } from "@mui/material";
+import { useSelector } from "react-redux";
+import { GridView, ListView } from "@/components/Views";
 import { ResourceProps, resources } from "@/data";
-import { GridView } from "@/components/Views";
+import { RootState } from "@/redux/reducers";
 import ResourceCard from "@/components/ResourceCard";
 import SectionHeading from "@/components/SectionHeading";
 
 export default function Explorer() {
+  const { view } = useSelector((state: RootState) => state.myDrive);
+
+  if (view === "list") return <ListView resources={resources} />;
+
   return (
     <>
       <Box component="div">

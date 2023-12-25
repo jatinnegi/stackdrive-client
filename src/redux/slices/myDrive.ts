@@ -8,7 +8,7 @@ interface IMyDrive {
 }
 
 const initialState: IMyDrive = {
-  view: "grid",
+  view: "list",
   displayModifiedFilter: false,
 };
 

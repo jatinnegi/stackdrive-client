@@ -30,7 +30,7 @@ export const folders: ResourceProps[] = [
 export const files: ResourceProps[] = [
   {
     id: 1,
-    name: "Untitled document.docx",
+    name: "Untitled documentdocumentdocumentdocumentdocumentdocumentdocumentdocumentdocumentdocument.docx",
     type: "word",
     imgSrc: WordPreview,
   },

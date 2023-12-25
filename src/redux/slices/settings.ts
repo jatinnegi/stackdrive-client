@@ -13,8 +13,8 @@ interface ISettings {
 const initialState: ISettings = {
   display: false,
   displayMobileMenu: false,
-  theme: "light",
-  layout: "full",
+  theme: "dark",
+  layout: "collapse",
 };
 
 interface Payload {
