@@ -1,16 +1,15 @@
-import { FC } from "react";
+import { FC, PropsWithChildren, useEffect, useState } from "react";
+import { useResize } from "@/hooks";
 import { ResourceProps, ResourcesProps } from "@/types";
 import { getFileImage } from "@/utils/helper";
 import { SupportedTypes } from "@/utils/supportedFileTypes";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Box from "@mui/material/Box";
+import { Box, IconButton, Typography } from "@mui/material";
 import { MoreVert as MoreVertIcon } from "@mui/icons-material";
-import { IconButton, Typography } from "@mui/material";
+import ContextMenu from "@/components/ContextMenu";
+
+interface Props {
+  resources: ResourcesProps;
+}
 
 interface RowProps {
   id: string;
@@ -21,126 +20,204 @@ interface RowProps {
   size: string;
 }
 
-interface Props {
-  resources: ResourcesProps;
-}
+const RowCell: FC<PropsWithChildren> = ({ children }) => (
+  <Box
+    component="span"
+    sx={{
+      display: "flex",
+      alignItems: "center",
+      gap: "7px",
+      padding: "10px 10px 10px 0px",
+      overflow: "hidden",
+      borderBottomWidth: "1px",
+      borderBottomColor: "border.primary",
+      borderBottomStyle: "solid",
+    }}
+  >
+    {children}
+  </Box>
+);
 
 export const ListView: FC<Props> = ({ resources }) => {
-  const padding = "14px 30px 14px 0px";
+  const [contextMenuOpen, setContextMenuOpen] = useState<boolean>(false);
+  const [contextMenuPosition, setContextMenuPosition] = useState<{
+    x: number;
+    y: number;
+  }>({ x: 0, y: 0 });
+
+  const { width, height } = useResize();
+
+  useEffect(() => {
+    setContextMenuOpen(false);
+    setContextMenuPosition({ x: 0, y: 0 });
+  }, [width, height]);
+
+  function handleContextMenu(e: React.MouseEvent) {
+    e.preventDefault();
+    setContextMenuOpen(true);
+    setContextMenuPosition({ x: e.clientX, y: e.clientY });
+  }
+
+  const handleMenuItemClick = (action: string) => {
+    console.log(`Clicked on ${action}`);
+    setContextMenuOpen(false);
+  };
+
+  const handleCloseContextMenu = () => {
+    setContextMenuOpen(false);
+  };
 
   const folders: RowProps[] = resources.folders.map(
     (folder: ResourceProps) => ({
       id: `folder-${folder.id}`,
       name: folder.name,
       type: folder.type,
-      lastModified: "Nov 14, 2023",
-      owner: "Jayden",
-      size: "-",
+      owner: "Jaydon Frankie",
+      lastModified: "Dec 26, 2023",
+      size: "4 KB",
     })
   );
-
   const files: RowProps[] = resources.files.map((file: ResourceProps) => ({
     id: `file-${file.id}`,
     name: file.name,
     type: file.type,
-    lastModified: "Nov 14, 2023",
-    owner: "Jayden",
-    size: "2 KB",
+    owner: "Jaydon Frankie",
+    lastModified: "Dec 26, 2023",
+    size: "4 KB",
   }));
 
   const rows: RowProps[] = [...folders, ...files];
+  const rowFontSize = "13px";
 
   return (
-    <TableContainer
-      component={Box}
-      sx={{ backgroundColor: "background.default", cursor: "default" }}
-    >
-      <Table
+    <>
+      <ContextMenu
+        open={contextMenuOpen}
+        onClose={handleCloseContextMenu}
+        onMenuItemClick={handleMenuItemClick}
+        anchorX={contextMenuPosition.x}
+        anchorY={contextMenuPosition.y}
+      />
+      <Box
+        component="div"
         sx={{
-          minWidth: 650,
-          th: {
-            border: "none",
-            padding,
-            overflow: "hidden",
-          },
-          td: { border: "none", padding },
-          tbody: {
-            tr: {
-              borderTopWidth: "1px",
-              borderTopStyle: "solid",
-              borderTopColor: "border.primary",
-            },
-          },
+          width: "100%",
+          overflow: "scroll hidden",
+          cursor: "default",
+          userSelect: "none",
         }}
-        aria-label="simple table"
       >
-        <TableHead>
-          <TableRow>
-            <TableCell width="50%" sx={{ minWidth: "180px" }}>
-              Name
-            </TableCell>
-            <TableCell width="16%" sx={{ minWidth: "130px" }}>
-              Owner
-            </TableCell>
-            <TableCell width="16%" sx={{ minWidth: "130px" }}>
-              Last Modified
-            </TableCell>
-            <TableCell width="16%" sx={{ minWidth: "130px" }}>
-              File Size
-            </TableCell>
-            <TableCell width="1%" sx={{ minWidth: "50px" }} />
-          </TableRow>
-        </TableHead>
-        <TableBody>
+        <Box component="div" sx={{ position: "relative", width: "100%" }}>
+          <Box
+            component="div"
+            sx={{
+              width: "100%",
+              display: "grid",
+              gridTemplateColumns:
+                "minmax(250px, 5fr) minmax(150px, 2fr) minmax(150px, 2fr) minmax(150px, 2fr) minmax(80px, 1fr)",
+              padding: "12px 0px",
+              borderBottomWidth: "1px",
+              borderBottomColor: "border.primary",
+              borderBottomStyle: "solid",
+              bgcolor: "background.default",
+            }}
+          >
+            <Box component="span">
+              <Typography fontSize={rowFontSize} fontWeight={600}>
+                Name
+              </Typography>
+            </Box>
+            <Box component="span">
+              <Typography fontSize={rowFontSize} fontWeight={600}>
+                Owner
+              </Typography>
+            </Box>
+            <Box component="span">
+              <Typography fontSize={rowFontSize} fontWeight={600}>
+                Last Modified
+              </Typography>
+            </Box>
+            <Box component="span">
+              <Typography fontSize={rowFontSize} fontWeight={600}>
+                Size
+              </Typography>
+            </Box>
+            <Box component="span" />
+          </Box>
           {rows.map((row: RowProps) => (
-            <TableRow key={row.id} sx={{ fontSize: "13px" }}>
-              <TableCell
-                sx={{
-                  overflow: "hidden",
-                  height: "100%",
-                }}
-              >
-                <Box
-                  component="div"
+            <Box
+              key={row.id}
+              component="div"
+              sx={{
+                width: "100%",
+                display: "grid",
+                gridTemplateColumns:
+                  "minmax(250px, 5fr) minmax(150px, 2fr) minmax(150px, 2fr) minmax(150px, 2fr) minmax(80px, 1fr)",
+                // padding: "12px 0px",
+              }}
+            >
+              <RowCell>
+                <img
+                  src={getFileImage(row.type)}
+                  alt={row.name}
+                  style={{ height: "60%" }}
+                />
+                <Typography
                   sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "10px",
-                    height: "100%",
-                    width: "100%",
-                    maxWidth: "200px",
+                    fontSize: rowFontSize,
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    whiteSpace: "nowrap",
                   }}
                 >
-                  <img
-                    src={getFileImage(row.type)}
-                    alt={row.name}
-                    style={{ height: "25px" }}
-                  />
-                  <Typography
-                    sx={{
-                      display: "inline",
-                      overflow: "hidden",
-                      whiteSpace: "nowrap",
-                      textOverflow: "ellipsis",
-                      fontSize: "13px",
-                    }}
-                  >
-                    {row.name}
-                  </Typography>
-                </Box>
-              </TableCell>
-              <TableCell>{row.owner}</TableCell>
-              <TableCell>{row.lastModified}</TableCell>
-              <TableCell>{row.size}</TableCell>
-              <TableCell>
-                <IconButton>
+                  {row.name}
+                </Typography>
+              </RowCell>
+              <RowCell>
+                <Typography
+                  sx={{
+                    fontSize: rowFontSize,
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  {row.owner}
+                </Typography>
+              </RowCell>
+              <RowCell>
+                <Typography
+                  sx={{
+                    fontSize: rowFontSize,
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  {row.lastModified}
+                </Typography>
+              </RowCell>
+              <RowCell>
+                <Typography
+                  sx={{
+                    fontSize: rowFontSize,
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  {row.size}
+                </Typography>
+              </RowCell>
+              <RowCell>
+                <IconButton sx={{ border: "none" }} onClick={handleContextMenu}>
                   <MoreVertIcon fontSize="small" />
                 </IconButton>
-              </TableCell>
-            </TableRow>
+              </RowCell>
+            </Box>
           ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+        </Box>
+      </Box>
+    </>
   );
 };

@@ -4,7 +4,7 @@ import { Typography } from "@mui/material";
 const SectionHeading: FC<PropsWithChildren> = ({ children }) => {
   return (
     <Typography
-      fontSize={{ xs: "14px", md: "16px" }}
+      fontSize={{ xs: "13px", md: "14px" }}
       sx={{ color: "text.secondary" }}
     >
       {children}
