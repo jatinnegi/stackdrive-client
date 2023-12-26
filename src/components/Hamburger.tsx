@@ -19,6 +19,10 @@ export default function Hamburger() {
           xs: "35px",
           md: "40px",
         },
+        width: {
+          xs: "35px",
+          md: "40px",
+        },
         color: "text.secondary",
         marginRight: {
           xs: "5px",
