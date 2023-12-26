@@ -1,4 +1,4 @@
-import { FC, PropsWithChildren, useEffect, useState } from "react";
+import { FC, PropsWithChildren, useEffect, useState, memo } from "react";
 import { useResize } from "@/hooks";
 import { ResourceProps, ResourcesProps } from "@/types";
 import { getFileImage } from "@/utils/helper";
@@ -38,7 +38,7 @@ const RowCell: FC<PropsWithChildren> = ({ children }) => (
   </Box>
 );
 
-export const ListView: FC<Props> = ({ resources }) => {
+export const ListView: FC<Props> = memo(({ resources }) => {
   const [contextMenuOpen, setContextMenuOpen] = useState<boolean>(false);
   const [contextMenuPosition, setContextMenuPosition] = useState<{
     x: number;
@@ -241,4 +241,4 @@ export const ListView: FC<Props> = ({ resources }) => {
       </Box>
     </>
   );
-};
+});
