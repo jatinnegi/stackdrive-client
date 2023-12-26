@@ -105,9 +105,31 @@ export const ListView: FC<Props> = ({ resources }) => {
           overflow: "scroll hidden",
           cursor: "default",
           userSelect: "none",
+          paddingBottom: "10px",
+          "&::-webkit-scrollbar": {
+            width: "0px",
+            height: "4px",
+          },
+          "&::-webkit-scrollbar-track": {
+            boxShadow: `inset 0 0 6px rgba(0, 0, 0, 0)`,
+          },
+          "&::-webkit-scrollbar-thumb": {
+            backgroundColor: "darkgrey",
+            borderRadius: "10px",
+            outline: `1px solid slategrey`,
+          },
         }}
       >
-        <Box component="div" sx={{ position: "relative", width: "100%" }}>
+        <Box
+          component="div"
+          sx={{
+            position: "relative",
+            width: "100%",
+            "div:last-child": {
+              span: { border: "none" },
+            },
+          }}
+        >
           <Box
             component="div"
             sx={{
@@ -153,7 +175,6 @@ export const ListView: FC<Props> = ({ resources }) => {
                 display: "grid",
                 gridTemplateColumns:
                   "minmax(250px, 5fr) minmax(150px, 2fr) minmax(150px, 2fr) minmax(150px, 2fr) minmax(80px, 1fr)",
-                // padding: "12px 0px",
               }}
             >
               <RowCell>

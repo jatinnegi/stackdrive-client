@@ -1,23 +1,24 @@
 import { useDispatch } from "react-redux";
 import { updateSettings } from "@/redux/actions";
-import { IconButton, styled } from "@mui/material";
+import { IconButton } from "@mui/material";
 import { HamburgerIcon } from "@/icons";
-
-const ResponsiveIconButton = styled(IconButton)(({ theme }) => ({
-  display: "block",
-  [theme.breakpoints.up("lg")]: { display: "none" },
-}));
 
 export default function Hamburger() {
   const dispatch = useDispatch();
 
   return (
-    <ResponsiveIconButton
+    <IconButton
       sx={{
-        display: "flex",
+        display: {
+          xs: "flex",
+          lg: "none",
+        },
         alignItems: "center",
         justifyContent: "center",
-        height: { xs: "65%", md: "70%" },
+        height: {
+          xs: "35px",
+          md: "40px",
+        },
         color: "text.secondary",
         marginRight: {
           xs: "5px",
@@ -30,6 +31,6 @@ export default function Hamburger() {
       }}
     >
       <HamburgerIcon />
-    </ResponsiveIconButton>
+    </IconButton>
   );
 }
