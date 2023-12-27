@@ -91,13 +91,6 @@ export const ListView: FC<Props> = memo(({ resources }) => {
 
   return (
     <>
-      <ContextMenu
-        open={contextMenuOpen}
-        onClose={handleCloseContextMenu}
-        onMenuItemClick={handleMenuItemClick}
-        anchorX={contextMenuPosition.x}
-        anchorY={contextMenuPosition.y}
-      />
       <Box
         component="div"
         sx={{
@@ -137,34 +130,70 @@ export const ListView: FC<Props> = memo(({ resources }) => {
               display: "grid",
               gridTemplateColumns:
                 "minmax(250px, 5fr) minmax(150px, 2fr) minmax(150px, 2fr) minmax(150px, 2fr) minmax(80px, 1fr)",
-              padding: "12px 0px",
-              borderBottomWidth: "1px",
-              borderBottomColor: "border.primary",
-              borderBottomStyle: "solid",
               bgcolor: "background.default",
             }}
           >
-            <Box component="span">
+            <Box
+              component="span"
+              sx={{
+                padding: "12px 0px",
+                borderBottomWidth: "1px",
+                borderBottomColor: "border.primary",
+                borderBottomStyle: "solid",
+              }}
+            >
               <Typography fontSize={rowFontSize} fontWeight={600}>
                 Name
               </Typography>
             </Box>
-            <Box component="span">
+            <Box
+              component="span"
+              sx={{
+                padding: "12px 0px",
+                borderBottomWidth: "1px",
+                borderBottomColor: "border.primary",
+                borderBottomStyle: "solid",
+              }}
+            >
               <Typography fontSize={rowFontSize} fontWeight={600}>
                 Owner
               </Typography>
             </Box>
-            <Box component="span">
+            <Box
+              component="span"
+              sx={{
+                padding: "12px 0px",
+                borderBottomWidth: "1px",
+                borderBottomColor: "border.primary",
+                borderBottomStyle: "solid",
+              }}
+            >
               <Typography fontSize={rowFontSize} fontWeight={600}>
                 Last Modified
               </Typography>
             </Box>
-            <Box component="span">
+            <Box
+              component="span"
+              sx={{
+                padding: "12px 0px",
+                borderBottomWidth: "1px",
+                borderBottomColor: "border.primary",
+                borderBottomStyle: "solid",
+              }}
+            >
               <Typography fontSize={rowFontSize} fontWeight={600}>
                 Size
               </Typography>
             </Box>
-            <Box component="span" />
+            <Box
+              component="span"
+              sx={{
+                padding: "12px 0px",
+                borderBottomWidth: "1px",
+                borderBottomColor: "border.primary",
+                borderBottomStyle: "solid",
+              }}
+            />
           </Box>
           {rows.map((row: RowProps) => (
             <Box
@@ -239,6 +268,13 @@ export const ListView: FC<Props> = memo(({ resources }) => {
           ))}
         </Box>
       </Box>
+      <ContextMenu
+        open={contextMenuOpen}
+        onClose={handleCloseContextMenu}
+        onMenuItemClick={handleMenuItemClick}
+        anchorX={contextMenuPosition.x}
+        anchorY={contextMenuPosition.y}
+      />
     </>
   );
 });
