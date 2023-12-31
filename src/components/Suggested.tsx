@@ -9,28 +9,40 @@ import WordPreview from "../../public/preview/word_preview.webp";
 
 const SuggestedData: ResourceProps[] = [
   {
-    id: 1,
+    id: "1",
     name: "404 not found.xlsx",
     type: "excel",
     imgSrc: ExcelPreview,
+    lastModified: "December 31, 2023",
+    owner: "Jaydon Frankie",
+    size: "4 KB",
   },
   {
-    id: 2,
+    id: "2",
     name: "My Document.docx",
     type: "word",
     imgSrc: WordPreview,
+    lastModified: "December 31, 2023",
+    owner: "Jaydon Frankie",
+    size: "4 KB",
   },
   {
-    id: 3,
+    id: "3",
     name: "order data.xlsx",
     type: "excel",
     imgSrc: ExcelPreview,
+    lastModified: "December 31, 2023",
+    owner: "Jaydon Frankie",
+    size: "4 KB",
   },
   {
-    id: 4,
+    id: "4",
     name: "Untitled.docx",
     type: "word",
     imgSrc: WordPreview,
+    lastModified: "December 31, 2023",
+    owner: "Jaydon Frankie",
+    size: "4 KB",
   },
 ];
 
@@ -55,6 +67,9 @@ export default function Suggested() {
             name={data.name}
             type={data.type}
             imgSrc={data.imgSrc}
+            lastModified={data.lastModified}
+            owner={data.owner}
+            size={data.size}
           />
         ))}
       </GridView>
