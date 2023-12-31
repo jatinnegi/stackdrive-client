@@ -1,9 +1,14 @@
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/reducers";
 import { Box } from "@mui/material";
 import Action from "@/components/Action";
 import Filters from "@/components/Filters/Filters";
 import Container from "@/components/Container";
+import SelectedControls from "@/components/SelectedControls";
 
 export default function Header() {
+  const { selected } = useSelector((state: RootState) => state.resources);
+
   return (
     <Box
       component="div"
@@ -18,7 +23,9 @@ export default function Header() {
     >
       <Container>
         <Action>My Drive</Action>
-        <Filters />
+        <Box sx={{ height: "38px" }}>
+          {selected.length ? <SelectedControls /> : <Filters />}
+        </Box>
       </Container>
     </Box>
   );

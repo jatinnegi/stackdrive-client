@@ -94,7 +94,6 @@ export default function ProfileIcon() {
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
-              bgColor: "red",
               padding: "5px 8px",
             }}
           >

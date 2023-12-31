@@ -1,6 +1,5 @@
 import { Box } from "@mui/material";
 import Header from "@/components/Header";
-import Suggested from "@/components/Suggested";
 import Explorer from "@/components/Explorer";
 import Container from "@/components/Container";
 
@@ -15,7 +14,6 @@ export default function MyDrive() {
           display="grid"
           gap="20px"
         >
-          <Suggested />
           <Explorer />
         </Box>
       </Container>

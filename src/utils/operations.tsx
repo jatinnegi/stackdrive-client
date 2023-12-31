@@ -1,4 +1,7 @@
 import {
+  CreateNewFolder as CreateNewFolderIcon,
+  UploadFile as UploadFileIcon,
+  DriveFolderUpload as DriveFolderUploadIcon,
   Download as DownloadIcon,
   Create as RenameIcon,
   GroupAdd as ShareIcon,
@@ -12,7 +15,25 @@ export interface OperationProps {
   icon: JSX.Element;
 }
 
-const operations: OperationProps[] = [
+export const createOperations: OperationProps[] = [
+  {
+    id: 1,
+    text: "New Folder",
+    icon: <CreateNewFolderIcon fontSize="small" />,
+  },
+  {
+    id: 2,
+    text: "Upload File",
+    icon: <UploadFileIcon fontSize="small" />,
+  },
+  {
+    id: 3,
+    text: "Upload Folder",
+    icon: <DriveFolderUploadIcon fontSize="small" />,
+  },
+];
+
+export const mainOperations: OperationProps[] = [
   {
     id: 1,
     text: "Download",
@@ -39,5 +60,3 @@ const operations: OperationProps[] = [
     icon: <DeleteIcon fontSize="small" />,
   },
 ];
-
-export default operations;

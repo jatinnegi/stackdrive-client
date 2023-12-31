@@ -1,29 +1,84 @@
-import { FC } from "react";
+import { useEffect } from "react";
+import { useResize } from "@/hooks";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "@/redux/reducers";
+import {
+  handleContextMenu,
+  onContextMenuClose,
+  resetSelectedId,
+} from "@/redux/actions";
 import { Menu, MenuItem, Typography, ListItemIcon } from "@mui/material";
-import operations, { OperationProps } from "@/utils/operations";
+import {
+  OperationProps,
+  mainOperations,
+  createOperations,
+} from "@/utils/operations";
 
-interface Props {
-  open: boolean;
-  onClose: () => void;
-  onMenuItemClick: (action: string) => void;
-  anchorX: number;
-  anchorY: number;
-}
+export default function ContextMenu() {
+  const { open, resourceContextMenu, anchorX, anchorY } = useSelector(
+    (state: RootState) => state.contextMenu
+  );
+  const dispatch = useDispatch();
+  const { width } = useResize();
 
-const ContextMenu: FC<Props> = ({
-  open,
-  onClose,
-  onMenuItemClick,
-  anchorX,
-  anchorY,
-}) => {
+  useEffect(() => {
+    function handleEvent(e: MouseEvent) {
+      let currentElement: HTMLElement | null = e.target as HTMLElement;
+      let isInsideMainContainer = false;
+      let resourceItem = false;
+
+      while (currentElement && !resourceItem) {
+        const ariaLabel = currentElement.getAttribute("aria-label");
+        if (ariaLabel === "main-container") {
+          isInsideMainContainer = true;
+          break;
+        }
+        if (ariaLabel === "resource-item") {
+          resourceItem = true;
+          isInsideMainContainer = true;
+        }
+        currentElement = currentElement.parentElement;
+      }
+
+      if (isInsideMainContainer) {
+        e.preventDefault();
+        dispatch(
+          handleContextMenu({
+            resourceContextMenu: resourceItem,
+            anchorX: e.clientX,
+            anchorY: e.clientY,
+          })
+        );
+      } else if (!isInsideMainContainer && open) dispatch(onContextMenuClose());
+      else;
+    }
+
+    function handleClick() {
+      if (open) dispatch(onContextMenuClose());
+      else dispatch(resetSelectedId());
+    }
+
+    window.addEventListener("contextmenu", handleEvent);
+    window.addEventListener("click", handleClick);
+
+    return () => {
+      window.removeEventListener("contextmenu", handleEvent);
+      window.addEventListener("click", handleClick);
+    };
+  }, [open]);
+
+  useEffect(() => {
+    dispatch(onContextMenuClose());
+  }, [width]);
+
+  const operations = resourceContextMenu ? mainOperations : createOperations;
+
   return (
     <Menu
       open={open}
-      onClose={onClose}
       anchorReference="anchorPosition"
       anchorPosition={{ top: anchorY, left: anchorX }}
-      sx={{ padding: 0 }}
+      sx={{ padding: 0, pointerEvents: "none" }}
       slotProps={{
         paper: {
           sx: {
@@ -38,9 +93,10 @@ const ContextMenu: FC<Props> = ({
       {operations.map((operation: OperationProps) => (
         <MenuItem
           key={operation.id}
-          sx={{ width: "250px", py: "10px" }}
-          onClick={() => {
-            onMenuItemClick(operation.text);
+          sx={{ width: "250px", py: "10px", pointerEvents: "all" }}
+          onClick={(e: React.MouseEvent) => {
+            e.stopPropagation();
+            console.log(`Operation: ${operation.text}`);
           }}
         >
           <ListItemIcon sx={{ fontSize: "12px" }}>
@@ -51,6 +107,4 @@ const ContextMenu: FC<Props> = ({
       ))}
     </Menu>
   );
-};
-
-export default ContextMenu;
+}

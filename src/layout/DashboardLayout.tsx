@@ -6,6 +6,7 @@ import Toggle from "@/components/Sidebar/Toggle";
 import ModifiedFilter from "@/components/Filters/ModifiedFilter";
 import Appbar from "@/components/Appbar/Appbar";
 import MobileMenu from "@/components/MobileMenu";
+import ContextMenu from "@/components/ContextMenu";
 import { Outlet } from "react-router-dom";
 
 export default function DashboardLayout() {
@@ -17,8 +18,10 @@ export default function DashboardLayout() {
       <MobileMenu />
       <Sidebar />
       <Toggle />
+      <ContextMenu />
       <ModifiedFilter />
       <Box
+        aria-label="main-container"
         width={{
           xs: "100%",
           lg: `calc(100% - ${layout === "full" ? "260px" : "85px"})`,

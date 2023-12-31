@@ -11,37 +11,9 @@ import {
   ListItemIcon,
   ListItemText,
 } from "@mui/material";
-import {
-  ArrowDropDown,
-  CreateNewFolder,
-  DriveFolderUpload,
-  UploadFile,
-} from "@mui/icons-material";
+import { ArrowDropDown } from "@mui/icons-material";
 import LayoutButton from "@/components/LayoutButton";
-
-interface ActionProps {
-  id: number;
-  text: string;
-  icon: JSX.Element;
-}
-
-const actions: ActionProps[] = [
-  {
-    id: 1,
-    text: "New Folder",
-    icon: <CreateNewFolder />,
-  },
-  {
-    id: 2,
-    text: "Upload File",
-    icon: <UploadFile />,
-  },
-  {
-    id: 3,
-    text: "Upload Folder",
-    icon: <DriveFolderUpload />,
-  },
-];
+import { createOperations, OperationProps } from "@/utils/operations";
 
 const Action: FC<PropsWithChildren> = ({ children }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -56,6 +28,7 @@ const Action: FC<PropsWithChildren> = ({ children }) => {
   return (
     <Box
       component="div"
+      margin={{ md: "0px 22px 0px 0px" }}
       sx={{
         display: "flex",
         justifyContent: "space-between",
@@ -114,7 +87,7 @@ const Action: FC<PropsWithChildren> = ({ children }) => {
           }}
         >
           <MenuList>
-            {actions.map((action: ActionProps) => (
+            {createOperations.map((action: OperationProps) => (
               <Box key={action.id} component="div">
                 <MenuItem
                   sx={{
