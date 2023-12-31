@@ -2,5 +2,5 @@
 
 Made with React, TypeScript and Material UI
 
-![Image Alt Text](assets/grid_view.png)
-![Image Alt Text](assets/list_view.png)
+![Grid View](https://stackdrive-client.vercel.app/assets/grid_view.png)
+![List View](https://stackdrive-client.vercel.app/files/list_view.png)
