@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 
 const ProfileMenuItem: FC<
-  PropsWithChildren & { sx?: SxProps; onClick: () => void }
+  PropsWithChildren & { sx?: SxProps; onClick: (e: React.MouseEvent) => void }
 > = ({ sx, onClick, children }) => (
   <MenuItem
     sx={{ padding: "5px 8px", borderRadius: "5px", fontSize: "14px", ...sx }}
