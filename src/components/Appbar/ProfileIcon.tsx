@@ -30,9 +30,11 @@ export default function ProfileIcon() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation();
     setAnchorEl(event.currentTarget);
   };
-  const handleClose = () => {
+  const handleClose = (e: React.MouseEvent) => {
+    e.stopPropagation();
     setAnchorEl(null);
   };
 
@@ -101,7 +103,8 @@ export default function ProfileIcon() {
             <Switch
               size="small"
               checked={theme === "dark"}
-              onClick={() => {
+              onClick={(e: React.MouseEvent) => {
+                e.stopPropagation();
                 const newTheme = theme === "dark" ? "light" : "dark";
                 dispatch(updateSettings({ theme: newTheme }));
               }}

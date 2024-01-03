@@ -41,9 +41,9 @@ export default function SelectedControls() {
       display="flex"
       margin={{ xs: "10px 0px", md: "18px 22px" }}
       sx={{
-        bgcolor: "background.paper",
+        bgcolor: "selected.secondary",
         padding: "5px",
-        borderRadius: "20px",
+        borderRadius: "6px",
         color: "text.secondary",
         margin: {
           xs: "10px 0px",

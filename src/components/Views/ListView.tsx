@@ -6,6 +6,8 @@ import { getFileImage } from "@/utils/helper";
 import { Box, IconButton, Typography } from "@mui/material";
 import { MoreVert as MoreVertIcon } from "@mui/icons-material";
 import ResourceWrapper from "@/components/ResourceWrapper";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/reducers";
 
 interface Props {
   resources: ResourceProps[];
@@ -18,7 +20,7 @@ const RowCell: FC<PropsWithChildren> = ({ children }) => (
       display: "flex",
       alignItems: "center",
       gap: "7px",
-      padding: "10px 10px 10px 0px",
+      padding: "5px 10px",
       overflow: "hidden",
       borderBottomWidth: "1px",
       borderBottomColor: "border.primary",
@@ -33,6 +35,7 @@ const rowFontSize = "13px";
 
 export const ListView: FC<Props> = memo(({ resources }) => {
   const dispatch = useDispatch();
+  const { selected } = useSelector((state: RootState) => state.resources);
 
   return (
     <Box
@@ -143,6 +146,10 @@ export const ListView: FC<Props> = memo(({ resources }) => {
             id={row.id}
             key={row.id}
             sx={{
+              backgroundColor:
+                selected.indexOf(row.id) === -1
+                  ? "background.default"
+                  : "selected.primary",
               width: "100%",
               display: "grid",
               gridTemplateColumns:

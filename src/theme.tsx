@@ -22,6 +22,7 @@ interface MyPaletteExtensions {
   };
   selected?: {
     primary?: string;
+    secondary?: string;
   };
   button?: {
     primary?: {
@@ -105,6 +106,7 @@ const darkThemeOptions: ThemeOptions = {
     },
     selected: {
       primary: "#2F3944",
+      secondary: "#1D242E",
     },
     button: {
       primary: {
@@ -142,6 +144,7 @@ const lightThemeOptions: ThemeOptions = {
     },
     selected: {
       primary: "#C2E7FF",
+      secondary: "#F3F3F3",
     },
     button: {
       primary: {
