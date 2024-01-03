@@ -33,6 +33,7 @@ interface MyPaletteExtensions {
   };
   backdrop?: { primary?: string };
   hover?: { primary?: string };
+  selectionBox?: { primary?: string };
 }
 
 declare module "@mui/material/styles" {
@@ -55,6 +56,9 @@ const MY_EXTENSIONS: MyPaletteExtensions = {
   },
   backdrop: {
     primary: "rgba(22, 28, 36, 0.8)",
+  },
+  selectionBox: {
+    primary: "rgba(72, 131, 217, 0.4)",
   },
 };
 

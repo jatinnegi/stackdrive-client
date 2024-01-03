@@ -23,7 +23,7 @@ export default function Explorer() {
   });
 
   return (
-    <>
+    <Box component="div">
       <Box component="div">
         <SectionHeading>Folders</SectionHeading>
         <GridView>
@@ -58,6 +58,6 @@ export default function Explorer() {
           ))}
         </GridView>
       </Box>
-    </>
+    </Box>
   );
 }

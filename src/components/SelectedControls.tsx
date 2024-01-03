@@ -59,33 +59,88 @@ export default function SelectedControls() {
             dispatch(resetSelectedId());
           }}
         >
-          <CloseIcon sx={{ fontSize: "16px" }} />
+          <CloseIcon
+            sx={{
+              fontSize: {
+                xs: "14px",
+                md: "16px",
+              },
+            }}
+          />
         </IconButtonWrapper>
         <Typography
           sx={{
-            fontSize: "14px",
-            margin: "0px 12px 0px 5px",
+            fontSize: {
+              xs: "12px",
+              md: "14px",
+            },
+            margin: {
+              xs: "0px 8px 0px 2px",
+              md: "0px 12px 0px 5px",
+            },
             fontWeight: 500,
           }}
         >
           {selected.length} selected
         </Typography>
       </Box>
-      <Box display="flex" alignItems="center" gap="10px">
+      <Box
+        display="flex"
+        alignItems="center"
+        gap={{
+          xs: "5px",
+          md: "10px",
+        }}
+      >
         <IconButtonWrapper title="Share">
-          <PersonAddIcon fontSize="small" />
+          <PersonAddIcon
+            sx={{
+              fontSize: {
+                xs: "15px",
+                md: "18px",
+              },
+            }}
+          />
         </IconButtonWrapper>
         <IconButtonWrapper title="Download">
-          <DownloadIcon fontSize="small" />
+          <DownloadIcon
+            sx={{
+              fontSize: {
+                xs: "15px",
+                md: "18px",
+              },
+            }}
+          />
         </IconButtonWrapper>
         <IconButtonWrapper title="Move">
-          <MoveIcon fontSize="small" />
+          <MoveIcon
+            sx={{
+              fontSize: {
+                xs: "15px",
+                md: "18px",
+              },
+            }}
+          />
         </IconButtonWrapper>
         <IconButtonWrapper title="Delete">
-          <DeleteIcon fontSize="small" />
+          <DeleteIcon
+            sx={{
+              fontSize: {
+                xs: "15px",
+                md: "18px",
+              },
+            }}
+          />
         </IconButtonWrapper>
         <IconButtonWrapper title="Copy link">
-          <CopyLinkIcon fontSize="small" />
+          <CopyLinkIcon
+            sx={{
+              fontSize: {
+                xs: "15px",
+                md: "18px",
+              },
+            }}
+          />
         </IconButtonWrapper>
       </Box>
     </Box>

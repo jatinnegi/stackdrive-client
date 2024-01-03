@@ -5,7 +5,7 @@ const SectionHeading: FC<PropsWithChildren> = ({ children }) => {
   return (
     <Typography
       fontSize={{ xs: "13px", md: "14px" }}
-      sx={{ color: "text.secondary" }}
+      sx={{ color: "text.secondary", userSelect: "none" }}
     >
       {children}
     </Typography>

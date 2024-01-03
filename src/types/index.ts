@@ -9,3 +9,10 @@ export interface ResourceProps {
   lastModified: string;
   size: string;
 }
+
+export interface CoordinateProps {
+  startX: number;
+  startY: number;
+  endX: number;
+  endY: number;
+}

@@ -6,3 +6,4 @@ export {
   resetSelectedId,
   updateMultipleSelectedIds,
 } from "./slices/resources";
+export { updateResourceCoordinates } from "./slices/selectionBox";
