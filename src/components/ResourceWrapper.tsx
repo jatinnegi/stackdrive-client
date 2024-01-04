@@ -1,22 +1,23 @@
 import { FC, PropsWithChildren } from "react";
-import { useDispatch } from "react-redux";
-import { updateSelectedId, updateMultipleSelectedIds } from "@/redux/actions";
 import { Box } from "@mui/material";
 import { BoxProps } from "@mui/material";
+// import { useDispatch } from "react-redux";
+// import { updateSelectedId, updateMultipleSelectedIds } from "@/redux/actions";
 
 type Props = { id: string } & PropsWithChildren & BoxProps;
 
 const ResourceWrapper: FC<Props> = ({ id, children, ...props }) => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   function handleClick(e: React.MouseEvent) {
-    e.stopPropagation();
+    // e.stopPropagation();
     e.preventDefault();
 
+    // Temporarily disable multiple selection
     if (e.shiftKey) {
-      dispatch(updateMultipleSelectedIds({ id }));
+      // dispatch(updateMultipleSelectedIds({ id }));
     } else {
-      dispatch(updateSelectedId({ id }));
+      // dispatch(updateSelectedId({ id }));
     }
   }
 

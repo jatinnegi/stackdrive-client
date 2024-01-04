@@ -7,7 +7,6 @@ import ModifiedFilter from "@/components/Filters/ModifiedFilter";
 import Appbar from "@/components/Appbar/Appbar";
 import MobileMenu from "@/components/MobileMenu";
 import ContextMenu from "@/components/ContextMenu";
-import SelectionBox from "@/components/SelectionBox";
 import { Outlet } from "react-router-dom";
 
 export default function DashboardLayout() {
@@ -21,7 +20,6 @@ export default function DashboardLayout() {
       <Toggle />
       <ContextMenu />
       <ModifiedFilter />
-      <SelectionBox />
       <Box
         aria-label="main-container"
         width={{

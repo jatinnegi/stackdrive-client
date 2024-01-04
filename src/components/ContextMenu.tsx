@@ -58,11 +58,11 @@ export default function ContextMenu() {
       else dispatch(resetSelectedId());
     }
 
-    window.addEventListener("contextmenu", handleEvent);
+    // window.addEventListener("contextmenu", handleEvent);
     window.addEventListener("click", handleClick);
 
     return () => {
-      window.removeEventListener("contextmenu", handleEvent);
+      // window.removeEventListener("contextmenu", handleEvent);
       window.addEventListener("click", handleClick);
     };
   }, [open]);

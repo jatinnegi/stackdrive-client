@@ -69,6 +69,7 @@ const ResourceCard: FC<ResourceProps> = ({ id, name, type, imgSrc }) => {
           <IconButton
             sx={{ cursor: "default" }}
             onClick={(e: React.MouseEvent) => {
+              e.stopPropagation();
               dispatch(
                 handleContextMenu({
                   resourceContextMenu: true,
