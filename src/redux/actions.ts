@@ -3,7 +3,7 @@ export { updateMyDrive } from "./slices/myDrive";
 export { handleContextMenu, onContextMenuClose } from "./slices/contextMenu";
 export {
   updateSelectedId,
-  resetSelectedId,
+  resetSelectedIds,
   updateMultipleSelectedIds,
+  updateMultipleSelectedIdsBySelectionBox,
 } from "./slices/resources";
-export { updateResourceCoordinates } from "./slices/selectionBox";

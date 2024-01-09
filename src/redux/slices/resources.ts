@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { ResourceProps } from "@/types";
 import { initialResourcesData } from "@/data";
 
@@ -16,20 +16,23 @@ interface Payload {
   id: string;
 }
 
+interface UpdateMultipleSelectedIdsBySelectionBoxPayload {
+  ids: string[];
+}
+
 const resources = createSlice({
   name: "resources",
   initialState,
   reducers: {
-    updateSelectedId(state, { payload: { id } }: { payload: Payload }) {
+    updateSelectedId(state, action: PayloadAction<Payload>) {
+      const { id } = action.payload;
       state.selected = [id];
     },
-    resetSelectedId(state) {
+    resetSelectedIds(state) {
       state.selected = [];
     },
-    updateMultipleSelectedIds(
-      state,
-      { payload: { id } }: { payload: Payload }
-    ) {
+    updateMultipleSelectedIds(state, action: PayloadAction<Payload>) {
+      const { id } = action.payload;
       const updatedSelectedIds: string[] = [];
 
       if (state.selected.length === 0) {
@@ -39,30 +42,42 @@ const resources = createSlice({
           if (currentId === id) break;
         }
         state.selected = updatedSelectedIds;
+      } else if (state.selected.length === 1 && state.selected[0] === id) {
+        return state;
       } else {
         let valid = false;
-        const prevSelectedId = state.selected[0];
+        let firstSelectedId = state.selected[0];
+
         for (let i = 0; i < state.data.length; i++) {
           const currentId = state.data[i].id;
-          if (!valid && (currentId === prevSelectedId || currentId === id)) {
-            valid = true;
-            updatedSelectedIds.push(currentId);
-            continue;
+          if (currentId === id || currentId === firstSelectedId) {
+            if (valid) {
+              updatedSelectedIds.push(currentId);
+            }
+            valid = !valid;
           }
-          if (valid && (currentId === prevSelectedId || currentId === id)) {
+
+          if (valid) {
             updatedSelectedIds.push(currentId);
-            break;
           }
-          if (valid) updatedSelectedIds.push(currentId);
         }
-        state.selected = Array.from(
-          new Set<string>([...state.selected, ...updatedSelectedIds])
-        );
+        state.selected = updatedSelectedIds;
       }
+    },
+    updateMultipleSelectedIdsBySelectionBox(
+      state,
+      action: PayloadAction<UpdateMultipleSelectedIdsBySelectionBoxPayload>
+    ) {
+      const { ids } = action.payload;
+      state.selected = ids;
     },
   },
 });
 
-export const { updateSelectedId, resetSelectedId, updateMultipleSelectedIds } =
-  resources.actions;
+export const {
+  updateSelectedId,
+  resetSelectedIds,
+  updateMultipleSelectedIds,
+  updateMultipleSelectedIdsBySelectionBox,
+} = resources.actions;
 export default resources.reducer;

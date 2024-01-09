@@ -53,7 +53,7 @@ export default function LayoutButton() {
             color: "text.secondary",
             borderRadius: "8px",
           }}
-          onClick={(e: React.MouseEvent) => {
+          onMouseDown={(e: React.MouseEvent) => {
             e.stopPropagation();
             if (view === "grid") dispatch(updateMyDrive({ view: "grid" }));
             else dispatch(updateMyDrive({ view: "list" }));

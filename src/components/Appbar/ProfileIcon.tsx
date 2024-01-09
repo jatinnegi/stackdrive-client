@@ -29,12 +29,15 @@ export default function ProfileIcon() {
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleMouseDown = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
+    if (event.button === 2) return;
     setAnchorEl(event.currentTarget);
   };
   const handleClose = (e: React.MouseEvent) => {
     e.stopPropagation();
+    if (e.button === 2) return;
+
     setAnchorEl(null);
   };
 
@@ -44,7 +47,7 @@ export default function ProfileIcon() {
         id="basic-menu"
         anchorEl={anchorEl}
         open={open}
-        onClose={handleClose}
+        onMouseDown={handleClose}
         MenuListProps={{
           "aria-labelledby": "basic-button",
         }}
@@ -103,8 +106,10 @@ export default function ProfileIcon() {
             <Switch
               size="small"
               checked={theme === "dark"}
-              onClick={(e: React.MouseEvent) => {
+              onMouseDown={(e: React.MouseEvent) => {
                 e.stopPropagation();
+                if (e.button === 2) return;
+
                 const newTheme = theme === "dark" ? "light" : "dark";
                 dispatch(updateSettings({ theme: newTheme }));
               }}
@@ -146,7 +151,7 @@ export default function ProfileIcon() {
           borderWidth: "2px",
           borderColor: "border.primary",
         }}
-        onClick={handleClick}
+        onMouseDown={handleMouseDown}
       >
         <img
           src="https://api-prod-minimal-v510.vercel.app/assets/images/avatar/avatar_5.jpg"

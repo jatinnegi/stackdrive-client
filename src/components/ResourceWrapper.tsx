@@ -1,32 +1,35 @@
 import { FC, PropsWithChildren } from "react";
 import { Box } from "@mui/material";
 import { BoxProps } from "@mui/material";
-// import { useDispatch } from "react-redux";
-// import { updateSelectedId, updateMultipleSelectedIds } from "@/redux/actions";
+import { useDispatch } from "react-redux";
+import { updateSelectedId, updateMultipleSelectedIds } from "@/redux/actions";
 
 type Props = { id: string } & PropsWithChildren & BoxProps;
 
 const ResourceWrapper: FC<Props> = ({ id, children, ...props }) => {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-  function handleClick(e: React.MouseEvent) {
-    // e.stopPropagation();
-    e.preventDefault();
+  function handleMouseDown(e: React.MouseEvent) {
+    e.stopPropagation();
 
-    // Temporarily disable multiple selection
+    // Don't handle right click event
+    if (e.button === 2) return;
+
     if (e.shiftKey) {
-      // dispatch(updateMultipleSelectedIds({ id }));
+      dispatch(updateMultipleSelectedIds({ id }));
     } else {
-      // dispatch(updateSelectedId({ id }));
+      dispatch(updateSelectedId({ id }));
     }
   }
 
   return (
     <Box
       component="div"
+      id={id}
       aria-label="resource-item"
       {...props}
-      onClick={handleClick}
+      // onClick={handleClick}
+      onMouseDown={handleMouseDown}
     >
       {children}
     </Box>

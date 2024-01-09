@@ -2,11 +2,7 @@ import { useEffect } from "react";
 import { useResize } from "@/hooks";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "@/redux/reducers";
-import {
-  handleContextMenu,
-  onContextMenuClose,
-  resetSelectedId,
-} from "@/redux/actions";
+import { handleContextMenu, onContextMenuClose } from "@/redux/actions";
 import { Menu, MenuItem, Typography, ListItemIcon } from "@mui/material";
 import {
   OperationProps,
@@ -49,20 +45,23 @@ export default function ContextMenu() {
             anchorY: e.clientY,
           })
         );
-      } else if (!isInsideMainContainer && open) dispatch(onContextMenuClose());
-      else;
+      } else if (!isInsideMainContainer && open) {
+        dispatch(onContextMenuClose());
+      } else {
+      }
     }
 
     function handleClick() {
-      if (open) dispatch(onContextMenuClose());
-      else dispatch(resetSelectedId());
+      if (open) {
+        dispatch(onContextMenuClose());
+      }
     }
 
-    // window.addEventListener("contextmenu", handleEvent);
+    window.addEventListener("contextmenu", handleEvent);
     window.addEventListener("click", handleClick);
 
     return () => {
-      // window.removeEventListener("contextmenu", handleEvent);
+      window.removeEventListener("contextmenu", handleEvent);
       window.addEventListener("click", handleClick);
     };
   }, [open]);

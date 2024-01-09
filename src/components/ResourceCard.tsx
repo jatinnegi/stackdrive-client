@@ -53,7 +53,7 @@ const ResourceCard: FC<ResourceProps> = ({ id, name, type, imgSrc }) => {
                 sm: "13px",
               }}
               sx={{
-                fontWeight: 400,
+                fontWeight: 500,
                 maxWidth: "170px",
                 marginLeft: "10px",
                 overflow: "hidden",

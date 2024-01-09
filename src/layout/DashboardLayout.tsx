@@ -7,18 +7,20 @@ import ModifiedFilter from "@/components/Filters/ModifiedFilter";
 import Appbar from "@/components/Appbar/Appbar";
 import MobileMenu from "@/components/MobileMenu";
 import ContextMenu from "@/components/ContextMenu";
+import SelectionBox from "@/components/SelectionBox";
 import { Outlet } from "react-router-dom";
 
 export default function DashboardLayout() {
   const { layout } = useSelector((state: RootState) => state.settings);
 
   return (
-    <Box sx={{ position: "relative" }} display="flex">
+    <Box sx={{ position: "relative", minHeight: "100svh" }} display="flex">
       <Appbar />
       <MobileMenu />
       <Sidebar />
       <Toggle />
       <ContextMenu />
+      <SelectionBox />
       <ModifiedFilter />
       <Box
         aria-label="main-container"

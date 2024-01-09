@@ -1,6 +1,12 @@
 import { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { CoordinateProps, ResourceProps } from "@/types";
+import { RootState } from "@/redux/reducers";
+import {
+  resetSelectedIds,
+  updateMultipleSelectedIdsBySelectionBox,
+} from "@/redux/actions";
 import { Box } from "@mui/material";
-import { CoordinateProps } from "@/types";
 
 const initialCoordinates: CoordinateProps = {
   startX: 0,
@@ -14,16 +20,24 @@ export default function SelectionBox() {
   const [start, setStart] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
   const [coordinates, setCoordinates] =
     useState<CoordinateProps>(initialCoordinates);
+  const { data: targetElements } = useSelector(
+    (state: RootState) => state.resources
+  );
+  const dispatch = useDispatch();
 
   useEffect(() => {
     function handleMouseDown(e: MouseEvent) {
+      // Simple return on a right click event
+      if (e.button === 2) return;
+
+      dispatch(resetSelectedIds());
       setIsSelecting(true);
-      setStart({ x: e.clientX, y: e.clientY });
+      setStart({ x: e.pageX, y: e.pageY });
       setCoordinates({
-        startX: e.clientX,
-        startY: e.clientY,
-        endX: e.clientX,
-        endY: e.clientY,
+        startX: e.pageX,
+        startY: e.pageY,
+        endX: e.pageX,
+        endY: e.pageY,
       });
     }
 
@@ -34,22 +48,23 @@ export default function SelectionBox() {
 
       updatedCoordinates.startX = Math.min(
         start.x,
-        Math.max(e.clientX, Math.min(e.clientX, updatedCoordinates.startX))
+        Math.max(e.pageX, Math.min(e.pageX, updatedCoordinates.startX))
       );
       updatedCoordinates.endX = Math.max(
         start.x,
-        Math.max(e.clientX, Math.min(e.clientX, updatedCoordinates.endX))
+        Math.max(e.pageX, Math.min(e.pageX, updatedCoordinates.endX))
       );
       updatedCoordinates.startY = Math.min(
         start.y,
-        Math.max(e.clientY, Math.min(e.clientY, updatedCoordinates.startY))
+        Math.max(e.pageY, Math.min(e.pageY, updatedCoordinates.startY))
       );
       updatedCoordinates.endY = Math.max(
         start.y,
-        Math.min(e.clientY, Math.max(e.clientY, updatedCoordinates.endY))
+        Math.min(e.pageY, Math.max(e.pageY, updatedCoordinates.endY))
       );
 
       setCoordinates({ ...updatedCoordinates });
+      getItemsInSelectionBox(updatedCoordinates);
     }
 
     function handleMouseUp() {
@@ -68,6 +83,30 @@ export default function SelectionBox() {
       window.removeEventListener("mouseup", handleMouseUp);
     };
   }, [isSelecting, coordinates, start]);
+
+  const getItemsInSelectionBox = (coordinates: CoordinateProps) => {
+    const itemsInSelectionBox = targetElements.filter(
+      ({ id: targetElementId }: ResourceProps) => {
+        const targetElement = document.getElementById(
+          targetElementId.toString()
+        );
+
+        if (!targetElement) return false;
+
+        const targetElementRect = targetElement.getBoundingClientRect();
+
+        return (
+          targetElementRect.left < coordinates.endX &&
+          targetElementRect.right > coordinates.startX &&
+          targetElementRect.top < coordinates.endY &&
+          targetElementRect.bottom > coordinates.startY
+        );
+      }
+    );
+
+    const ids = itemsInSelectionBox.map((item: ResourceProps) => item.id);
+    dispatch(updateMultipleSelectedIdsBySelectionBox({ ids }));
+  };
 
   return (
     <Box

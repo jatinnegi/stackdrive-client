@@ -1,6 +1,6 @@
 import { FC, PropsWithChildren } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { resetSelectedId } from "@/redux/actions";
+import { resetSelectedIds } from "@/redux/actions";
 import { RootState } from "@/redux/reducers";
 import { Box, IconButton, Typography, Tooltip } from "@mui/material";
 import {
@@ -56,7 +56,7 @@ export default function SelectedControls() {
         <IconButtonWrapper
           title="Cancel"
           onClick={() => {
-            dispatch(resetSelectedId());
+            dispatch(resetSelectedIds());
           }}
         >
           <CloseIcon
@@ -79,6 +79,7 @@ export default function SelectedControls() {
               md: "0px 12px 0px 5px",
             },
             fontWeight: 500,
+            userSelect: "none",
           }}
         >
           {selected.length} selected
