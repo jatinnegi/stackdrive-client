@@ -1,4 +1,6 @@
 import { FC, PropsWithChildren, useState } from "react";
+import { useDispatch } from "react-redux";
+import { updateMyDrive } from "@/redux/actions";
 import {
   Box,
   Typography,
@@ -12,16 +14,26 @@ import {
   ListItemText,
 } from "@mui/material";
 import { ArrowDropDown } from "@mui/icons-material";
-import LayoutButton from "@/components/LayoutButton";
 import { createOperations, OperationProps } from "@/utils/operations";
+import LayoutButton from "@/components/LayoutButton";
 
 const Action: FC<PropsWithChildren> = ({ children }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+  const dispatch = useDispatch();
+
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleMenuItemClick = (operationId: number) => {
+    if (operationId === 1) {
+      dispatch(updateMyDrive({ operation: "newFolder" }));
+    }
+
     setAnchorEl(null);
   };
 
@@ -95,6 +107,7 @@ const Action: FC<PropsWithChildren> = ({ children }) => {
                     alignItems: "center",
                     padding: "10px",
                   }}
+                  onClick={() => handleMenuItemClick(action.id)}
                 >
                   <ListItemIcon>{action.icon}</ListItemIcon>
                   <ListItemText>

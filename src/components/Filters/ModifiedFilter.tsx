@@ -2,8 +2,17 @@ import { FC } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "@/redux/reducers";
 import { updateMyDrive } from "@/redux/actions";
-import { Box, Backdrop, Typography, Button } from "@mui/material";
-import DateCalendar from "../DateCalendar";
+import { Box } from "@mui/material";
+import {
+  Modal,
+  ModalBody,
+  ModalTitle,
+  ModalMain,
+  ModalActions,
+  ModalCancel,
+  ModalSave,
+} from "@/components/Modal";
+import DateCalendar from "@/components/DateCalendar";
 
 const ModifiedFilter: FC = () => {
   const { displayModifiedFilter } = useSelector(
@@ -18,56 +27,23 @@ const ModifiedFilter: FC = () => {
   }
 
   return (
-    <Backdrop
-      open={open}
-      sx={{
-        zIndex: 40,
-        backgroundColor: "backdrop.primary",
-      }}
-      onClick={handleClose}
-    >
-      <Box
-        component="div"
+    <Modal open={open} handleClose={handleClose}>
+      <ModalBody
         sx={{
-          backgroundColor: "background.paper",
-          borderRadius: "10px",
-          width: "95%",
           maxWidth: "750px",
           height: "90vh",
           maxHeight: "480px",
-          display: "flex",
-          flexDirection: "column",
-          boxShadow: "rgba(0, 0, 0, 0.24) -40px 40px 80px -8px",
-        }}
-        onClick={(e: React.MouseEvent<HTMLDivElement>) => {
-          e.stopPropagation();
         }}
       >
-        <Typography
+        <ModalTitle>Selected Date Range</ModalTitle>
+        <ModalMain
           sx={{
-            padding: {
-              xs: "25px 15px 0px 15px",
-              md: "30px 20px 0px 20px",
-            },
-          }}
-        >
-          Selected Date Range
-        </Typography>
-        <Box
-          component="div"
-          sx={{
-            flex: 1,
-            margin: "15px 0px",
             display: "grid",
             gridTemplateColumns: {
               xs: "repeat(1, 1fr)",
               md: "repeat(2, 1fr)",
             },
             gap: "20px",
-            padding: {
-              xs: "0px 15px",
-              md: "0px 20px",
-            },
             overflowX: {
               xs: "scroll",
               md: "hidden",
@@ -97,51 +73,25 @@ const ModifiedFilter: FC = () => {
           >
             <DateCalendar />
           </Box>
-        </Box>
-        <Box
-          component="div"
-          sx={{
-            padding: {
-              xs: "0px 15px 20px 15px",
-              md: "0px 35px 20px 20px",
-            },
-            display: "flex",
-            justifyContent: "flex-end",
-            alignItems: "center",
-          }}
-        >
-          <Button
-            sx={{
-              color: "text.primary",
-              textTransform: "capitalize",
-              borderRadius: "5px",
-              padding: "5px 10px",
-              borderWidth: "1px",
-              borderStyle: "solid",
-              borderColor: "text.primary",
+        </ModalMain>
+        <ModalActions>
+          <ModalCancel
+            onClick={() => {
+              console.log("cancel");
             }}
           >
             Cancel
-          </Button>
-          <Button
-            sx={{
-              marginLeft: "10px",
-              textTransform: "capitalize",
-              borderRadius: "5px",
-              padding: "5px 10px",
-              backgroundColor: "button.primary.background",
-              color: "button.primary.text",
-              fontWeight: 700,
-              "&:hover": {
-                backgroundColor: "button.primary.hover",
-              },
+          </ModalCancel>
+          <ModalSave
+            onClick={() => {
+              console.log("apply");
             }}
           >
             Apply
-          </Button>
-        </Box>
-      </Box>
-    </Backdrop>
+          </ModalSave>
+        </ModalActions>
+      </ModalBody>
+    </Modal>
   );
 };
 
