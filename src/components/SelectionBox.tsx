@@ -95,11 +95,16 @@ export default function SelectionBox() {
 
         const targetElementRect = targetElement.getBoundingClientRect();
 
+        const targetElementLeft = window.scrollX + targetElementRect.left;
+        const targetElementTop = window.scrollY + targetElementRect.top;
+        const targetElementRight = window.scrollX + targetElementRect.right;
+        const targetElementBottom = window.scrollY + targetElementRect.bottom;
+
         return (
-          targetElementRect.left < coordinates.endX &&
-          targetElementRect.right > coordinates.startX &&
-          targetElementRect.top < coordinates.endY &&
-          targetElementRect.bottom > coordinates.startY
+          targetElementLeft < coordinates.endX &&
+          targetElementRight > coordinates.startX &&
+          targetElementTop < coordinates.endY &&
+          targetElementBottom > coordinates.startY
         );
       }
     );
@@ -118,7 +123,7 @@ export default function SelectionBox() {
         height: `${Math.abs(coordinates.startY - coordinates.endY)}px`,
         width: `${Math.abs(coordinates.startX - coordinates.endX)}px`,
         bgcolor: "selectionBox.primary",
-        zIndex: 50,
+        zIndex: 1,
       }}
     />
   );
