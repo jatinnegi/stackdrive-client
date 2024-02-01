@@ -9,77 +9,16 @@ import {
   Typography,
   TextField,
   Box,
+  Tooltip,
 } from "@mui/material";
 import { Search as SearchIcon } from "@mui/icons-material";
+import { UserProps, dummyUsers } from "@/data";
 
 interface Props {
   anchorEl: HTMLElement | null;
   open: boolean;
   handleClose: () => void;
 }
-
-const dummyUsers = [
-  {
-    id: 1,
-    name: "Avery Lang",
-    email: "avery43@hotmail.com",
-    img: "https://api-prod-minimal-v510.vercel.app/assets/images/avatar/avatar_1.jpg",
-  },
-  {
-    id: 2,
-    name: "Ashlynn Ohara",
-    email: "ashlynn_ohara62",
-    img: "https://api-prod-minimal-v510.vercel.app/assets/images/avatar/avatar_2.jpg",
-  },
-  {
-    id: 3,
-    name: "Milo Farrell",
-    email: "milo.farrell@hotmail.com",
-    img: "https://api-prod-minimal-v510.vercel.app/assets/images/avatar/avatar_3.jpg",
-  },
-  {
-    id: 4,
-    name: "Dasia Jenkins",
-    email: "dasia_jenkins@hotmail.com",
-    img: "https://api-prod-minimal-v510.vercel.app/assets/images/avatar/avatar_4.jpg",
-  },
-  {
-    id: 5,
-    name: "Vito Hudson",
-    email: "vito.hudson@hotmail.com",
-    img: "https://api-prod-minimal-v510.vercel.app/assets/images/avatar/avatar_5.jpg",
-  },
-  {
-    id: 6,
-    name: "Dwight Block",
-    email: "dwight.block85@yahoo.com",
-    img: "https://api-prod-minimal-v510.vercel.app/assets/images/avatar/avatar_6.jpg",
-  },
-  {
-    id: 7,
-    name: "Tyrel Greenholt",
-    email: "tyrel_greenholt@gmail.com",
-    img: "https://api-prod-minimal-v510.vercel.app/assets/images/avatar/avatar_7.jpg",
-  },
-  {
-    id: 8,
-    name: "Joana Simonis",
-    email: "joana.simonis84@gmail.com",
-    img: "https://api-prod-minimal-v510.vercel.app/assets/images/avatar/avatar_8.jpg",
-  },
-  {
-    id: 9,
-    name: "Mireya Schmitt",
-    email: "mireya13@hotmail.com",
-    img: "https://api-prod-minimal-v510.vercel.app/assets/images/avatar/avatar_9.jpg",
-  },
-  {
-    id: 10,
-    name: "Benny Morse",
-    email: "benny89@yahoo.com",
-    img: "https://api-prod-minimal-v510.vercel.app/assets/images/avatar/avatar_10.jpg",
-  },
-];
 
 const INITIAL = 4;
 
@@ -104,8 +43,7 @@ const PeopleFilter: FC<Props> = ({ anchorEl, open, handleClose }) => {
       <Paper
         sx={{
           backgroundColor: "background.paper",
-          width: "100%",
-          minWidth: "320px",
+          width: "350px",
         }}
       >
         <Box
@@ -134,8 +72,8 @@ const PeopleFilter: FC<Props> = ({ anchorEl, open, handleClose }) => {
             }}
           />
         </Box>
-        <MenuList>
-          {users.map((user) => (
+        <MenuList sx={{ width: "100%" }}>
+          {users.map((user: UserProps) => (
             <MenuItem
               key={user.id}
               sx={{
@@ -154,19 +92,31 @@ const PeopleFilter: FC<Props> = ({ anchorEl, open, handleClose }) => {
                   }}
                 />
               </ListItemIcon>
-              <ListItemText sx={{ marginLeft: "10px" }}>
-                <Typography
-                  sx={{
-                    fontSize: { xs: "13px", md: "14px" },
-                    lineHeight: "1.2rem",
-                  }}
-                >
-                  {user.email}
-                </Typography>
+              <ListItemText
+                sx={{
+                  marginLeft: "10px",
+                }}
+              >
+                <Tooltip placement="top-start" title={user.email}>
+                  <Typography
+                    sx={{
+                      fontSize: { xs: "13px", md: "14px" },
+                      lineHeight: "1.2rem",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                      whiteSpace: "nowrap",
+                    }}
+                  >
+                    {user.email}
+                  </Typography>
+                </Tooltip>
                 <Typography
                   sx={{
                     color: "text.secondary",
                     fontSize: { xs: "12px", md: "13px" },
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    whiteSpace: "nowrap",
                   }}
                 >
                   {user.name}

@@ -1,4 +1,4 @@
-import { FC, PropsWithChildren } from "react";
+import { FC, PropsWithChildren, useEffect } from "react";
 import { Backdrop } from "@mui/material";
 import ModalBody from "./ModalBody";
 import ModalTitle from "./ModalTitle";
@@ -9,20 +9,49 @@ import ModalSave from "./ModalActions/ModalSave";
 
 interface Props extends PropsWithChildren {
   open: boolean;
-  handleClose: (e: React.MouseEvent) => void;
+  handleClose: () => void;
+  updateWindowScroll?: boolean;
 }
 
-const Modal: FC<Props> = ({ open, handleClose, children }) => {
+const Modal: FC<Props> = ({
+  open,
+  handleClose,
+  updateWindowScroll = true,
+  children,
+}) => {
+  useEffect(() => {
+    function handleKeyUp(e: KeyboardEvent) {
+      if (e.key === "Escape" && open) {
+        handleClose();
+      }
+    }
+    window.addEventListener("keyup", handleKeyUp);
+
+    return () => {
+      window.removeEventListener("keyup", handleKeyUp);
+    };
+  }, [open]);
+
+  useEffect(() => {
+    if (!updateWindowScroll) return;
+
+    if (open) {
+      document.body.style.overflowY = "hidden";
+    } else {
+      document.body.style.overflowY = "auto";
+    }
+  }, [open, updateWindowScroll]);
+
   return (
     <Backdrop
       open={open}
       sx={{
         zIndex: 40,
-        backgroundColor: "backdrop.primary",
+        bgcolor: "backdrop.primary",
       }}
-      onClick={handleClose}
       onMouseDown={(e: React.MouseEvent) => {
         e.stopPropagation();
+        handleClose();
       }}
     >
       {children}

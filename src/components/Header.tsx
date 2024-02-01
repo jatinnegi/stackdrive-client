@@ -19,10 +19,11 @@ export default function Header() {
         width: "100%",
         zIndex: 5,
         paddingBottom: "5px",
+        userSelect: "none",
       }}
     >
       <Container>
-        <Action>My Drive</Action>
+        <Action title="My Drive" />
         <Box sx={{ height: "38px" }}>
           {selected.length ? <SelectedControls /> : <Filters />}
         </Box>

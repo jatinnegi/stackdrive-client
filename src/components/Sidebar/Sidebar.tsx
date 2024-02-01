@@ -25,6 +25,9 @@ export default function Sidebar() {
       height="100vh"
       zIndex={20}
       width={fullDisplay ? "260px" : "85px"}
+      onMouseDown={(e: React.MouseEvent) => {
+        e.stopPropagation();
+      }}
       sx={{
         backgroundColor: "background.default",
         borderRightColor: "border.primary",

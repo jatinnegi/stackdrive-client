@@ -25,7 +25,13 @@ export default function MobileMenu() {
   );
 
   return (
-    <Box component="div" display={{ xs: "block", lg: "none" }}>
+    <Box
+      component="div"
+      display={{ xs: "block", lg: "none" }}
+      onMouseDown={(e: React.MouseEvent) => {
+        e.stopPropagation();
+      }}
+    >
       <Box
         sx={{
           position: "fixed",

@@ -1,24 +1,20 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 type View = "grid" | "list";
-type Operation = "newFolder";
 
 interface IMyDrive {
   view: View;
   displayModifiedFilter: boolean;
-  operation: Operation | null;
 }
 
 const initialState: IMyDrive = {
   view: "grid",
   displayModifiedFilter: false,
-  operation: null,
 };
 
 interface Payload {
   view?: View;
   displayModifiedFilter?: boolean;
-  operation?: Operation | null;
 }
 
 const myDrive = createSlice({
@@ -32,9 +28,6 @@ const myDrive = createSlice({
 
       if (typeof payload.displayModifiedFilter !== "undefined") {
         state.displayModifiedFilter = payload.displayModifiedFilter;
-      }
-      if (typeof payload.operation !== "undefined") {
-        state.operation = payload.operation;
       }
     },
   },

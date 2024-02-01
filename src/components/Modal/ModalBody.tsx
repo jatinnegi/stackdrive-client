@@ -8,6 +8,10 @@ const ModalBody: FC<Props> = ({ children, ...props }) => {
     <Box
       component="div"
       sx={{
+        position: "absolute",
+        top: "50%",
+        left: "50%",
+        transform: "translate(-50%, -50%)",
         backgroundColor: "background.paper",
         borderRadius: "10px",
         width: "95%",
@@ -17,7 +21,7 @@ const ModalBody: FC<Props> = ({ children, ...props }) => {
         boxShadow: "rgba(0, 0, 0, 0.24) -40px 40px 80px -8px",
         ...props.sx,
       }}
-      onClick={(e: React.MouseEvent<HTMLDivElement>) => {
+      onMouseDown={(e: React.MouseEvent<HTMLDivElement>) => {
         e.stopPropagation();
       }}
     >

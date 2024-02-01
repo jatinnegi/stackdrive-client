@@ -7,3 +7,9 @@
 body {
   overflow-x: hidden;
 }
+
+.autocomplete-selected {
+  background-color: #505050;
+  padding: 10px;
+  border-radius: 8px;
+}

@@ -6,4 +6,6 @@ export {
   resetSelectedIds,
   updateMultipleSelectedIds,
   updateMultipleSelectedIdsBySelectionBox,
+  updateTrash,
+  resetData,
 } from "./slices/resources";

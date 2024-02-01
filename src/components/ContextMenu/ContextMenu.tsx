@@ -1,19 +1,24 @@
-import { useEffect } from "react";
+import { FC, useEffect } from "react";
 import { useResize } from "@/hooks";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "@/redux/reducers";
 import { handleContextMenu, onContextMenuClose } from "@/redux/actions";
-import { Menu, MenuItem, Typography, ListItemIcon } from "@mui/material";
+import { Menu, MenuItem, Typography, ListItemIcon, Box } from "@mui/material";
 import {
   OperationProps,
   mainOperations,
   createOperations,
 } from "@/utils/operations";
 
-export default function ContextMenu() {
-  const { open, resourceContextMenu, anchorX, anchorY } = useSelector(
-    (state: RootState) => state.contextMenu
-  );
+interface Props {
+  handleClick: (operationId: number) => void;
+}
+
+const ContextMenu: FC<Props> = ({ handleClick }) => {
+  const {
+    resources: { selected: selectedResources },
+    contextMenu: { open, resourceContextMenu, anchorX, anchorY },
+  } = useSelector((state: RootState) => state);
   const dispatch = useDispatch();
   const { width } = useResize();
 
@@ -62,7 +67,7 @@ export default function ContextMenu() {
 
     return () => {
       window.removeEventListener("contextmenu", handleEvent);
-      window.addEventListener("click", handleClick);
+      window.removeEventListener("click", handleClick);
     };
   }, [open]);
 
@@ -88,22 +93,33 @@ export default function ContextMenu() {
           },
         },
       }}
+      onMouseDown={(e: React.MouseEvent) => {
+        e.stopPropagation();
+      }}
     >
       {operations.map((operation: OperationProps) => (
-        <MenuItem
-          key={operation.id}
-          sx={{ width: "250px", py: "10px", pointerEvents: "all" }}
-          onClick={(e: React.MouseEvent) => {
-            e.stopPropagation();
-            console.log(`Operation: ${operation.text}`);
-          }}
-        >
-          <ListItemIcon sx={{ fontSize: "12px" }}>
-            {operation.icon}
-          </ListItemIcon>
-          <Typography sx={{ fontSize: "13px" }}>{operation.text}</Typography>
-        </MenuItem>
+        <Box key={operation.id} component="div">
+          <MenuItem
+            key={operation.id}
+            sx={{ width: "250px", py: "10px", pointerEvents: "all" }}
+            onClick={(e: React.MouseEvent) => {
+              e.stopPropagation();
+              handleClick(operation.id);
+              dispatch(onContextMenuClose());
+            }}
+            disabled={
+              [5, 7].includes(operation.id) && selectedResources.length !== 1
+            }
+          >
+            <ListItemIcon sx={{ fontSize: "12px" }}>
+              {operation.icon}
+            </ListItemIcon>
+            <Typography sx={{ fontSize: "13px" }}>{operation.text}</Typography>
+          </MenuItem>
+        </Box>
       ))}
     </Menu>
   );
-}
+};
+
+export default ContextMenu;

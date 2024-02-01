@@ -7,6 +7,7 @@ import {
   updateMultipleSelectedIdsBySelectionBox,
 } from "@/redux/actions";
 import { Box } from "@mui/material";
+import _ from "lodash";
 
 const initialCoordinates: CoordinateProps = {
   startX: 0,
@@ -20,9 +21,10 @@ export default function SelectionBox() {
   const [start, setStart] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
   const [coordinates, setCoordinates] =
     useState<CoordinateProps>(initialCoordinates);
-  const { data: targetElements } = useSelector(
-    (state: RootState) => state.resources
-  );
+  const {
+    contextMenu: { open: contextMenuOpen },
+    resources: { data: targetElements, selected },
+  } = useSelector((state: RootState) => state);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -30,7 +32,7 @@ export default function SelectionBox() {
       // Simple return on a right click event
       if (e.button === 2) return;
 
-      dispatch(resetSelectedIds());
+      if (!contextMenuOpen) dispatch(resetSelectedIds());
       setIsSelecting(true);
       setStart({ x: e.pageX, y: e.pageY });
       setCoordinates({
@@ -64,7 +66,35 @@ export default function SelectionBox() {
       );
 
       setCoordinates({ ...updatedCoordinates });
-      getItemsInSelectionBox(updatedCoordinates);
+
+      const itemsInSelectionBox = targetElements.filter(
+        ({ id: targetElementId }: ResourceProps) => {
+          const targetElement = document.getElementById(
+            targetElementId.toString()
+          );
+
+          if (!targetElement) return false;
+
+          const targetElementRect = targetElement.getBoundingClientRect();
+
+          const targetElementLeft = window.scrollX + targetElementRect.left;
+          const targetElementTop = window.scrollY + targetElementRect.top;
+          const targetElementRight = window.scrollX + targetElementRect.right;
+          const targetElementBottom = window.scrollY + targetElementRect.bottom;
+
+          return (
+            targetElementLeft < coordinates.endX &&
+            targetElementRight > coordinates.startX &&
+            targetElementTop < coordinates.endY &&
+            targetElementBottom > coordinates.startY
+          );
+        }
+      );
+
+      const ids = itemsInSelectionBox.map((item: ResourceProps) => item.id);
+
+      if (!_.isEqual(ids, selected))
+        dispatch(updateMultipleSelectedIdsBySelectionBox({ ids }));
     }
 
     function handleMouseUp() {
@@ -82,36 +112,7 @@ export default function SelectionBox() {
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("mouseup", handleMouseUp);
     };
-  }, [isSelecting, coordinates, start]);
-
-  const getItemsInSelectionBox = (coordinates: CoordinateProps) => {
-    const itemsInSelectionBox = targetElements.filter(
-      ({ id: targetElementId }: ResourceProps) => {
-        const targetElement = document.getElementById(
-          targetElementId.toString()
-        );
-
-        if (!targetElement) return false;
-
-        const targetElementRect = targetElement.getBoundingClientRect();
-
-        const targetElementLeft = window.scrollX + targetElementRect.left;
-        const targetElementTop = window.scrollY + targetElementRect.top;
-        const targetElementRight = window.scrollX + targetElementRect.right;
-        const targetElementBottom = window.scrollY + targetElementRect.bottom;
-
-        return (
-          targetElementLeft < coordinates.endX &&
-          targetElementRight > coordinates.startX &&
-          targetElementTop < coordinates.endY &&
-          targetElementBottom > coordinates.startY
-        );
-      }
-    );
-
-    const ids = itemsInSelectionBox.map((item: ResourceProps) => item.id);
-    dispatch(updateMultipleSelectedIdsBySelectionBox({ ids }));
-  };
+  }, [isSelecting, coordinates, start, contextMenuOpen, selected]);
 
   return (
     <Box
@@ -124,6 +125,9 @@ export default function SelectionBox() {
         width: `${Math.abs(coordinates.startX - coordinates.endX)}px`,
         bgcolor: "selectionBox.primary",
         zIndex: 1,
+        borderWidth: 1,
+        borderStyle: "solid",
+        borderColor: "selectionBox.primary",
       }}
     />
   );

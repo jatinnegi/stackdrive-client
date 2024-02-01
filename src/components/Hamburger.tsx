@@ -30,6 +30,9 @@ export default function Hamburger() {
           md: "10px",
         },
       }}
+      onMouseDown={(e: React.MouseEvent) => {
+        e.stopPropagation();
+      }}
       onClick={() => {
         dispatch(updateSettings({ displayMobileMenu: true }));
       }}

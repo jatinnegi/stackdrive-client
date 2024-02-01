@@ -71,6 +71,18 @@ const resources = createSlice({
       const { ids } = action.payload;
       state.selected = ids;
     },
+    updateTrash(state) {
+      const ids = state.selected;
+
+      state.data = state.data.filter(
+        (resource: ResourceProps) => !ids.includes(resource.id)
+      );
+
+      state.selected = [];
+    },
+    resetData(state) {
+      state.data = initialResourcesData;
+    },
   },
 });
 
@@ -79,5 +91,7 @@ export const {
   resetSelectedIds,
   updateMultipleSelectedIds,
   updateMultipleSelectedIdsBySelectionBox,
+  updateTrash,
+  resetData,
 } = resources.actions;
 export default resources.reducer;

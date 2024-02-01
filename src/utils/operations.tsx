@@ -35,28 +35,28 @@ export const createOperations: OperationProps[] = [
 
 export const mainOperations: OperationProps[] = [
   {
-    id: 1,
+    id: 4,
     text: "Download",
     icon: <DownloadIcon fontSize="small" />,
   },
   {
-    id: 2,
+    id: 5,
     text: "Rename",
     icon: <RenameIcon fontSize="small" />,
   },
   {
-    id: 3,
+    id: 6,
     text: "Share",
     icon: <ShareIcon fontSize="small" />,
   },
   {
-    id: 4,
+    id: 7,
     text: "Information",
     icon: <InfoIcon fontSize="small" />,
   },
   {
-    id: 5,
-    text: "Delete",
+    id: 8,
+    text: "Move to trash",
     icon: <DeleteIcon fontSize="small" />,
   },
 ];

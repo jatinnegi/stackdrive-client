@@ -12,7 +12,7 @@ import {
 
 interface Props {
   open: boolean;
-  handleClose: (e: React.MouseEvent) => void;
+  handleClose: () => void;
 }
 
 const NewFolder: FC<Props> = ({ open, handleClose }) => {
@@ -30,14 +30,17 @@ const NewFolder: FC<Props> = ({ open, handleClose }) => {
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
               setValue(e.currentTarget.value);
             }}
-            sx={{ width: "100%", my: "10px" }}
+            sx={{
+              width: "100%",
+              my: "10px",
+            }}
           />
         </ModalMain>
         <ModalActions>
           <ModalCancel
-            onClick={(e: React.MouseEvent) => {
+            onClick={() => {
               setValue("");
-              handleClose(e);
+              handleClose();
             }}
           >
             Cancel

@@ -16,6 +16,7 @@ const SuggestedData: ResourceProps[] = [
     lastModified: "December 31, 2023",
     owner: "Jaydon Frankie",
     size: "4 KB",
+    starred: false,
   },
   {
     id: "2",
@@ -25,6 +26,7 @@ const SuggestedData: ResourceProps[] = [
     lastModified: "December 31, 2023",
     owner: "Jaydon Frankie",
     size: "4 KB",
+    starred: false,
   },
   {
     id: "3",
@@ -34,6 +36,7 @@ const SuggestedData: ResourceProps[] = [
     lastModified: "December 31, 2023",
     owner: "Jaydon Frankie",
     size: "4 KB",
+    starred: false,
   },
   {
     id: "4",
@@ -43,6 +46,7 @@ const SuggestedData: ResourceProps[] = [
     lastModified: "December 31, 2023",
     owner: "Jaydon Frankie",
     size: "4 KB",
+    starred: false,
   },
 ];
 
@@ -70,6 +74,7 @@ export default function Suggested() {
             lastModified={data.lastModified}
             owner={data.owner}
             size={data.size}
+            starred={data.starred}
           />
         ))}
       </GridView>

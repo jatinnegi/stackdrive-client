@@ -37,6 +37,7 @@ export default function Explorer() {
               lastModified={folder.lastModified}
               owner={folder.owner}
               size={folder.size}
+              starred={folder.starred}
             />
           ))}
         </GridView>
@@ -54,6 +55,7 @@ export default function Explorer() {
               lastModified={file.lastModified}
               owner={file.owner}
               size={file.size}
+              starred={file.starred}
             />
           ))}
         </GridView>

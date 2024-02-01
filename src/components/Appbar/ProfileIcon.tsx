@@ -29,13 +29,17 @@ export default function ProfileIcon() {
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+
   const handleMouseDown = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
     if (event.button === 2) return;
     setAnchorEl(event.currentTarget);
   };
+
   const handleClose = (e: React.MouseEvent) => {
     e.stopPropagation();
+    e.preventDefault();
+
     if (e.button === 2) return;
 
     setAnchorEl(null);
@@ -47,6 +51,9 @@ export default function ProfileIcon() {
         id="basic-menu"
         anchorEl={anchorEl}
         open={open}
+        onContextMenu={(e: React.MouseEvent) => {
+          e.preventDefault();
+        }}
         onMouseDown={handleClose}
         MenuListProps={{
           "aria-labelledby": "basic-button",

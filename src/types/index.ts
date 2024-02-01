@@ -8,6 +8,7 @@ export interface ResourceProps {
   owner: string;
   lastModified: string;
   size: string;
+  starred: boolean;
 }
 
 export interface CoordinateProps {
@@ -16,3 +17,5 @@ export interface CoordinateProps {
   endX: number;
   endY: number;
 }
+
+export type { SupportedTypes };

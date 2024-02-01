@@ -1,11 +1,11 @@
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "@/redux/reducers";
+import { updateSettings } from "@/redux/actions";
 import { IconButton, styled } from "@mui/material";
 import {
   ChevronLeft as ChevronLeftIcon,
   ChevronRight as ChevronRightIcon,
 } from "@mui/icons-material";
-import { useSelector, useDispatch } from "react-redux";
-import { RootState } from "@/redux/reducers";
-import { updateSettings } from "@/redux/actions";
 
 const ResponsiveIconButton = styled(IconButton)(({ theme }) => ({
   display: "none",
@@ -48,6 +48,9 @@ const Toggle = () => {
         zIndex: 25,
         "&:hover": { backgroundColor: "background.default" },
         "&:focus": { backgroundColor: "background.default" },
+      }}
+      onMouseDown={(e: React.MouseEvent) => {
+        e.stopPropagation();
       }}
       onClick={() => {
         const newLayout = layout === "full" ? "collapse" : "full";
