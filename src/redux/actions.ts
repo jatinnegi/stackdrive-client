@@ -8,4 +8,5 @@ export {
   updateMultipleSelectedIdsBySelectionBox,
   updateTrash,
   resetData,
+  updateSort,
 } from "./slices/resources";

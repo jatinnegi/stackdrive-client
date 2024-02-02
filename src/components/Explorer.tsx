@@ -1,31 +1,55 @@
-import { Box } from "@mui/material";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { GridView, ListView } from "@/components/Views";
 import { ResourceProps } from "@/data";
 import { RootState } from "@/redux/reducers";
+import { SortBy, updateSort } from "@/redux/slices/resources";
+import { Box } from "@mui/material";
+import Sort from "@/components/Sort";
 import ResourceCard from "@/components/ResourceCard";
 import SectionHeading from "@/components/SectionHeading";
 
 export default function Explorer() {
   const {
     myDrive: { view },
-    resources: { data: resources },
+    resources: { data: resources, sortBy, isOrderAsc },
   } = useSelector((state: RootState) => state);
-
-  if (view === "list") return <ListView resources={resources} />;
+  const dispatch = useDispatch();
 
   const folders: ResourceProps[] = [];
   const files: ResourceProps[] = [];
+
+  const handleSortUpdate = (sort: SortBy) => {
+    dispatch(updateSort({ sortBy: sort }));
+  };
 
   resources.forEach((resource: ResourceProps) => {
     if (resource.type === "folder") folders.push(resource);
     else files.push(resource);
   });
 
+  if (view === "list")
+    return (
+      <ListView
+        resources={resources}
+        sortBy={sortBy}
+        isOrderAsc={isOrderAsc}
+        handleSortUpdate={handleSortUpdate}
+      />
+    );
+
   return (
     <Box component="div">
       <Box component="div">
-        <SectionHeading>Folders</SectionHeading>
+        <Box component="div" sx={{ display: "flex", alignItems: "center" }}>
+          <Box component="div" sx={{ flex: 1 }}>
+            <SectionHeading>Folders</SectionHeading>
+          </Box>
+          <Sort
+            sortBy={sortBy}
+            isOrderAsc={isOrderAsc}
+            handleSortUpdate={handleSortUpdate}
+          />
+        </Box>
         <GridView>
           {folders.map((folder: ResourceProps) => (
             <ResourceCard

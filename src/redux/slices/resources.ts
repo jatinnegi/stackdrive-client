@@ -1,15 +1,22 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { ResourceProps } from "@/types";
 import { initialResourcesData } from "@/data";
+import { sortResources } from "@/utils/helper";
+
+export type SortBy = "name" | "owner" | "size" | "lastModified";
 
 interface IResources {
   data: ResourceProps[];
   selected: string[];
+  sortBy: SortBy | null;
+  isOrderAsc: boolean;
 }
 
 const initialState: IResources = {
   data: initialResourcesData,
   selected: [],
+  sortBy: null,
+  isOrderAsc: true,
 };
 
 interface Payload {
@@ -18,6 +25,10 @@ interface Payload {
 
 interface UpdateMultipleSelectedIdsBySelectionBoxPayload {
   ids: string[];
+}
+
+interface UpdateSortPayload {
+  sortBy: SortBy;
 }
 
 const resources = createSlice({
@@ -83,6 +94,17 @@ const resources = createSlice({
     resetData(state) {
       state.data = initialResourcesData;
     },
+    updateSort(state, action: PayloadAction<UpdateSortPayload>) {
+      const { sortBy } = action.payload;
+
+      if (state.sortBy === sortBy) {
+        state.isOrderAsc = !state.isOrderAsc;
+      } else {
+        state.sortBy = sortBy;
+        state.isOrderAsc = true;
+      }
+      state.data = sortResources(state.data, state.sortBy, state.isOrderAsc);
+    },
   },
 });
 
@@ -93,5 +115,6 @@ export const {
   updateMultipleSelectedIdsBySelectionBox,
   updateTrash,
   resetData,
+  updateSort,
 } = resources.actions;
 export default resources.reducer;
