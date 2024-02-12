@@ -94,6 +94,7 @@ const Sort: FC<Props> = ({ sortBy, isOrderAsc, handleSortUpdate }) => {
           borderWidth: "1px",
           borderStyle: "solid",
           borderColor: "border.primary",
+          py: "5px",
           width: {
             xs: "140px",
             md: "150px",
@@ -110,11 +111,30 @@ const Sort: FC<Props> = ({ sortBy, isOrderAsc, handleSortUpdate }) => {
       <Menu
         anchorEl={anchorEl}
         open={open}
-        onClose={handleClose}
-        MenuListProps={{
-          "aria-labelledby": "basic-button",
+        onMouseDown={(e: React.MouseEvent) => {
+          e.stopPropagation();
         }}
-        sx={{ fontSize: "14px" }}
+        onClose={handleClose}
+        sx={{
+          margin: "10px 0px",
+          li: {
+            fontSize: {
+              xs: "12px",
+              md: "14px",
+            },
+          },
+        }}
+        slotProps={{
+          paper: {
+            sx: {
+              bgcolor: "background.paper",
+              width: {
+                xs: "140px",
+                md: "150px",
+              },
+            },
+          },
+        }}
       >
         <MenuItem onClick={() => handleMenuClick("name")}>Name</MenuItem>
         <MenuItem onClick={() => handleMenuClick("owner")}>Owner</MenuItem>
