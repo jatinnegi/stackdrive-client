@@ -42,7 +42,7 @@ const ContextMenu: FC<Props> = ({ handleClick }) => {
       }
 
       if (isInsideMainContainer) {
-        // e.preventDefault();
+        e.preventDefault();
         dispatch(
           handleContextMenu({
             resourceContextMenu: resourceItem,
