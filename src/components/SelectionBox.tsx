@@ -124,7 +124,7 @@ export default function SelectionBox() {
         height: `${Math.abs(coordinates.startY - coordinates.endY)}px`,
         width: `${Math.abs(coordinates.startX - coordinates.endX)}px`,
         bgcolor: "selectionBox.primary",
-        zIndex: 1,
+        zIndex: 2,
         borderWidth: 1,
         borderStyle: "solid",
         borderColor: "selectionBox.primary",

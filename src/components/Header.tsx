@@ -13,7 +13,7 @@ export default function Header() {
     <Box
       component="div"
       sx={{
-        backgroundColor: "background.default",
+        bgcolor: "background.default",
         position: "sticky",
         top: "70px",
         width: "100%",
