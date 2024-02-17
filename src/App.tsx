@@ -8,6 +8,7 @@ import { CssBaseline } from "@mui/material";
 import DashboardLayout from "@/layout/DashboardLayout";
 import Home from "@/pages";
 import MyDrive from "@/pages/dashboard/MyDrive";
+import Profile from "@/pages/dashboard/Profile";
 
 export default function App() {
   const { theme } = useSelector((state: RootState) => state.settings);
@@ -25,6 +26,7 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route path="/dashboard" element={<DashboardLayout />}>
             <Route index element={<MyDrive />} />
+            <Route path="profile" element={<Profile />} />
           </Route>
         </Routes>
       </BrowserRouter>

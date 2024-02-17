@@ -85,3 +85,5 @@ export const sortResources = (
 
   return [...folders, ...files];
 };
+
+export const WHITE_LISTED_URLS = new Set(["/dashboard"]);

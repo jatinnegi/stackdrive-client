@@ -7,6 +7,7 @@ import TextImage from "../../public/files/ic_txt.svg";
 import VideoImage from "../../public/files/ic_video.svg";
 import WordImage from "../../public/files/ic_word.svg";
 import ZipImage from "../../public/files/ic_zip.svg";
+import DocumentImage from "../../public/files/ic_document.svg";
 
 export type SupportedTypes =
   | "folder"
@@ -18,7 +19,11 @@ export type SupportedTypes =
   | "video"
   | "word"
   | "zip"
-  | "file";
+  | "file"
+  | "media"
+  | "images"
+  | "documents"
+  | "other";
 
 export interface Supported {
   id: number;
@@ -71,6 +76,21 @@ const supportedFileTypes: Supported[] = [
     id: 9,
     type: "zip",
     img: ZipImage,
+  },
+  {
+    id: 10,
+    type: "images",
+    img: PhotoImage,
+  },
+  {
+    id: 11,
+    type: "media",
+    img: VideoImage,
+  },
+  {
+    id: 12,
+    type: "documents",
+    img: DocumentImage,
   },
 ];
 

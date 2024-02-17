@@ -94,7 +94,7 @@ const Header: FC<Props> = ({
             xs: "164px",
             md: "181px",
           },
-          py: "12px",
+          height: "45px",
           display: "grid",
           gridTemplateColumns:
             "minmax(250px, 5fr) minmax(150px, 2fr) minmax(150px, 2fr) minmax(150px, 2fr) minmax(80px, 1fr)",

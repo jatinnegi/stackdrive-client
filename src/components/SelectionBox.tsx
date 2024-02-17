@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { CoordinateProps, ResourceProps } from "@/types";
 import { RootState } from "@/redux/reducers";
@@ -8,6 +9,7 @@ import {
 } from "@/redux/actions";
 import { Box } from "@mui/material";
 import _ from "lodash";
+import { WHITE_LISTED_URLS } from "@/utils/helper";
 
 const initialCoordinates: CoordinateProps = {
   startX: 0,
@@ -17,6 +19,7 @@ const initialCoordinates: CoordinateProps = {
 };
 
 export default function SelectionBox() {
+  const { pathname } = useLocation();
   const [isSelecting, setIsSelecting] = useState<boolean>(false);
   const [start, setStart] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
   const [coordinates, setCoordinates] =
@@ -28,6 +31,10 @@ export default function SelectionBox() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    if (!WHITE_LISTED_URLS.has(pathname)) {
+      return;
+    }
+
     function handleMouseDown(e: MouseEvent) {
       // Simple return on a right click event
       if (e.button === 2) return;
@@ -112,7 +119,7 @@ export default function SelectionBox() {
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("mouseup", handleMouseUp);
     };
-  }, [isSelecting, coordinates, start, contextMenuOpen, selected]);
+  }, [isSelecting, coordinates, start, contextMenuOpen, selected, pathname]);
 
   return (
     <Box

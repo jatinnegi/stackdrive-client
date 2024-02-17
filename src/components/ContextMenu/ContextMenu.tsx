@@ -1,7 +1,8 @@
 import { FC, useEffect } from "react";
-import { useResize } from "@/hooks";
+import { useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "@/redux/reducers";
+import { useResize } from "@/hooks";
 import { handleContextMenu, onContextMenuClose } from "@/redux/actions";
 import { Menu, MenuItem, Typography, ListItemIcon, Box } from "@mui/material";
 import {
@@ -9,12 +10,14 @@ import {
   mainOperations,
   createOperations,
 } from "@/utils/operations";
+import { WHITE_LISTED_URLS } from "@/utils/helper";
 
 interface Props {
   handleClick: (operationId: number) => void;
 }
 
 const ContextMenu: FC<Props> = ({ handleClick }) => {
+  const { pathname } = useLocation();
   const {
     resources: { selected: selectedResources },
     contextMenu: { open, resourceContextMenu, anchorX, anchorY },
@@ -23,6 +26,9 @@ const ContextMenu: FC<Props> = ({ handleClick }) => {
   const { width } = useResize();
 
   useEffect(() => {
+    if (pathname) {
+      return;
+    }
     function handleEvent(e: MouseEvent) {
       let currentElement: HTMLElement | null = e.target as HTMLElement;
       let isInsideMainContainer = false;
@@ -69,7 +75,7 @@ const ContextMenu: FC<Props> = ({ handleClick }) => {
       window.removeEventListener("contextmenu", handleEvent);
       window.removeEventListener("click", handleClick);
     };
-  }, [open]);
+  }, [open, pathname]);
 
   useEffect(() => {
     dispatch(onContextMenuClose());

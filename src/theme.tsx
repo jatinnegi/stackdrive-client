@@ -30,6 +30,16 @@ interface MyPaletteExtensions {
       text?: string;
       hover?: string;
     };
+    action?: {
+      background?: string;
+      text?: string;
+      hover?: string;
+    };
+    danger?: {
+      background?: string;
+      text?: string;
+      hover?: string;
+    };
   };
   backdrop?: { primary?: string };
   hover?: { primary?: string };
@@ -118,6 +128,16 @@ const darkThemeOptions: ThemeOptions = {
         text: "#212B36",
         hover: "#C4CDD5",
       },
+      action: {
+        background: "rgba(90, 131, 184, 0.16)",
+        text: "rgb(90, 131, 184)",
+        hover: "#1F3757",
+      },
+      danger: {
+        background: "rgba(255, 86, 48, 0.16)",
+        text: "rgb(255, 172, 130)",
+        hover: "#683934",
+      },
     },
     hover: { primary: "#3e4c5e" },
     ...MY_EXTENSIONS,
@@ -133,7 +153,7 @@ const lightThemeOptions: ThemeOptions = {
     mode: "light",
     background: {
       default: "#FFFFFF",
-      paper: "#F3F3F3",
+      paper: "#F9F9F9",
     },
     text: {
       primary: "#000000",
@@ -155,6 +175,16 @@ const lightThemeOptions: ThemeOptions = {
         background: "#212B36",
         text: "#FFFFFF",
         hover: "#454F5B",
+      },
+      action: {
+        background: "rgba(57, 75, 99, 0.16)",
+        text: "#1E4B87",
+        hover: "#BFC5CC",
+      },
+      danger: {
+        background: "rgba(255, 86, 48, 0.16)",
+        text: "rgb(183, 29, 24)",
+        hover: "#FFC9BC",
       },
     },
     hover: { primary: "#CFCFCF" },

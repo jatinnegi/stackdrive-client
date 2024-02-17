@@ -1,4 +1,5 @@
 import { FC, PropsWithChildren, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "@/redux/reducers";
 import { updateSettings } from "@/redux/actions";
@@ -26,6 +27,7 @@ const ProfileMenuItem: FC<
 export default function ProfileIcon() {
   const { theme } = useSelector((state: RootState) => state.settings);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -54,7 +56,10 @@ export default function ProfileIcon() {
         onContextMenu={(e: React.MouseEvent) => {
           e.preventDefault();
         }}
-        onMouseDown={handleClose}
+        onMouseDown={(e: React.MouseEvent) => {
+          e.stopPropagation();
+        }}
+        onClick={handleClose}
         MenuListProps={{
           "aria-labelledby": "basic-button",
         }}
@@ -75,69 +80,84 @@ export default function ProfileIcon() {
       >
         <Box
           component="div"
-          sx={{
-            padding: "0px 20px 10px 20px",
+          onClick={(e: React.MouseEvent) => {
+            e.stopPropagation();
           }}
         >
-          <Typography fontWeight={600} fontSize="14px">
-            Jaydon Frankie
-          </Typography>
-          <Typography fontWeight={400} color="text.secondary" fontSize="13px">
-            minimals@demo.com
-          </Typography>
-        </Box>
-        <Box
-          component="div"
-          display="flex"
-          flexDirection="column"
-          gap="5px"
-          sx={{
-            padding: "10px 12px",
-            borderWidth: "1px 0px",
-            borderStyle: "dashed none",
-            borderColor: "border.primary",
-          }}
-        >
-          <ProfileMenuItem onClick={handleClose}>Home</ProfileMenuItem>
-          <ProfileMenuItem onClick={handleClose}>Profile</ProfileMenuItem>
           <Box
             component="div"
             sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              padding: "5px 8px",
+              padding: "0px 20px 10px 20px",
             }}
           >
-            <Typography fontSize="14px">Dark Mode</Typography>
-            <Switch
-              size="small"
-              checked={theme === "dark"}
-              onMouseDown={(e: React.MouseEvent) => {
-                e.stopPropagation();
-                if (e.button === 2) return;
-
-                const newTheme = theme === "dark" ? "light" : "dark";
-                dispatch(updateSettings({ theme: newTheme }));
-              }}
-            />
+            <Typography fontWeight={600} fontSize="14px">
+              Jaydon Frankie
+            </Typography>
+            <Typography fontWeight={400} color="text.secondary" fontSize="13px">
+              minimals@demo.com
+            </Typography>
           </Box>
-        </Box>
-        <Box
-          component="div"
-          sx={{
-            padding: "10px 12px",
-          }}
-        >
-          <ProfileMenuItem
+          <Box
+            component="div"
+            display="flex"
+            flexDirection="column"
+            gap="5px"
             sx={{
-              color: "rgb(255, 86, 48)",
-              fontWeight: 600,
+              padding: "10px 12px",
+              borderWidth: "1px 0px",
+              borderStyle: "dashed none",
+              borderColor: "border.primary",
             }}
-            onClick={handleClose}
           >
-            Logout
-          </ProfileMenuItem>
+            <ProfileMenuItem onClick={handleClose}>Home</ProfileMenuItem>
+            <ProfileMenuItem
+              onClick={(e: React.MouseEvent) => {
+                handleClose(e);
+                navigate("/dashboard/profile");
+              }}
+            >
+              Profile
+            </ProfileMenuItem>
+            <Box
+              component="div"
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                padding: "5px 8px",
+              }}
+            >
+              <Typography fontSize="14px">Dark Mode</Typography>
+              <Switch
+                size="small"
+                checked={theme === "dark"}
+                onMouseDown={(e: React.MouseEvent) => {
+                  e.stopPropagation();
+                }}
+                onClick={(e: React.MouseEvent) => {
+                  if (e.button === 2) return;
+                  const newTheme = theme === "dark" ? "light" : "dark";
+                  dispatch(updateSettings({ theme: newTheme }));
+                }}
+              />
+            </Box>
+          </Box>
+          <Box
+            component="div"
+            sx={{
+              padding: "10px 12px",
+            }}
+          >
+            <ProfileMenuItem
+              sx={{
+                color: "rgb(255, 86, 48)",
+                fontWeight: 600,
+              }}
+              onClick={handleClose}
+            >
+              Logout
+            </ProfileMenuItem>
+          </Box>
         </Box>
       </Menu>
       <IconButton
