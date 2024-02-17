@@ -26,7 +26,7 @@ const ContextMenu: FC<Props> = ({ handleClick }) => {
   const { width } = useResize();
 
   useEffect(() => {
-    if (pathname) {
+    if (!WHITE_LISTED_URLS.has(pathname)) {
       return;
     }
     function handleEvent(e: MouseEvent) {
