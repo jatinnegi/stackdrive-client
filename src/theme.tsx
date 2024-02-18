@@ -5,6 +5,11 @@ interface MyPaletteExtensions {
     primary?: string;
     secondary?: string;
   };
+  text?: {
+    primary?: string;
+    secondary?: string;
+    danger?: string;
+  };
   filterBackgroundColor?: {
     primary?: string;
     secondary?: string;
@@ -39,6 +44,18 @@ interface MyPaletteExtensions {
       background?: string;
       text?: string;
       hover?: string;
+    };
+  };
+  alert?: {
+    primary?: {
+      background?: string;
+      text?: string;
+      icon?: string;
+    };
+    danger?: {
+      background?: string;
+      text?: string;
+      icon?: string;
     };
   };
   backdrop?: { primary?: string };
@@ -110,6 +127,7 @@ const darkThemeOptions: ThemeOptions = {
     text: {
       primary: "#FFFFFF",
       secondary: "#919EAB",
+      danger: "#FF5630",
     },
     filterBackgroundColor: {
       primary: "rgba(22, 28, 36, 0.9)",
@@ -139,6 +157,17 @@ const darkThemeOptions: ThemeOptions = {
         hover: "#683934",
       },
     },
+    alert: {
+      primary: {
+        background: "rgb(0, 55, 104)",
+        text: "rgb(202, 253, 245)",
+        icon: "rgb(202, 253, 245)",
+      },
+      danger: {
+        background: "rgb(122, 9, 22)",
+        text: "rgb(255, 233, 213)",
+      },
+    },
     hover: { primary: "#3e4c5e" },
     ...MY_EXTENSIONS,
   },
@@ -158,6 +187,7 @@ const lightThemeOptions: ThemeOptions = {
     text: {
       primary: "#000000",
       secondary: "#637381",
+      danger: "#FF5630",
     },
     filterBackgroundColor: {
       primary: "rgba(255, 255, 255, 0.9)",
@@ -185,6 +215,17 @@ const lightThemeOptions: ThemeOptions = {
         background: "rgba(255, 86, 48, 0.16)",
         text: "rgb(183, 29, 24)",
         hover: "#FFC9BC",
+      },
+    },
+    alert: {
+      primary: {
+        background: "rgb(202, 253, 245)",
+        text: "rgb(0, 55, 104)",
+        icon: "rgb(0, 184, 217)",
+      },
+      danger: {
+        background: "rgb(255, 233, 213)",
+        text: "rgb(122, 9, 22)",
       },
     },
     hover: { primary: "#CFCFCF" },

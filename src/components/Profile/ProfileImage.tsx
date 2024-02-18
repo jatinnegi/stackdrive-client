@@ -1,4 +1,6 @@
 import { FC, useRef, useState } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/reducers";
 import { Box, Typography } from "@mui/material";
 import { AddAPhoto as AddPhotoIcon } from "@mui/icons-material";
 import CardBody from "./CardBody";
@@ -6,6 +8,8 @@ import CardBody from "./CardBody";
 const ProfileImage: FC = () => {
   const [profileHover, setProfileHover] = useState<boolean>(false);
   const ref = useRef<HTMLInputElement | null>(null);
+
+  const { theme } = useSelector((state: RootState) => state.settings);
 
   return (
     <>
@@ -22,7 +26,8 @@ const ProfileImage: FC = () => {
             component="span"
             sx={{
               bgcolor: "rgba(34, 197, 94, 0.16)",
-              color: "rgb(119, 237, 139)",
+              color:
+                theme === "dark" ? "rgb(119, 237, 139)" : "rgb(17, 141, 87)",
               fontSize: "12px",
               fontWeight: 700,
               padding: "3px 8px",

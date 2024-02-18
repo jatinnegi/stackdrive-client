@@ -63,6 +63,7 @@ const Usage: FC = () => {
       sx={{
         backgroundImage: `linear-gradient(to bottom, ${linearGradient.start} 0%, ${linearGradient.end} 65%)`,
         padding: "0px 15px 15px 15px",
+        boxShadow: "none",
       }}
     >
       <Box component="div" sx={{ width: "90%" }}>

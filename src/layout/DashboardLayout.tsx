@@ -1,3 +1,4 @@
+import { Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/reducers";
 import { Box } from "@mui/material";
@@ -8,7 +9,6 @@ import Appbar from "@/components/Appbar/Appbar";
 import MobileMenu from "@/components/MobileMenu";
 import ContextMenu from "@/components/ContextMenu";
 import SelectionBox from "@/components/SelectionBox";
-import { Outlet } from "react-router-dom";
 
 export default function DashboardLayout() {
   const { layout } = useSelector((state: RootState) => state.settings);
