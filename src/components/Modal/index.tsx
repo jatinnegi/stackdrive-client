@@ -1,4 +1,5 @@
 import { FC, PropsWithChildren, useEffect } from "react";
+import ReactDOM from "react-dom";
 import { Backdrop } from "@mui/material";
 import ModalBody from "./ModalBody";
 import ModalTitle from "./ModalTitle";
@@ -42,7 +43,7 @@ const Modal: FC<Props> = ({
     }
   }, [open, updateWindowScroll]);
 
-  return (
+  return ReactDOM.createPortal(
     <Backdrop
       open={open}
       sx={{
@@ -55,7 +56,8 @@ const Modal: FC<Props> = ({
       }}
     >
       {children}
-    </Backdrop>
+    </Backdrop>,
+    document.getElementById("modal-root")!
   );
 };
 

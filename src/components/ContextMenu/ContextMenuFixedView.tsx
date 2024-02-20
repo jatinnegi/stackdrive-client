@@ -25,6 +25,7 @@ const ContextMenuFixedView: FC<Props> = ({ title, handleClick }) => {
   const handleMenuClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
+
   const handleClose = () => {
     setAnchorEl(null);
   };

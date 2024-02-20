@@ -24,6 +24,9 @@ const ModalBody: FC<Props> = ({ children, ...props }) => {
       onMouseDown={(e: React.MouseEvent<HTMLDivElement>) => {
         e.stopPropagation();
       }}
+      onContextMenu={(e: React.MouseEvent) => {
+        e.stopPropagation();
+      }}
     >
       {children}
     </Box>
