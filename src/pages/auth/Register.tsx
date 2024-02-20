@@ -1,23 +1,33 @@
 import { FC, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { loginValidation } from "@/validation/auth";
+import { registerValidation } from "@/validation/auth";
 import { Typography, Box } from "@mui/material";
 import { TextField, PasswordField } from "@/components/Inputs";
-import { InfoAlert, ErrorAlert } from "@/components/Alerts";
 import Button from "@/components/Button";
 
 interface FormProps {
+  firstName: string;
+  lastName: string;
   email: string;
   password: string;
 }
 
-const Login: FC = () => {
+const Register: FC = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState<boolean>(false);
-  const [form, setForm] = useState<FormProps>({ email: "", password: "" });
-  const [errors, setErrors] = useState<FormProps>({ email: "", password: "" });
-  const [formError, setFormError] = useState<string>("");
+  const [form, setForm] = useState<FormProps>({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+  });
+  const [errors, setErrors] = useState<FormProps>({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+  });
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -27,7 +37,12 @@ const Login: FC = () => {
     e.preventDefault();
 
     const { hasErrors, errors }: { hasErrors: boolean; errors: FormProps } =
-      loginValidation(form.email, form.password);
+      registerValidation(
+        form.firstName,
+        form.lastName,
+        form.email,
+        form.password
+      );
 
     if (hasErrors) {
       setErrors(errors);
@@ -36,29 +51,19 @@ const Login: FC = () => {
 
     try {
       setLoading(true);
-      setFormError("");
-
       await new Promise((resolve, reject) => {
         setTimeout(() => {
-          if (
-            form.email === "demo@stackdrive.com" &&
-            form.password === "demo1234"
-          ) {
-            resolve(form);
+          if (form.email.trim() === "demo@stackdrive.com") {
+            setErrors({ ...errors, email: "Email is already in use" });
+            reject(new Error("Email is already in use"));
           } else {
-            setErrors({ email: "", password: "" });
-            reject(new Error("Invalid credentials"));
+            resolve(form);
           }
         }, 3000);
       });
-      setFormError("");
       navigate("/dashboard");
     } catch (error) {
-      if (error instanceof Error) {
-        setFormError(error.message);
-      } else {
-        console.error(error);
-      }
+      console.error(error);
     } finally {
       setLoading(false);
     }
@@ -84,7 +89,7 @@ const Login: FC = () => {
       }}
     >
       <Typography sx={{ fontSize: "28px", fontWeight: 400 }}>
-        Welcome, back
+        Get started
       </Typography>
       <Typography
         sx={{
@@ -95,40 +100,17 @@ const Login: FC = () => {
           fontWeight: 400,
         }}
       >
-        New User?{" "}
+        Already have an account?{" "}
         <Link
-          to="/auth/register"
+          to="/auth/login"
           style={{
             color: "rgb(32, 101, 209)",
             fontWeight: 500,
           }}
         >
-          Create an account
+          Sign In
         </Link>
       </Typography>
-      {formError.trim() !== "" && (
-        <ErrorAlert>
-          <Typography
-            sx={{
-              fontSize: "13px",
-            }}
-          >
-            {formError}
-          </Typography>
-        </ErrorAlert>
-      )}
-      <InfoAlert>
-        <Typography sx={{ fontSize: "14px" }}>
-          Use email:{" "}
-          <Box component="span" sx={{ fontWeight: 600 }}>
-            demo@stackdrive.com
-          </Box>{" "}
-          / password:{" "}
-          <Box component="span" sx={{ fontWeight: 600 }}>
-            demo1234
-          </Box>
-        </Typography>
-      </InfoAlert>
       <form
         onSubmit={handleSubmit}
         style={{
@@ -138,6 +120,22 @@ const Login: FC = () => {
           gap: "15px",
         }}
       >
+        <Box component="div" sx={{ display: "flex", gap: "10px" }}>
+          <TextField
+            name="firstName"
+            label="First Name"
+            value={form.firstName}
+            error={errors.firstName}
+            onChange={onChange}
+          />
+          <TextField
+            name="lastName"
+            label="Last Name"
+            value={form.lastName}
+            error={errors.lastName}
+            onChange={onChange}
+          />
+        </Box>
         <TextField
           name="email"
           label="Email"
@@ -152,22 +150,31 @@ const Login: FC = () => {
           error={errors.password}
           onChange={onChange}
         />
-        <Box
-          component="div"
-          sx={{
-            display: "flex",
-            justifyContent: "flex-end",
-            mb: 2,
+        <Button type="submit" value="Create account" loading={loading} />
+      </form>
+      <Typography sx={{ fontSize: "12px", color: "text.secondary" }}>
+        By signing up, I agree to{" "}
+        <Link
+          to="/auth/register"
+          style={{
+            textDecoration: "underline",
           }}
         >
-          <Link to="/auth/forgot-password" style={{ fontSize: "14px" }}>
-            Forgot Password?
-          </Link>
-        </Box>
-        <Button type="submit" value="Login" loading={loading} />
-      </form>
+          Terms of Service
+        </Link>{" "}
+        and{" "}
+        <Link
+          to="/auth/register"
+          style={{
+            textDecoration: "underline",
+          }}
+        >
+          Privacy Policy
+        </Link>
+        .
+      </Typography>
     </Box>
   );
 };
 
-export default Login;
+export default Register;

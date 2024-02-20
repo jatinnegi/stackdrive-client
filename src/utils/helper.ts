@@ -1,3 +1,6 @@
+import { Dispatch } from "redux";
+import { v4 } from "uuid";
+import { addMessage, removeMessage } from "@/redux/actions";
 import supportedFileTypes, {
   SupportedTypes,
   Supported,
@@ -87,3 +90,17 @@ export const sortResources = (
 };
 
 export const WHITE_LISTED_URLS = new Set(["/dashboard"]);
+
+export const addToastMessage = (
+  dispatch: Dispatch,
+  message: string,
+  duration = 5000
+) => {
+  const toastId = v4();
+
+  dispatch(addMessage({ id: toastId, type: "success", value: message }));
+
+  setTimeout(() => {
+    dispatch(removeMessage({ id: toastId }));
+  }, duration);
+};

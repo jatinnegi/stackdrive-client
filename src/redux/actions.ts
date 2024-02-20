@@ -10,3 +10,4 @@ export {
   resetData,
   updateSort,
 } from "./slices/resources";
+export { addMessage, removeMessage } from "./slices/messages";

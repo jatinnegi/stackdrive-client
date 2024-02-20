@@ -13,7 +13,13 @@ interface Props {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const TextField: FC<Props> = ({ name, value, label, error, onChange }) => {
+export const TextField: FC<Props> = ({
+  name,
+  value,
+  label,
+  error,
+  onChange,
+}) => {
   return (
     <FormControl>
       <MuiTextField
@@ -74,5 +80,3 @@ const TextField: FC<Props> = ({ name, value, label, error, onChange }) => {
     </FormControl>
   );
 };
-
-export default TextField;

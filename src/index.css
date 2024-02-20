@@ -13,3 +13,29 @@ body {
   padding: 10px;
   border-radius: 8px;
 }
+
+a:hover {
+  text-decoration: underline !important;
+}
+
+input[type="text"] {
+  font-family: "Public sans", sans-serif;
+}
+
+@keyframes display-toast-message {
+  0% {
+    right: -100%;
+  }
+  100% {
+    right: 2%;
+  }
+}
+
+@keyframes hide-toast-message {
+  0% {
+    right: 2%;
+  }
+  100% {
+    right: -100%;
+  }
+}

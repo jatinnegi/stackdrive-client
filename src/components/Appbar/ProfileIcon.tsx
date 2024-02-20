@@ -153,7 +153,10 @@ export default function ProfileIcon() {
                 color: "rgb(255, 86, 48)",
                 fontWeight: 600,
               }}
-              onClick={handleClose}
+              onClick={(e: React.MouseEvent) => {
+                navigate("/auth/login");
+                handleClose(e);
+              }}
             >
               Logout
             </ProfileMenuItem>

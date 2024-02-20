@@ -13,7 +13,7 @@ import {
 } from "@/components/Modal";
 import { Box } from "@mui/material";
 import { UserProps, dummyUsers } from "@/data";
-import Autocomplete from "@/components/Inputs/Autocomplete";
+import { Autocomplete } from "@/components/Inputs";
 import UserRow from "../UserRow";
 
 interface Props {

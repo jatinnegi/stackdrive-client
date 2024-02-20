@@ -18,7 +18,13 @@ interface Props {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const PasswordField: FC<Props> = ({ name, value, label, error, onChange }) => {
+export const PasswordField: FC<Props> = ({
+  name,
+  value,
+  label,
+  error,
+  onChange,
+}) => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
   return (
@@ -99,5 +105,3 @@ const PasswordField: FC<Props> = ({ name, value, label, error, onChange }) => {
     </FormControl>
   );
 };
-
-export default PasswordField;

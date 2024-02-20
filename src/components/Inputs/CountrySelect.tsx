@@ -7,7 +7,7 @@ interface Props {
   value?: CountryType;
 }
 
-const CountrySelect: FC<Props> = ({
+export const CountrySelect: FC<Props> = ({
   value = { code: "US", label: "United States", phone: "1" },
 }) => {
   return (
@@ -46,8 +46,6 @@ const CountrySelect: FC<Props> = ({
     />
   );
 };
-
-export default CountrySelect;
 
 interface CountryType {
   code: string;

@@ -1,6 +1,6 @@
 import { FC, PropsWithChildren, useState } from "react";
 import { Box, TextField, Button } from "@mui/material";
-import CountrySelect from "@/components/Inputs/CountrySelect";
+import { CountrySelect } from "@/components/Inputs";
 import CardBody from "./CardBody";
 
 const Row: FC<PropsWithChildren> = ({ children }) => (

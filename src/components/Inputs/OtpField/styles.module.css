@@ -1,0 +1,67 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.otp_container {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 10px;
+}
+
+.input {
+  width: 100%;
+  text-align: center;
+  border-radius: 5px;
+  outline: none;
+  font-size: 14px;
+  font-weight: 500;
+  background-color: inherit;
+}
+
+.light_theme .input {
+  border: 1px solid #c4c4c4;
+  color: #000;
+}
+.dark_theme .input {
+  border: 1px solid rgba(255, 255, 255, 0.23);
+  color: #fff;
+}
+
+.light_theme .input:focus,
+.light_theme .input:focus:hover {
+  border: 1px solid #1976d2;
+}
+.dark_theme .input:focus,
+.dark_theme .input:focus:hover {
+  border: 1px solid #1976d2;
+}
+
+.light_theme .input:hover {
+  border: 1px solid #000000;
+}
+.dark_theme .input:hover {
+  border: 1px solid #ffffff;
+}
+
+.light_theme .input.error,
+.dark_theme .input.error {
+  border: 1px solid #ff5630;
+}
+
+.light_theme .input.error:focus,
+.dark_theme .input.error:focus {
+  border: 1px solid #ff5630;
+}
+
+.light_theme .input.error:active,
+.dark_theme .input.error:active {
+  border: 1px solid #ff5630;
+}
+
+.error_text {
+  color: #ff5630;
+  font-size: 12px;
+  font-weight: 500;
+}

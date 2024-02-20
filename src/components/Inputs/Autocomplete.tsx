@@ -18,7 +18,7 @@ interface Props {
   renderOption: (key: string) => JSX.Element;
 }
 
-const Autocomplete: FC<Props> = ({
+export const Autocomplete: FC<Props> = ({
   label,
   value,
   loading,
@@ -98,5 +98,3 @@ const Autocomplete: FC<Props> = ({
     />
   );
 };
-
-export default Autocomplete;
