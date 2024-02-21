@@ -1,14 +1,17 @@
 import { FC, PropsWithChildren } from "react";
-import { Box } from "@mui/material";
-import { BoxProps } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/reducers";
 import { updateSelectedId, updateMultipleSelectedIds } from "@/redux/actions";
+import { ResourceProps } from "@/types";
+import { Box } from "@mui/material";
+import { BoxProps } from "@mui/material";
 
 type Props = { id: string } & PropsWithChildren & BoxProps;
 
 const ResourceWrapper: FC<Props> = ({ id, children, ...props }) => {
-  const { selected } = useSelector((state: RootState) => state.resources);
+  const navigate = useNavigate();
+  const { data, selected } = useSelector((state: RootState) => state.resources);
   const dispatch = useDispatch();
 
   function handleMouseDown(e: React.MouseEvent) {
@@ -34,6 +37,28 @@ const ResourceWrapper: FC<Props> = ({ id, children, ...props }) => {
     }
   }
 
+  const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (e.detail === 2) {
+      handleDoubleClick(id);
+    }
+  };
+
+  const handleDoubleClick = (id: string) => {
+    const item: ResourceProps | undefined = data.find(
+      (resource: ResourceProps) => resource.id === id
+    );
+
+    if (!item) {
+      return;
+    }
+
+    if (item.type === "folder") {
+      navigate(`/dashboard/folders/${id}`);
+    } else {
+      console.log("show file information tab");
+    }
+  };
+
   return (
     <Box
       component="div"
@@ -41,6 +66,7 @@ const ResourceWrapper: FC<Props> = ({ id, children, ...props }) => {
       aria-label="resource-item"
       {...props}
       onMouseDown={handleMouseDown}
+      onClick={handleClick}
     >
       {children}
     </Box>
