@@ -14,7 +14,10 @@ export default function DashboardLayout() {
   const { layout } = useSelector((state: RootState) => state.settings);
 
   return (
-    <Box sx={{ position: "relative", minHeight: "100svh" }} display="flex">
+    <Box
+      sx={{ position: "relative", minHeight: "100svh", userSelect: "none" }}
+      display="flex"
+    >
       <Appbar />
       <MobileMenu />
       <Sidebar />
