@@ -41,6 +41,10 @@ const withMyDriveLoading = (
       fetchInitialData();
     }, [folderId, fetchData]);
 
+    useEffect(() => {
+      setData(resources);
+    }, [resources]);
+
     return <WrappedComponent loading={loading} data={data} />;
   };
 };
