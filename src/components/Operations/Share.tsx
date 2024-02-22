@@ -1,6 +1,7 @@
 import { FC, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "@/redux/reducers";
+import { updateOperations } from "@/redux/actions";
 import { ResourceProps } from "@/types";
 import {
   Modal,
@@ -17,13 +18,17 @@ import { Autocomplete } from "@/components/Inputs";
 import UserRow from "../UserRow";
 
 interface Props {
-  open: boolean;
-  handleClose: () => void;
+  open?: boolean;
+  handleClose?: () => void;
   updateWindowScroll?: boolean;
 }
 
-const Share: FC<Props> = ({ open, updateWindowScroll = true, handleClose }) => {
-  const { data, selected } = useSelector((state: RootState) => state.resources);
+const Share: FC<Props> = ({ open, handleClose, updateWindowScroll }) => {
+  const dispatch = useDispatch();
+  const {
+    operations: { share },
+    resources: { data, selected },
+  } = useSelector((state: RootState) => state);
 
   const [userEmail, setUserEmail] = useState<string>("");
   const [users, setUsers] = useState<UserProps[]>([]);
@@ -84,11 +89,15 @@ const Share: FC<Props> = ({ open, updateWindowScroll = true, handleClose }) => {
     return `Share "${resource.name}"`;
   };
 
+  const onClose = () => {
+    dispatch(updateOperations({ share: false }));
+  };
+
   return (
     <Modal
+      open={typeof open === "boolean" ? open : share}
+      handleClose={typeof handleClose === "function" ? handleClose : onClose}
       updateWindowScroll={updateWindowScroll}
-      open={open}
-      handleClose={handleClose}
     >
       <ModalBody
         sx={{

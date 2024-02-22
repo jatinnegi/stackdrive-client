@@ -9,6 +9,7 @@ import Appbar from "@/components/Appbar/Appbar";
 import MobileMenu from "@/components/MobileMenu";
 import ContextMenu from "@/components/ContextMenu";
 import SelectionBox from "@/components/SelectionBox";
+import Operations from "@/components/Operations";
 
 export default function DashboardLayout() {
   const { layout } = useSelector((state: RootState) => state.settings);
@@ -23,6 +24,7 @@ export default function DashboardLayout() {
       <Sidebar />
       <Toggle />
       <ContextMenu fixedView={false} />
+      <Operations />
       <SelectionBox />
       <ModifiedFilter />
       <Box

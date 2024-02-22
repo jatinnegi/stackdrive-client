@@ -1,6 +1,8 @@
-import React, { FC, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { FC, useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "@/redux/reducers";
+import { updateOperations } from "@/redux/actions";
+import { ResourceProps } from "@/types";
 import { TextField } from "@mui/material";
 import {
   Modal,
@@ -11,15 +13,13 @@ import {
   ModalCancel,
   ModalSave,
 } from "@/components/Modal";
-import { ResourceProps } from "@/types";
 
-interface Props {
-  open: boolean;
-  handleClose: () => void;
-}
-
-const Rename: FC<Props> = ({ open, handleClose }) => {
-  const { data, selected } = useSelector((state: RootState) => state.resources);
+const Rename: FC = () => {
+  const {
+    operations: { rename: open },
+    resources: { data, selected },
+  } = useSelector((state: RootState) => state);
+  const dispatch = useDispatch();
   const [value, setValue] = useState<string>("");
   const [type, setType] = useState<string>("");
 
@@ -32,6 +32,10 @@ const Rename: FC<Props> = ({ open, handleClose }) => {
     setValue(resource.name);
     setType(resource.type === "folder" ? "Folder" : "File");
   }, [selected]);
+
+  const handleClose = () => {
+    dispatch(updateOperations({ rename: false }));
+  };
 
   return (
     <Modal open={open} handleClose={handleClose}>

@@ -1,7 +1,10 @@
 import React, { FC, useEffect, useMemo, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "@/redux/reducers";
-import { updateMultipleSelectedIdsBySelectionBox } from "@/redux/actions";
+import {
+  updateMultipleSelectedIdsBySelectionBox,
+  updateOperations,
+} from "@/redux/actions";
 import { CoordinateProps, ResourceProps } from "@/types";
 import { getTargetElementsInsideCoordinates } from "@/utils/helper";
 import { darkTheme, lightTheme } from "@/theme";
@@ -10,15 +13,13 @@ import Header from "./Header";
 import Main from "./Main";
 import Share from "../Share";
 
-interface Props {
-  open: boolean;
-  handleClose: () => void;
-}
-
 export type InformationType = "details" | "access";
 
-const Information: FC<Props> = ({ open, handleClose }) => {
-  const { data, selected } = useSelector((state: RootState) => state.resources);
+const Information: FC = () => {
+  const {
+    operations: { information: open },
+    resources: { data, selected },
+  } = useSelector((state: RootState) => state);
   const { theme } = useSelector((state: RootState) => state.settings);
   const dispatch = useDispatch();
 
@@ -26,6 +27,10 @@ const Information: FC<Props> = ({ open, handleClose }) => {
 
   const [current, setCurrent] = useState<InformationType>("details");
   const [displayShare, setDisplayShare] = useState<boolean>(false);
+
+  const handleClose = () => {
+    dispatch(updateOperations({ information: false }));
+  };
 
   useEffect(() => {
     if (open) {

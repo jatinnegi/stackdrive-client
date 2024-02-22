@@ -4,6 +4,7 @@ import myDrive from "./slices/myDrive";
 import resources from "./slices/resources";
 import contextMenu from "./slices/contextMenu";
 import messages from "./slices/messages";
+import operations from "./slices/operations";
 
 const rootReducer = combineReducers({
   settings,
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
   resources,
   contextMenu,
   messages,
+  operations,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

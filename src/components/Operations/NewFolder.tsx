@@ -1,4 +1,7 @@
-import React, { FC, useState } from "react";
+import { FC, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { updateOperations } from "@/redux/actions";
+import { RootState } from "@/redux/reducers";
 import { TextField } from "@mui/material";
 import {
   Modal,
@@ -10,13 +13,16 @@ import {
   ModalSave,
 } from "@/components/Modal";
 
-interface Props {
-  open: boolean;
-  handleClose: () => void;
-}
-
-const NewFolder: FC<Props> = ({ open, handleClose }) => {
+const NewFolder: FC = () => {
+  const { newFolder: open } = useSelector(
+    (state: RootState) => state.operations
+  );
+  const dispatch = useDispatch();
   const [value, setValue] = useState<string>("");
+
+  const handleClose = () => {
+    dispatch(updateOperations({ newFolder: false }));
+  };
 
   return (
     <Modal open={open} handleClose={handleClose}>
