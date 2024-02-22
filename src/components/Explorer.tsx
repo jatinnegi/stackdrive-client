@@ -1,3 +1,4 @@
+import { FC } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { GridView, ListView } from "@/components/Views";
 import { ResourceProps } from "@/data";
@@ -8,10 +9,14 @@ import Sort from "@/components/Sort";
 import ResourceCard from "@/components/ResourceCard";
 import SectionHeading from "@/components/SectionHeading";
 
-export default function Explorer() {
+interface Props {
+  resources: ResourceProps[];
+}
+
+const Explorer: FC<Props> = ({ resources }) => {
   const {
     myDrive: { view },
-    resources: { data: resources, sortBy, isOrderAsc },
+    resources: { sortBy, isOrderAsc },
   } = useSelector((state: RootState) => state);
   const dispatch = useDispatch();
 
@@ -86,4 +91,6 @@ export default function Explorer() {
       </Box>
     </Box>
   );
-}
+};
+
+export default Explorer;

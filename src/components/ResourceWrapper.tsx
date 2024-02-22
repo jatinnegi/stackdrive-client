@@ -2,7 +2,12 @@ import { FC, PropsWithChildren } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/reducers";
-import { updateSelectedId, updateMultipleSelectedIds } from "@/redux/actions";
+import {
+  updateSelectedId,
+  updateMultipleSelectedIds,
+  resetSelectedIds,
+  updateOperations,
+} from "@/redux/actions";
 import { ResourceProps } from "@/types";
 import { Box } from "@mui/material";
 import { BoxProps } from "@mui/material";
@@ -54,8 +59,9 @@ const ResourceWrapper: FC<Props> = ({ id, children, ...props }) => {
 
     if (item.type === "folder") {
       navigate(`/dashboard/folders/${id}`);
+      dispatch(resetSelectedIds());
     } else {
-      console.log("show file information tab");
+      dispatch(updateOperations({ information: true }));
     }
   };
 

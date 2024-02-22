@@ -8,7 +8,7 @@ import { CssBaseline } from "@mui/material";
 import ToastMessages from "@/components/Toast";
 
 // Layouts
-import DashboardLayout from "@/layout/DashboardLayout";
+import DashboardLayout from "./layout/DashboardLayout";
 import AuthLayout from "@/layout/AuthLayout";
 
 // Pages
