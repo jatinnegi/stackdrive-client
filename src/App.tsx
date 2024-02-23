@@ -19,6 +19,7 @@ import Login from "@/pages/auth/Login";
 import Register from "@/pages/auth/Register";
 import ForgotPassword from "@/pages/auth/ForgotPassword";
 import NewPassword from "@/pages/auth/NewPassword";
+import Error404 from "@/pages/Error404";
 
 export default function App() {
   const { theme } = useSelector((state: RootState) => state.settings);
@@ -46,6 +47,7 @@ export default function App() {
             <Route path="folders/:folderId" element={<MyDrive />} />
             <Route path="profile" element={<Profile />} />
           </Route>
+          <Route path="*" element={<Error404 />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

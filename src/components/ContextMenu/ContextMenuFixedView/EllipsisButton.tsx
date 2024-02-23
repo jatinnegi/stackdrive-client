@@ -49,7 +49,15 @@ const EllipsisButton: FC<Props> = ({ menu }) => {
           },
         }}
       >
-        <MoreHorizIcon sx={{ color: "text.secondary" }} />
+        <MoreHorizIcon
+          sx={{
+            color: "text.secondary",
+            fontSize: {
+              xs: "18px",
+              lg: "22px",
+            },
+          }}
+        />
       </IconButton>
       <Menu
         anchorEl={anchorEl}

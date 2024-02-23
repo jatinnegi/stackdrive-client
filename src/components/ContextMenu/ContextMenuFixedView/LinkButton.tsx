@@ -25,14 +25,15 @@ const LinkButton: FC<Props> = ({ title, handleClick }) => {
     >
       <Typography
         fontWeight={500}
-        fontSize={{
-          xs: "14px",
-          sm: "18px",
-          md: "22px",
-        }}
+        // fontSize={{
+        //   xs: "14px",
+        //   sm: "18px",
+        //   md: "22px",
+        // }}
+        fontSize={{ xs: "12px", sm: "14px", md: "20px" }}
         sx={{
           textTransform: "capitalize",
-          maxWidth: "150px",
+          maxWidth: "180px",
           overflow: "hidden",
           whiteSpace: "nowrap",
           textOverflow: "ellipsis",

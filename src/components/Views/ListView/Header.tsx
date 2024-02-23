@@ -92,7 +92,9 @@ const Header: FC<Props> = ({
           bgcolor: "background.default",
           top: {
             xs: "164px",
-            md: "181px",
+            sm: "160px",
+            md: "175px",
+            lg: "174px",
           },
           height: "45px",
           display: "grid",
