@@ -13,7 +13,7 @@ interface ISettings {
 const initialState: ISettings = {
   display: false,
   displayMobileMenu: false,
-  theme: "light",
+  theme: "dark",
   layout: "collapse",
 };
 
