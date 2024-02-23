@@ -1,7 +1,6 @@
 import { FC } from "react";
 import { useNavigate } from "react-router-dom";
 import { Box, Typography } from "@mui/material";
-import Lost from "@/components/Art/Lost";
 import Button from "@/components/Button";
 import WorkingGirl from "../../public/assets/working_girl.png";
 
