@@ -1,10 +1,10 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/reducers";
 import { updateResourcesData } from "@/redux/actions";
 import { NavigationProps, ResourceProps } from "@/types";
-import { Box } from "@mui/material";
+import Loader from "@/components/Loader";
 
 export type FetchDataFunctionReturn = {
   data: ResourceProps[];
@@ -20,6 +20,7 @@ const withMyDriveLoading = (
   fetchData: FetchDataFunction
 ) => {
   return () => {
+    const [loaderValue, setLoaderValue] = useState<number>(0);
     const { folderId } = useParams();
     const { init } = useSelector((state: RootState) => state.resources);
     const dispatch = useDispatch();
@@ -53,21 +54,21 @@ const withMyDriveLoading = (
       };
     }, [folderId, fetchData]);
 
-    if (!init)
-      return (
-        <Box
-          component="div"
-          sx={{
-            position: "fixed",
-            height: "100svh",
-            width: "100svw",
-            top: 0,
-            left: 0,
-            bgcolor: "background.default",
-            zIndex: 50,
-          }}
-        />
-      );
+    useEffect(() => {
+      const intervalId = setInterval(() => {
+        if (loaderValue >= 100) {
+          clearInterval(intervalId);
+        } else {
+          setLoaderValue(loaderValue + 5);
+        }
+      }, 100);
+
+      return () => {
+        clearInterval(intervalId);
+      };
+    }, [loaderValue]);
+
+    if (!init) return <Loader value={loaderValue} />;
 
     return <WrappedComponent />;
   };

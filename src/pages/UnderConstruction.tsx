@@ -1,16 +1,36 @@
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Box, Typography } from "@mui/material";
 import Button from "@/components/Button";
+import Loader from "@/components/Loader";
 import WorkingGirl from "../../public/assets/working_girl.png";
 
 const UnderConstruction: FC = () => {
+  const [loaderValue, setLoaderValue] = useState<number>(0);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      if (loaderValue < 100) {
+        setLoaderValue(loaderValue + 10);
+      } else {
+        clearInterval(intervalId);
+      }
+    }, 100);
+
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, [loaderValue]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     navigate("/dashboard");
   };
+
+  if (loaderValue < 100) {
+    return <Loader value={loaderValue} />;
+  }
 
   return (
     <form
@@ -56,13 +76,13 @@ const UnderConstruction: FC = () => {
       </Typography>
       <Box
         component="div"
-        sx={{ position: "relative", width: "100%", maxWidth: "220px" }}
+        sx={{ position: "relative", width: "100%", maxWidth: "222px" }}
       >
-        <img
-          src={WorkingGirl}
-          alt="lost-girl"
-          style={{
+        <Box
+          sx={{
             width: "100%",
+            height: "319px",
+            background: `url("${WorkingGirl}") no-repeat center center/cover`,
           }}
         />
       </Box>

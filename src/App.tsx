@@ -19,7 +19,7 @@ import Login from "@/pages/auth/Login";
 import Register from "@/pages/auth/Register";
 import ForgotPassword from "@/pages/auth/ForgotPassword";
 import NewPassword from "@/pages/auth/NewPassword";
-import UnderContruction from "@/pages/UnderContruction";
+import UnderConstruction from "@/pages/UnderConstruction";
 import Error404 from "@/pages/Error404";
 
 interface LinkProps {
@@ -62,15 +62,11 @@ export default function App() {
             <Route path="folders/:folderId" element={<MyDrive />} />
             <Route path="profile" element={<Profile />} />
           </Route>
-          <Route
-            path="/dashboard/shared-with-me"
-            element={<UnderContruction />}
-          />
           {underConstructionLinks.map((link: LinkProps) => (
             <Route
               key={link.id}
               path={link.path}
-              element={<UnderContruction />}
+              element={<UnderConstruction />}
             />
           ))}
           <Route path="*" element={<Error404 />} />
