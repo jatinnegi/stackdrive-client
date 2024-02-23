@@ -12,6 +12,7 @@ export {
   updateTrash,
   resetData,
   updateSort,
+  resetResources,
 } from "./slices/resources";
 export { addMessage, removeMessage } from "./slices/messages";
 export { updateOperations } from "./slices/operations";

@@ -1,12 +1,12 @@
-import { useMemo } from "react";
-import { lightTheme, darkTheme } from "@/theme";
+import React, { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "@/redux/reducers";
 import { updateSettings } from "@/redux/actions";
-import { Box, Button, Typography, Link } from "@mui/material";
-import dashboardLinks, { LinkProps } from "@/utils/dashboardLinks";
+import { lightTheme, darkTheme } from "@/theme";
 import { isActiveLink } from "@/utils/helper";
+import dashboardLinks, { LinkProps } from "@/utils/dashboardLinks";
+import { Box, Backdrop, Button, Typography, Link } from "@mui/material";
 import StackDriveLogo from "../../public/stackdrive-logo.png";
 
 export default function MobileMenu() {
@@ -24,30 +24,19 @@ export default function MobileMenu() {
     [theme]
   );
 
+  const closeMobileMenu = () => {
+    dispatch(updateSettings({ displayMobileMenu: false }));
+  };
+
   return (
-    <Box
-      component="div"
-      display={{ xs: "block", lg: "none" }}
-      onMouseDown={(e: React.MouseEvent) => {
-        e.stopPropagation();
+    <Backdrop
+      open={displayMobileMenu}
+      sx={{
+        zIndex: 40,
+        bgcolor: "backdrop.primary",
       }}
+      onClick={closeMobileMenu}
     >
-      <Box
-        sx={{
-          position: "fixed",
-          top: 0,
-          left: 0,
-          width: "100vw",
-          height: "100vh",
-          backgroundColor: "backdrop.primary",
-          zIndex: 15,
-          opacity: displayMobileMenu ? 1 : 0,
-          pointerEvents: displayMobileMenu ? "all" : "none",
-        }}
-        onClick={() => {
-          dispatch(updateSettings({ displayMobileMenu: false }));
-        }}
-      />
       <Box
         position="fixed"
         top="0px"
@@ -55,6 +44,9 @@ export default function MobileMenu() {
         height="100vh"
         zIndex={20}
         width="260px"
+        onClick={(e: React.MouseEvent) => {
+          e.stopPropagation();
+        }}
         sx={{
           backgroundColor: "filterBackgroundColor.secondary",
           backdropFilter: "blur(20px)",
@@ -92,6 +84,7 @@ export default function MobileMenu() {
             }}
             onClick={() => {
               navigate("/dashboard");
+              closeMobileMenu();
             }}
           >
             <img
@@ -146,6 +139,7 @@ export default function MobileMenu() {
               }}
               onClick={() => {
                 navigate(link.href);
+                closeMobileMenu();
               }}
             >
               <Box
@@ -178,6 +172,6 @@ export default function MobileMenu() {
           ))}
         </Box>
       </Box>
-    </Box>
+    </Backdrop>
   );
 }

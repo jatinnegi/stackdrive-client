@@ -2,7 +2,11 @@ import { FC, PropsWithChildren, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "@/redux/reducers";
-import { updateSettings, removeNavigation } from "@/redux/actions";
+import {
+  updateSettings,
+  removeNavigation,
+  resetResources,
+} from "@/redux/actions";
 import {
   SxProps,
   Switch,
@@ -167,6 +171,7 @@ export default function ProfileIcon() {
               }}
               onClick={(e: React.MouseEvent) => {
                 handleClose(e, "/auth/login");
+                dispatch(resetResources());
               }}
             >
               Logout

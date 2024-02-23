@@ -61,6 +61,10 @@ interface MyPaletteExtensions {
   backdrop?: { primary?: string };
   hover?: { primary?: string };
   selectionBox?: { primary?: string };
+  explorer?: {
+    background: string;
+    hover: string;
+  };
 }
 
 declare module "@mui/material/styles" {
@@ -169,6 +173,10 @@ const darkThemeOptions: ThemeOptions = {
       },
     },
     hover: { primary: "#3e4c5e" },
+    explorer: {
+      background: "rgba(145, 158, 171, 0.08)",
+      hover: "#27313C",
+    },
     ...MY_EXTENSIONS,
   },
 };
@@ -229,6 +237,10 @@ const lightThemeOptions: ThemeOptions = {
       },
     },
     hover: { primary: "#CFCFCF" },
+    explorer: {
+      background: "rgba(145, 158, 171, 0.08)",
+      hover: "rgba(145, 158, 171, 0.2)",
+    },
     ...MY_EXTENSIONS,
   },
 };

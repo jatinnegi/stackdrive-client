@@ -172,6 +172,16 @@ const resources = createSlice({
       }
       state.data = sortResources(state.data, state.sortBy, state.isOrderAsc);
     },
+    resetResources(state) {
+      state.init = false;
+      state.loading = true;
+      state.navigation = [];
+      state.initialData = [];
+      state.data = [];
+      state.selected = [];
+      state.sortBy = null;
+      state.isOrderAsc = true;
+    },
   },
 });
 
@@ -186,6 +196,7 @@ export const {
   updateTrash,
   resetData,
   updateSort,
+  resetResources,
 } = resources.actions;
 
 export default resources.reducer;
