@@ -1,5 +1,7 @@
-import { Outlet } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { Outlet, useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { resetSelectedIds } from "@/redux/actions";
 import { RootState } from "@/redux/reducers";
 import { Box } from "@mui/material";
 import Sidebar from "@/components/Sidebar/Sidebar";
@@ -12,7 +14,13 @@ import SelectionBox from "@/components/SelectionBox";
 import Operations from "@/components/Operations";
 
 export default function DashboardLayout() {
+  const location = useLocation();
+  const dispatch = useDispatch();
   const { layout } = useSelector((state: RootState) => state.settings);
+
+  useEffect(() => {
+    dispatch(resetSelectedIds());
+  }, [location]);
 
   return (
     <Box

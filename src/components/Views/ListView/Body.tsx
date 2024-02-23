@@ -22,6 +22,7 @@ const RowCell: FC<PropsWithChildren> = ({ children }) => (
       borderBottomWidth: "1px",
       borderBottomColor: "border.primary",
       borderBottomStyle: "solid",
+      backgroundColor: "inherit",
     }}
   >
     {children}
@@ -74,12 +75,13 @@ const Body: FC<Props> = ({ bodyRef, resources, handleScroll }) => {
       >
         {resources.map((row: ResourceProps) => (
           <ResourceWrapper
-            id={row.id}
             key={row.id}
+            id={row.id}
+            name={row.name}
             sx={{
               backgroundColor:
                 selected.indexOf(row.id) === -1
-                  ? "background.default"
+                  ? "background.primary"
                   : "selected.primary",
               width: "100%",
               display: "grid",

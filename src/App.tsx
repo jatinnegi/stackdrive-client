@@ -43,6 +43,7 @@ export default function App() {
           <Route path="/auth/new-password" element={<NewPassword />} />
           <Route path="/dashboard" element={<DashboardLayout />}>
             <Route index element={<MyDrive />} />
+            <Route path="folders/:folderId" element={<MyDrive />} />
             <Route path="profile" element={<Profile />} />
           </Route>
         </Routes>

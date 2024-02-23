@@ -8,6 +8,7 @@ import supportedFileTypes, {
 import { CoordinateProps, ResourceProps } from "@/types";
 import FileImage from "../../public/files/ic_file.svg";
 import { SortBy } from "@/redux/slices/resources";
+import { matchPath } from "react-router-dom";
 
 export const isActiveLink = (href: string): boolean => {
   const pathname = window.location.pathname;
@@ -89,7 +90,21 @@ export const sortResources = (
   return [...folders, ...files];
 };
 
-export const WHITE_LISTED_URLS = new Set(["/dashboard"]);
+export const isPathMatch = (path: string) => {
+  const WHITE_LISTED_URLS = ["/dashboard", "/dashboard/folders/*"];
+
+  for (let i = 0; i < WHITE_LISTED_URLS.length; i++) {
+    const url = WHITE_LISTED_URLS[i];
+
+    if (matchPath(url, path)) {
+      return true;
+    } else {
+      continue;
+    }
+  }
+
+  return false;
+};
 
 export const addToastMessage = (
   dispatch: Dispatch,

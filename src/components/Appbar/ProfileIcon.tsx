@@ -2,7 +2,7 @@ import { FC, PropsWithChildren, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "@/redux/reducers";
-import { updateSettings } from "@/redux/actions";
+import { updateSettings, removeNavigation } from "@/redux/actions";
 import {
   SxProps,
   Switch,
@@ -38,13 +38,19 @@ export default function ProfileIcon() {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleClose = (e: React.MouseEvent) => {
+  const handleClose = (e: React.MouseEvent, url?: string) => {
     e.stopPropagation();
     e.preventDefault();
 
     if (e.button === 2) return;
 
     setAnchorEl(null);
+
+    if (url) {
+      navigate(url);
+    } else {
+      return;
+    }
   };
 
   return (
@@ -109,11 +115,17 @@ export default function ProfileIcon() {
               borderColor: "border.primary",
             }}
           >
-            <ProfileMenuItem onClick={handleClose}>Home</ProfileMenuItem>
             <ProfileMenuItem
               onClick={(e: React.MouseEvent) => {
-                handleClose(e);
-                navigate("/dashboard/profile");
+                handleClose(e, "/dashboard");
+                dispatch(removeNavigation({ id: null }));
+              }}
+            >
+              Home
+            </ProfileMenuItem>
+            <ProfileMenuItem
+              onClick={(e: React.MouseEvent) => {
+                handleClose(e, "/dashboard/profile");
               }}
             >
               Profile
@@ -154,8 +166,7 @@ export default function ProfileIcon() {
                 fontWeight: 600,
               }}
               onClick={(e: React.MouseEvent) => {
-                navigate("/auth/login");
-                handleClose(e);
+                handleClose(e, "/auth/login");
               }}
             >
               Logout

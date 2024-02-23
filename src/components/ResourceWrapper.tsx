@@ -5,16 +5,16 @@ import { RootState } from "@/redux/reducers";
 import {
   updateSelectedId,
   updateMultipleSelectedIds,
-  resetSelectedIds,
   updateOperations,
+  appendNavigation,
 } from "@/redux/actions";
 import { ResourceProps } from "@/types";
 import { Box } from "@mui/material";
 import { BoxProps } from "@mui/material";
 
-type Props = { id: string } & PropsWithChildren & BoxProps;
+type Props = { id: string; name: string } & PropsWithChildren & BoxProps;
 
-const ResourceWrapper: FC<Props> = ({ id, children, ...props }) => {
+const ResourceWrapper: FC<Props> = ({ id, name, children, ...props }) => {
   const navigate = useNavigate();
   const { data, selected } = useSelector((state: RootState) => state.resources);
   const dispatch = useDispatch();
@@ -59,7 +59,7 @@ const ResourceWrapper: FC<Props> = ({ id, children, ...props }) => {
 
     if (item.type === "folder") {
       navigate(`/dashboard/folders/${id}`);
-      dispatch(resetSelectedIds());
+      dispatch(appendNavigation({ id, name }));
     } else {
       dispatch(updateOperations({ information: true }));
     }

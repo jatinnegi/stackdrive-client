@@ -7,9 +7,9 @@ import {
   resetSelectedIds,
   updateMultipleSelectedIdsBySelectionBox,
 } from "@/redux/actions";
+import { isPathMatch } from "@/utils/helper";
 import { Box } from "@mui/material";
 import _ from "lodash";
-import { WHITE_LISTED_URLS } from "@/utils/helper";
 
 const initialCoordinates: CoordinateProps = {
   startX: 0,
@@ -31,7 +31,7 @@ export default function SelectionBox() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!WHITE_LISTED_URLS.has(pathname)) {
+    if (!isPathMatch(pathname)) {
       return;
     }
 

@@ -1,11 +1,14 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { ResourceProps } from "@/types";
-import { initialResourcesData } from "@/data";
+import { NavigationProps, ResourceProps } from "@/types";
 import { sortResources } from "@/utils/helper";
 
 export type SortBy = "name" | "owner" | "size" | "lastModified";
 
 interface IResources {
+  init: boolean;
+  loading: boolean;
+  navigation: NavigationProps[];
+  initialData: ResourceProps[];
   data: ResourceProps[];
   selected: string[];
   sortBy: SortBy | null;
@@ -13,7 +16,11 @@ interface IResources {
 }
 
 const initialState: IResources = {
-  data: initialResourcesData,
+  init: false,
+  loading: true,
+  navigation: [],
+  initialData: [],
+  data: [],
   selected: [],
   sortBy: null,
   isOrderAsc: true,
@@ -31,10 +38,70 @@ interface UpdateSortPayload {
   sortBy: SortBy;
 }
 
+interface UpdateResourceDataPayload {
+  loading?: boolean;
+  navigation?: NavigationProps[];
+  data?: ResourceProps[];
+}
+
+interface AppendNavigationPayload {
+  id: string;
+  name: string;
+}
+
+interface RemoveNavigationPayload {
+  id: string | null;
+}
+
 const resources = createSlice({
   name: "resources",
   initialState,
   reducers: {
+    updateResourcesData(
+      state,
+      action: PayloadAction<UpdateResourceDataPayload>
+    ) {
+      const { loading, data, navigation } = action.payload;
+
+      if (typeof loading === "boolean") {
+        state.loading = loading;
+      }
+
+      if (typeof data === "object") {
+        state.data = data;
+        state.initialData = data;
+        state.init = true;
+      }
+
+      if (typeof navigation === "object") {
+        state.navigation = navigation;
+      }
+    },
+    appendNavigation(state, action: PayloadAction<AppendNavigationPayload>) {
+      const { id, name } = action.payload;
+      state.navigation.push({ id, name });
+    },
+    removeNavigation(state, action: PayloadAction<RemoveNavigationPayload>) {
+      const { id } = action.payload;
+      const updatedNavigations: NavigationProps[] = [];
+
+      if (id === null) {
+        state.navigation = updatedNavigations;
+        return;
+      }
+
+      for (let i = 0; i < state.navigation.length; i++) {
+        updatedNavigations.push(state.navigation[i]);
+
+        if (state.navigation[i].id === id) {
+          break;
+        } else {
+          continue;
+        }
+      }
+
+      state.navigation = updatedNavigations;
+    },
     updateSelectedId(state, action: PayloadAction<Payload>) {
       const { id } = action.payload;
       state.selected = [id];
@@ -92,7 +159,7 @@ const resources = createSlice({
       state.selected = [];
     },
     resetData(state) {
-      state.data = initialResourcesData;
+      state.data = state.initialData;
     },
     updateSort(state, action: PayloadAction<UpdateSortPayload>) {
       const { sortBy } = action.payload;
@@ -109,7 +176,10 @@ const resources = createSlice({
 });
 
 export const {
+  updateResourcesData,
   updateSelectedId,
+  appendNavigation,
+  removeNavigation,
   resetSelectedIds,
   updateMultipleSelectedIds,
   updateMultipleSelectedIdsBySelectionBox,
@@ -117,4 +187,5 @@ export const {
   resetData,
   updateSort,
 } = resources.actions;
+
 export default resources.reducer;

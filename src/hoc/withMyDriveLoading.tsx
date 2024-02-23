@@ -1,51 +1,75 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { ResourceProps } from "@/types";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/reducers";
+import { updateResourcesData } from "@/redux/actions";
+import { NavigationProps, ResourceProps } from "@/types";
+import { Box } from "@mui/material";
 
-export type DataProps = {
-  loading: boolean;
+export type FetchDataFunctionReturn = {
   data: ResourceProps[];
+  navigation: NavigationProps[];
 };
 
 export type FetchDataFunction = (
   folderId: string | undefined
-) => Promise<ResourceProps[]>;
+) => Promise<FetchDataFunctionReturn>;
 
 const withMyDriveLoading = (
-  WrappedComponent: React.ComponentType<DataProps>,
+  WrappedComponent: React.ComponentType,
   fetchData: FetchDataFunction
 ) => {
   return () => {
     const { folderId } = useParams();
-    const { data: resources } = useSelector(
-      (state: RootState) => state.resources
-    );
-    const [data, setData] = useState<ResourceProps[]>([]);
-    const [loading, setLoading] = useState<boolean>(true);
+    const { init } = useSelector((state: RootState) => state.resources);
+    const dispatch = useDispatch();
 
     useEffect(() => {
+      let active = true;
+
       const fetchInitialData = async () => {
         try {
-          setLoading(true);
-          await fetchData(folderId);
-          setData(resources);
+          dispatch(updateResourcesData({ loading: true }));
+          const { data, navigation } = await fetchData(folderId);
+          if (active) {
+            dispatch(updateResourcesData({ data, navigation }));
+          }
         } catch (error) {
-          console.error(error);
+          if (active) {
+            console.error(error);
+          }
         } finally {
-          setLoading(false);
+          if (active) {
+            dispatch(updateResourcesData({ loading: false }));
+          }
         }
       };
 
       fetchInitialData();
+
+      return () => {
+        // For handling race conditions
+        active = false;
+      };
     }, [folderId, fetchData]);
 
-    useEffect(() => {
-      setData(resources);
-    }, [resources]);
+    if (!init)
+      return (
+        <Box
+          component="div"
+          sx={{
+            position: "fixed",
+            height: "100svh",
+            width: "100svw",
+            top: 0,
+            left: 0,
+            bgcolor: "background.default",
+            zIndex: 50,
+          }}
+        />
+      );
 
-    return <WrappedComponent loading={loading} data={data} />;
+    return <WrappedComponent />;
   };
 };
 

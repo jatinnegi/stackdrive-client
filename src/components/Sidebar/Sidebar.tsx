@@ -1,7 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { useResize } from "@/hooks";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "@/redux/reducers";
+import { removeNavigation } from "@/redux/actions";
 import { Box, Button, Typography, Link, Tooltip } from "@mui/material";
 import dashboardLinks, { LinkProps } from "@/utils/dashboardLinks";
 import { isActiveLink } from "@/utils/helper";
@@ -9,6 +10,7 @@ import StackDriveLogo from "../../../public/stackdrive-logo.png";
 
 export default function Sidebar() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { layout } = useSelector((state: RootState) => state.settings);
 
   const { width } = useResize();
@@ -124,6 +126,9 @@ export default function Sidebar() {
               }}
               onClick={() => {
                 navigate(link.href);
+                if (link.href === "/dashboard") {
+                  dispatch(removeNavigation({ id: null }));
+                }
               }}
             >
               <Box

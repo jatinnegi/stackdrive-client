@@ -1,6 +1,11 @@
 import { FC, useState } from "react";
+import { useResize } from "@/hooks";
+import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "@/redux/reducers";
+import { removeNavigation } from "@/redux/actions";
+import { NavigationProps } from "@/types";
 import {
-  Button,
   Menu,
   MenuItem,
   Typography,
@@ -10,8 +15,11 @@ import {
   ListItemText,
   Divider,
 } from "@mui/material";
-import { ArrowDropDown } from "@mui/icons-material";
+import { ChevronRightRounded as ChevronRightIcon } from "@mui/icons-material";
 import { OperationProps, createOperations } from "@/utils/operations";
+import EllipsisButton from "./EllipsisButton";
+import CTAButton from "./CTAButton";
+import LinkButton from "./LinkButton";
 
 interface Props {
   title: string;
@@ -19,6 +27,12 @@ interface Props {
 }
 
 const ContextMenuFixedView: FC<Props> = ({ title, handleClick }) => {
+  const navigate = useNavigate();
+  const { width: viewportWidth } = useResize();
+
+  const dispatch = useDispatch();
+  const { navigation } = useSelector((state: RootState) => state.resources);
+
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
@@ -30,6 +44,56 @@ const ContextMenuFixedView: FC<Props> = ({ title, handleClick }) => {
     setAnchorEl(null);
   };
 
+  const render = () => {
+    const goToHome = () => {
+      navigate("/dashboard");
+      dispatch(removeNavigation({ id: null }));
+    };
+
+    if (navigation.length === 0) {
+      return <CTAButton title={title} handleMenuClick={handleMenuClick} />;
+    }
+
+    if (navigation.length === 1 && viewportWidth > 550) {
+      return (
+        <>
+          <LinkButton title="My Drive" handleClick={goToHome} />
+          <ChevronRightIcon sx={{ color: "text.secondary" }} />
+          <CTAButton
+            title={navigation[0].name}
+            handleMenuClick={handleMenuClick}
+          />
+        </>
+      );
+    }
+
+    let i: number = 0;
+    const ellipsisMenu: NavigationProps[] = [];
+
+    while (i < navigation.length - 1) {
+      ellipsisMenu.push({ id: navigation[i].id, name: navigation[i].name });
+      i += 1;
+    }
+
+    const output: JSX.Element[] = [
+      <EllipsisButton key={i++} menu={ellipsisMenu} />,
+    ];
+
+    output.push(
+      <ChevronRightIcon key={i++} sx={{ color: "text.secondary" }} />
+    );
+
+    output.push(
+      <CTAButton
+        key={i++}
+        title={navigation[navigation.length - 1].name}
+        handleMenuClick={handleMenuClick}
+      />
+    );
+
+    return output;
+  };
+
   return (
     <Box
       component="div"
@@ -38,44 +102,16 @@ const ContextMenuFixedView: FC<Props> = ({ title, handleClick }) => {
         e.stopPropagation();
       }}
     >
-      <Button
+      <Box
+        component="div"
         sx={{
-          transition: "none",
-          color: "text.primary",
-          padding: {
-            xs: "7px",
-            md: "7px 20px",
-          },
-          borderRadius: {
-            xs: "5px",
-            md: "30px",
-          },
+          display: "flex",
+          alignItems: "center",
+          gap: "5px",
         }}
-        onClick={handleMenuClick}
       >
-        <Typography
-          fontWeight={500}
-          fontSize={{ xs: "14px", sm: "18px", md: "24px" }}
-          sx={{
-            textTransform: "capitalize",
-          }}
-        >
-          {title}
-        </Typography>
-        <ArrowDropDown
-          sx={{
-            marginLeft: {
-              xs: "3px",
-              md: "10px",
-            },
-            fontSize: {
-              xs: "16px",
-              sm: "20px",
-              md: "24px",
-            },
-          }}
-        />
-      </Button>
+        {render()}
+      </Box>
       <Menu
         anchorEl={anchorEl}
         open={open}

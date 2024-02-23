@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import React, { useMemo } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/reducers";
 import { useDispatch } from "react-redux";
@@ -55,6 +55,8 @@ export default function LayoutButton() {
           }}
           onMouseDown={(e: React.MouseEvent) => {
             e.stopPropagation();
+          }}
+          onClick={(_: React.MouseEvent) => {
             if (view === "grid") dispatch(updateMyDrive({ view: "grid" }));
             else dispatch(updateMyDrive({ view: "list" }));
           }}

@@ -78,6 +78,7 @@ export const dummyUsers: UserProps[] = [
 
 export const initialResourcesData: ResourceProps[] = [
   {
+    parentId: null,
     id: "1",
     name: "folder_example",
     type: "folder",
@@ -88,6 +89,7 @@ export const initialResourcesData: ResourceProps[] = [
     starred: false,
   },
   {
+    parentId: null,
     id: "2",
     name: "course_images",
     type: "folder",
@@ -98,6 +100,7 @@ export const initialResourcesData: ResourceProps[] = [
     starred: true,
   },
   {
+    parentId: null,
     id: "3",
     name: "23-04-2023",
     type: "folder",
@@ -108,6 +111,7 @@ export const initialResourcesData: ResourceProps[] = [
     starred: false,
   },
   {
+    parentId: null,
     id: "4",
     name: "Untitled document.docx",
     type: "word",
@@ -118,6 +122,7 @@ export const initialResourcesData: ResourceProps[] = [
     starred: false,
   },
   {
+    parentId: null,
     id: "5",
     name: "404 page.xlsx",
     type: "excel",
@@ -128,6 +133,7 @@ export const initialResourcesData: ResourceProps[] = [
     starred: false,
   },
   {
+    parentId: null,
     id: "6",
     name: "jumpstart.png",
     type: "photo",
@@ -138,10 +144,55 @@ export const initialResourcesData: ResourceProps[] = [
     starred: false,
   },
   {
+    parentId: null,
     id: "7",
     name: "Getting Started.pdf",
     type: "PDF",
     imgSrc: PdfPreview,
+    owner: "Jaydon Frankie",
+    lastModified: "December 23, 2023",
+    size: "4 KB",
+    starred: false,
+  },
+  {
+    parentId: "1",
+    id: "8",
+    name: "Documents",
+    type: "folder",
+    imgSrc: null,
+    owner: "Jaydon Frankie",
+    lastModified: "December 23, 2023",
+    size: "4 KB",
+    starred: false,
+  },
+  {
+    parentId: "1",
+    id: "9",
+    name: "preview.pdf",
+    type: "PDF",
+    imgSrc: PdfPreview,
+    owner: "Jaydon Frankie",
+    lastModified: "December 23, 2023",
+    size: "4 KB",
+    starred: false,
+  },
+  {
+    parentId: "8",
+    id: "10",
+    name: "My Images",
+    type: "folder",
+    imgSrc: null,
+    owner: "Jaydon Frankie",
+    lastModified: "December 23, 2023",
+    size: "4 KB",
+    starred: false,
+  },
+  {
+    parentId: "8",
+    id: "11",
+    name: "background.png",
+    type: "images",
+    imgSrc: PngPreview,
     owner: "Jaydon Frankie",
     lastModified: "December 23, 2023",
     size: "4 KB",

@@ -10,7 +10,7 @@ import {
   mainOperations,
   createOperations,
 } from "@/utils/operations";
-import { WHITE_LISTED_URLS } from "@/utils/helper";
+import { isPathMatch } from "@/utils/helper";
 
 interface Props {
   handleClick: (operationId: number) => void;
@@ -26,7 +26,7 @@ const ContextMenu: FC<Props> = ({ handleClick }) => {
   const { width } = useResize();
 
   useEffect(() => {
-    if (!WHITE_LISTED_URLS.has(pathname)) {
+    if (!isPathMatch(pathname)) {
       return;
     }
     function handleEvent(e: MouseEvent) {

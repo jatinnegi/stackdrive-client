@@ -1,13 +1,15 @@
 import { FC } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/reducers";
+import { initialResourcesData } from "@/data";
+import { ResourceProps, NavigationProps } from "@/types";
 import { Box, CircularProgress } from "@mui/material";
 import Header from "@/components/Header";
 import Explorer from "@/components/Explorer";
 import Container from "@/components/Container";
 import withMyDriveLoading, {
-  DataProps,
   FetchDataFunction,
+  FetchDataFunctionReturn,
 } from "@/hoc/withMyDriveLoading";
 
 const Loader: FC<{ view: "list" | "grid" }> = ({ view }) => {
@@ -27,8 +29,11 @@ const Loader: FC<{ view: "list" | "grid" }> = ({ view }) => {
   );
 };
 
-const MyDrive: FC<DataProps> = ({ loading, data }) => {
-  const { view } = useSelector((state: RootState) => state.myDrive);
+const MyDrive: FC = () => {
+  const {
+    resources: { data, loading },
+    myDrive: { view },
+  } = useSelector((state: RootState) => state);
 
   const myOptions = view === "list" ? "0px" : { xs: "25px", md: "30px" };
 
@@ -50,14 +55,39 @@ const MyDrive: FC<DataProps> = ({ loading, data }) => {
   );
 };
 
-const fetchData: FetchDataFunction = async () => {
-  await new Promise((resolve) => {
+const fetchData: FetchDataFunction = async (folderId: string | undefined) => {
+  const result: FetchDataFunctionReturn = await new Promise((resolve) => {
     setTimeout(() => {
-      resolve(true);
+      if (!folderId) {
+        const data: ResourceProps[] = initialResourcesData.filter(
+          (resource: ResourceProps) => resource.parentId === null
+        );
+        resolve({ data, navigation: [] });
+      } else {
+        const data: ResourceProps[] = initialResourcesData.filter(
+          (resource: ResourceProps) => resource.parentId === folderId
+        );
+        const navigation: NavigationProps[] = [];
+        let currentId: string | null = folderId ? folderId : null;
+
+        while (currentId !== null) {
+          const folder: ResourceProps | undefined = initialResourcesData.find(
+            (resource: ResourceProps) => resource.id === currentId
+          );
+          if (!folder) {
+            break;
+          }
+
+          navigation.push({ id: folder.id, name: folder.name });
+          currentId = folder.parentId;
+        }
+        navigation.sort((item1, item2) => +item1.id - +item2.id);
+        resolve({ data, navigation });
+      }
     }, 3000);
   });
 
-  return [];
+  return result;
 };
 
 const MyDriveWithLoading = withMyDriveLoading(MyDrive, fetchData);
