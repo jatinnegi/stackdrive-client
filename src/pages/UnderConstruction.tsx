@@ -58,7 +58,7 @@ const UnderConstruction: FC = () => {
           textAlign: "center",
         }}
       >
-        Comming Soon!
+        Coming Soon!
       </Typography>
       <Typography
         sx={{
