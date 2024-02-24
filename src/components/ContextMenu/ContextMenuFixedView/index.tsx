@@ -37,11 +37,13 @@ const ContextMenuFixedView: FC<Props> = ({ title, handleClick }) => {
   const open = Boolean(anchorEl);
 
   const handleMenuClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    document.body.style.overflowY = "hidden";
     setAnchorEl(event.currentTarget);
   };
 
   const handleClose = () => {
     setAnchorEl(null);
+    document.body.style.overflowY = "auto";
   };
 
   const render = () => {

@@ -49,7 +49,10 @@ const Explorer: FC<Props> = ({ resources }) => {
     );
 
   return (
-    <Box component="div">
+    <Box
+      component="div"
+      sx={{ display: "flex", flexDirection: "column", gap: "20px" }}
+    >
       <Box component="div">
         <Box
           component="div"

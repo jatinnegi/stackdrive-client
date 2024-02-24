@@ -26,7 +26,7 @@ const CTAButton: FC<Props> = ({ title, handleMenuClick }) => {
     >
       <Typography
         fontWeight={500}
-        fontSize={{ xs: "12px", sm: "14px", md: "20px" }}
+        fontSize={{ xs: "12px", sm: "16px", md: "20px" }}
         sx={{
           textTransform: "capitalize",
           maxWidth: {

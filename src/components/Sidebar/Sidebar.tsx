@@ -3,7 +3,15 @@ import { useResize } from "@/hooks";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "@/redux/reducers";
 import { removeNavigation } from "@/redux/actions";
-import { Box, Button, Typography, Link, Tooltip } from "@mui/material";
+import {
+  Box,
+  Button,
+  Typography,
+  Link,
+  Tooltip,
+  MenuList,
+  MenuItem,
+} from "@mui/material";
 import dashboardLinks, { LinkProps } from "@/utils/dashboardLinks";
 import { isActiveLink } from "@/utils/helper";
 import StackDriveLogo from "../../../public/stackdrive-logo.png";
@@ -90,76 +98,81 @@ export default function Sidebar() {
       <Box
         component="div"
         sx={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "5px",
           width: "90%",
           margin: "20px auto",
         }}
       >
-        {dashboardLinks.map((link: LinkProps) => (
-          <Tooltip
-            key={link.id}
-            title={layout === "collapse" ? link.name : ""}
-            placement="right"
-          >
-            <Button
-              fullWidth
-              sx={{
-                display: "flex",
-                flexDirection: fullDisplay ? "row" : "column",
-                textAlign: fullDisplay ? "start" : "center",
-                width: "100%",
-                color: isActiveLink(link.href)
-                  ? "icon.selected"
-                  : "icon.default",
-                padding: fullDisplay ? "10px" : "none",
-                backgroundColor: isActiveLink(link.href)
-                  ? "link.selected"
-                  : "none",
-                "&:hover": {
-                  backgroundColor: isActiveLink(link.href)
-                    ? "link.hover"
-                    : "-moz-initial",
-                  margin: "0px",
-                },
-              }}
-              onClick={() => {
-                navigate(link.href);
-                if (link.href === "/dashboard") {
-                  dispatch(removeNavigation({ id: null }));
-                }
-              }}
+        <MenuList
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "5px",
+          }}
+        >
+          {dashboardLinks.map((link: LinkProps) => (
+            <Tooltip
+              key={link.id}
+              title={layout === "collapse" ? link.name : ""}
+              placement="right"
             >
-              <Box
-                component="span"
+              <MenuItem
                 sx={{
-                  display: "block",
-                  height: fullDisplay ? "25px" : "22px",
-                  width: fullDisplay ? "25px" : "22px",
-                }}
-              >
-                {link.icon}
-              </Box>
-              <Typography
-                fontSize={fullDisplay ? "13px" : "10px"}
-                textTransform="capitalize"
-                fontWeight={600}
-                marginTop={fullDisplay ? "0px" : "3px"}
-                marginLeft={fullDisplay ? "10px" : "0px"}
-                sx={{
-                  color: "inherit",
+                  borderRadius: "4px",
+                  display: "flex",
+                  flexDirection: fullDisplay ? "row" : "column",
+                  textAlign: fullDisplay ? "start" : "center",
                   width: "100%",
-                  overflow: "hidden",
-                  whiteSpace: "nowrap",
-                  textOverflow: "ellipsis",
+                  color: isActiveLink(link.href)
+                    ? "icon.selected"
+                    : "icon.default",
+                  padding: fullDisplay ? "10px" : "none",
+                  backgroundColor: isActiveLink(link.href)
+                    ? "link.selected"
+                    : "none",
+                  "&:hover": {
+                    backgroundColor: isActiveLink(link.href)
+                      ? "link.hover"
+                      : "-moz-initial",
+                    margin: "0px",
+                  },
+                }}
+                onClick={() => {
+                  navigate(link.href);
+                  if (link.href === "/dashboard") {
+                    dispatch(removeNavigation({ id: null }));
+                  }
                 }}
               >
-                {link.name}
-              </Typography>
-            </Button>
-          </Tooltip>
-        ))}
+                <Box
+                  component="span"
+                  sx={{
+                    display: "block",
+                    height: fullDisplay ? "25px" : "22px",
+                    width: fullDisplay ? "25px" : "22px",
+                  }}
+                >
+                  {link.icon}
+                </Box>
+                <Typography
+                  fontSize={fullDisplay ? "13px" : "10px"}
+                  textTransform="capitalize"
+                  fontWeight={600}
+                  marginTop={fullDisplay ? "0px" : "3px"}
+                  marginLeft={fullDisplay ? "10px" : "0px"}
+                  sx={{
+                    color: "inherit",
+                    width: "100%",
+                    overflow: "hidden",
+                    whiteSpace: "nowrap",
+                    textOverflow: "ellipsis",
+                  }}
+                >
+                  {link.name}
+                </Typography>
+              </MenuItem>
+            </Tooltip>
+          ))}
+        </MenuList>
       </Box>
     </Box>
   );
