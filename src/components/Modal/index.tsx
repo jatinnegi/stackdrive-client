@@ -34,7 +34,9 @@ const Modal: FC<Props> = ({
   }, [open]);
 
   useEffect(() => {
-    if (!updateWindowScroll) return;
+    if (!updateWindowScroll) {
+      return;
+    }
 
     if (open) {
       document.body.style.overflowY = "hidden";
