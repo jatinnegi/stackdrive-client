@@ -5,7 +5,7 @@ import { IMessage } from "@/redux/slices/messages";
 import { SuccessToast } from "./Success";
 
 const ToastMessages: FC = () => {
-  const { messages } = useSelector((state: RootState) => state);
+  const messages = useSelector((state: RootState) => state.messages);
 
   const renderMessages = (messages: IMessage[]) => {
     const output = [];

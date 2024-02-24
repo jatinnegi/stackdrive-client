@@ -18,10 +18,13 @@ interface Props {
 
 const ContextMenu: FC<Props> = ({ handleClick }) => {
   const { pathname } = useLocation();
-  const {
-    resources: { selected: selectedResources },
-    contextMenu: { open, resourceContextMenu, anchorX, anchorY },
-  } = useSelector((state: RootState) => state);
+  const selectedResources = useSelector(
+    (state: RootState) => state.resources.selected
+  );
+  const { open, resourceContextMenu, anchorX, anchorY } = useSelector(
+    (state: RootState) => state.contextMenu
+  );
+
   const dispatch = useDispatch();
   const { width } = useResize();
 

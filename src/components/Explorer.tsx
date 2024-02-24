@@ -15,10 +15,11 @@ interface Props {
 }
 
 const Explorer: FC<Props> = ({ resources }) => {
-  const {
-    myDrive: { view },
-    resources: { sortBy, isOrderAsc },
-  } = useSelector((state: RootState) => state);
+  const { view } = useSelector((state: RootState) => state.myDrive);
+  const { sortBy, isOrderAsc } = useSelector(
+    (state: RootState) => state.resources
+  );
+
   const dispatch = useDispatch();
 
   const folders: ResourceProps[] = [];

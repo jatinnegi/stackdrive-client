@@ -16,11 +16,10 @@ import Share from "../Share";
 export type InformationType = "details" | "access";
 
 const Information: FC = () => {
-  const {
-    operations: { information: open },
-    resources: { data, selected },
-  } = useSelector((state: RootState) => state);
-  const { theme } = useSelector((state: RootState) => state.settings);
+  const open = useSelector((state: RootState) => state.operations.information);
+  const theme = useSelector((state: RootState) => state.settings.theme);
+  const { data, selected } = useSelector((state: RootState) => state.resources);
+
   const dispatch = useDispatch();
 
   const headerRef = useRef<HTMLDivElement | null>(null);

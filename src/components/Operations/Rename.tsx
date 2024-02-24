@@ -15,10 +15,9 @@ import {
 } from "@/components/Modal";
 
 const Rename: FC = () => {
-  const {
-    operations: { rename: open },
-    resources: { data, selected },
-  } = useSelector((state: RootState) => state);
+  const open = useSelector((state: RootState) => state.operations.rename);
+  const { data, selected } = useSelector((state: RootState) => state.resources);
+
   const dispatch = useDispatch();
   const [value, setValue] = useState<string>("");
   const [type, setType] = useState<string>("");

@@ -25,10 +25,8 @@ interface Props {
 
 const Share: FC<Props> = ({ open, handleClose, updateWindowScroll }) => {
   const dispatch = useDispatch();
-  const {
-    operations: { share },
-    resources: { data, selected },
-  } = useSelector((state: RootState) => state);
+  const share = useSelector((state: RootState) => state.operations.share);
+  const { data, selected } = useSelector((state: RootState) => state.resources);
 
   const [userEmail, setUserEmail] = useState<string>("");
   const [users, setUsers] = useState<UserProps[]>([]);

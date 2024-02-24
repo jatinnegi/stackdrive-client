@@ -24,10 +24,14 @@ export default function SelectionBox() {
   const [start, setStart] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
   const [coordinates, setCoordinates] =
     useState<CoordinateProps>(initialCoordinates);
-  const {
-    contextMenu: { open: contextMenuOpen },
-    resources: { data: targetElements, selected },
-  } = useSelector((state: RootState) => state);
+
+  const contextMenuOpen = useSelector(
+    (state: RootState) => state.contextMenu.open
+  );
+  const { data: targetElements, selected } = useSelector(
+    (state: RootState) => state.resources
+  );
+
   const dispatch = useDispatch();
 
   useEffect(() => {

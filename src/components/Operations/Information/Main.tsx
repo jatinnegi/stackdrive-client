@@ -24,10 +24,9 @@ const Main: FC<Props> = ({ headerHeight, handleManageAccess, current }) => {
     resource: null,
     loading: false,
   });
-  const {
-    settings: { theme },
-    resources: { data, selected },
-  } = useSelector((state: RootState) => state);
+
+  const theme = useSelector((state: RootState) => state.settings.theme);
+  const { data, selected } = useSelector((state: RootState) => state.resources);
 
   useEffect(() => {
     async function fetchDetails(resourceId: string) {

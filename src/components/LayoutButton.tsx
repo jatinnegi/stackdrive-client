@@ -10,10 +10,8 @@ import {
 } from "@mui/icons-material";
 
 export default function LayoutButton() {
-  const {
-    myDrive: { view: myDriveView },
-    settings: { theme },
-  } = useSelector((state: RootState) => state);
+  const myDriveView = useSelector((state: RootState) => state.myDrive.view);
+  const theme = useSelector((state: RootState) => state.settings.theme);
 
   const dispatch = useDispatch();
 

@@ -8,12 +8,12 @@ interface Props {
 }
 
 export const CountrySelect: FC<Props> = ({
-  value = { code: "US", label: "United States", phone: "1" },
+  value = { code: "IN", label: "India", phone: "91" },
 }) => {
   return (
     <Autocomplete
       sx={{ width: "100%" }}
-      value={value}
+      value={countries[230]} // Default country US
       options={countries}
       autoHighlight
       getOptionLabel={(option) => option.label}
