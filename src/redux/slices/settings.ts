@@ -1,7 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-
-type ThemeType = "light" | "dark";
-type LayoutType = "full" | "collapse";
+import { ThemeType, LayoutType } from "@/types";
 
 interface ISettings {
   display: boolean;

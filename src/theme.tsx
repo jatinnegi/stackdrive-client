@@ -62,8 +62,8 @@ interface MyPaletteExtensions {
   hover?: { primary?: string };
   selectionBox?: { primary?: string };
   explorer?: {
-    background: string;
-    hover: string;
+    background?: string;
+    hover?: string;
   };
 }
 
