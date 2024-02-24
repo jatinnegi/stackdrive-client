@@ -6,7 +6,6 @@ import { RootState } from "@/redux/reducers";
 import { Box } from "@mui/material";
 import Sidebar from "@/components/Sidebar/Sidebar";
 import Toggle from "@/components/Sidebar/Toggle";
-import ModifiedFilter from "@/components/Filters/ModifiedFilter";
 import Appbar from "@/components/Appbar/Appbar";
 import MobileMenu from "@/components/MobileMenu";
 import ContextMenu from "@/components/ContextMenu";
@@ -34,7 +33,6 @@ export default function DashboardLayout() {
       <ContextMenu fixedView={false} />
       <Operations />
       <SelectionBox />
-      <ModifiedFilter />
       <Box
         aria-label="main-container"
         width={{

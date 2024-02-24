@@ -1,5 +1,4 @@
-export { toggleDisplay, updateSettings } from "./slices/settings";
-export { updateMyDrive } from "./slices/myDrive";
+export { updateSettings } from "./slices/settings";
 export { handleContextMenu, onContextMenuClose } from "./slices/contextMenu";
 export {
   updateResourcesData,

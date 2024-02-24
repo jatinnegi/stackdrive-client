@@ -1,7 +1,4 @@
 import { FC } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { RootState } from "@/redux/reducers";
-import { updateMyDrive } from "@/redux/actions";
 import { Box } from "@mui/material";
 import {
   Modal,
@@ -14,18 +11,12 @@ import {
 } from "@/components/Modal";
 import DateCalendar from "@/components/DateCalendar";
 
-const ModifiedFilter: FC = () => {
-  const { displayModifiedFilter } = useSelector(
-    (state: RootState) => state.myDrive
-  );
-  const dispatch = useDispatch();
+interface Props {
+  open: boolean;
+  handleClose: () => void;
+}
 
-  const open = displayModifiedFilter;
-
-  function handleClose() {
-    dispatch(updateMyDrive({ displayModifiedFilter: false }));
-  }
-
+const ModifiedFilter: FC<Props> = ({ open, handleClose }) => {
   return (
     <Modal open={open} handleClose={handleClose}>
       <ModalBody

@@ -2,11 +2,12 @@ import { FC } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/reducers";
 import { lightTheme, darkTheme } from "@/theme";
+import { ViewType } from "@/types";
 import { Box, Typography } from "@mui/material";
 import WorkspaceArt from "@/components/Art/Workspace";
 
 interface Props {
-  view: "grid" | "list";
+  view: ViewType;
 }
 
 const EmptyExplorer: FC<Props> = ({ view }) => {

@@ -3,8 +3,7 @@ import { ArrowDropDown } from "@mui/icons-material";
 import { Box, Button, Typography } from "@mui/material";
 import TypeFilter from "./TypeFilter";
 import PeopleFilter from "./PeopleFilter";
-import { useDispatch } from "react-redux";
-import { updateMyDrive } from "@/redux/actions";
+import ModifiedFilter from "./ModifiedFilter";
 
 interface FilterProps {
   id: number;
@@ -27,11 +26,11 @@ const filters: FilterProps[] = [
 ];
 
 export default function Filters() {
-  const dispatch = useDispatch();
   const [typeFilterEl, setTypeFilterEl] = useState<HTMLElement | null>(null);
   const [peopleFilterEl, setPeopleFilterEl] = useState<HTMLElement | null>(
     null
   );
+  const [modifiedFilterOpen, setModifiedFilterOpen] = useState<boolean>(false);
 
   const typeFilterOpen = Boolean(typeFilterEl);
   const peopleFilterOpen = Boolean(peopleFilterEl);
@@ -40,11 +39,13 @@ export default function Filters() {
     e: React.MouseEvent<HTMLButtonElement>,
     filterId: number
   ) {
-    if (filterId === 1) setTypeFilterEl(e.currentTarget);
-    else if (filterId === 2) setPeopleFilterEl(e.currentTarget);
-    else if (filterId === 3)
-      dispatch(updateMyDrive({ displayModifiedFilter: true })); // Rendering sepeartely due to some UI issues
-    else;
+    if (filterId === 1) {
+      setTypeFilterEl(e.currentTarget);
+    } else if (filterId === 2) {
+      setPeopleFilterEl(e.currentTarget);
+    } else {
+      setModifiedFilterOpen(true);
+    }
   }
 
   return (
@@ -114,6 +115,12 @@ export default function Filters() {
         open={peopleFilterOpen}
         handleClose={() => {
           setPeopleFilterEl(null);
+        }}
+      />
+      <ModifiedFilter
+        open={modifiedFilterOpen}
+        handleClose={() => {
+          setModifiedFilterOpen(false);
         }}
       />
     </>

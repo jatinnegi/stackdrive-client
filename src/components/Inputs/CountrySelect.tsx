@@ -3,13 +3,7 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 
-interface Props {
-  value?: CountryType;
-}
-
-export const CountrySelect: FC<Props> = ({
-  value = { code: "IN", label: "India", phone: "91" },
-}) => {
+export const CountrySelect: FC = () => {
   return (
     <Autocomplete
       sx={{ width: "100%" }}

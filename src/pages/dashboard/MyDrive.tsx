@@ -31,7 +31,7 @@ const Loader: FC<{ view: "list" | "grid" }> = ({ view }) => {
 
 const MyDrive: FC = () => {
   const { data, loading } = useSelector((state: RootState) => state.resources);
-  const view = useSelector((state: RootState) => state.myDrive.view);
+  const view = useSelector((state: RootState) => state.settings.view);
 
   const myOptions = view === "list" ? "0px" : { xs: "25px", md: "30px" };
 

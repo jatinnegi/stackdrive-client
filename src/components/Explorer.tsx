@@ -15,7 +15,7 @@ interface Props {
 }
 
 const Explorer: FC<Props> = ({ resources }) => {
-  const { view } = useSelector((state: RootState) => state.myDrive);
+  const { view } = useSelector((state: RootState) => state.settings);
   const { sortBy, isOrderAsc } = useSelector(
     (state: RootState) => state.resources
   );

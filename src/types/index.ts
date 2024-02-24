@@ -2,6 +2,7 @@ import { SupportedTypes } from "@/utils/supportedFileTypes";
 
 export type ThemeType = "light" | "dark";
 export type LayoutType = "full" | "collapse";
+export type ViewType = "grid" | "list";
 
 export interface NavigationProps {
   id: string;

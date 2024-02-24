@@ -1,24 +1,66 @@
-import React, { useMemo } from "react";
+import { FC, useMemo } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/reducers";
 import { useDispatch } from "react-redux";
-import { updateMyDrive } from "@/redux/actions";
+import { updateSettings } from "@/redux/actions";
 import { Box, Button } from "@mui/material";
 import {
   Sort as ListViewIcon,
   Apps as GridViewIcon,
 } from "@mui/icons-material";
+import { ViewType } from "@/types";
 
-export default function LayoutButton() {
-  const myDriveView = useSelector((state: RootState) => state.myDrive.view);
+const ViewButton: FC<{
+  currentView: ViewType;
+  view: ViewType;
+  onClick: () => void;
+}> = ({ currentView, view, onClick }) => {
   const theme = useSelector((state: RootState) => state.settings.theme);
-
-  const dispatch = useDispatch();
 
   const selectedViewBackgroundColor = useMemo(
     () => (theme === "light" ? "#DBDDDF" : "#565E66"),
     [theme]
   );
+
+  return (
+    <Button
+      sx={{
+        padding: {
+          sm: "4px 5px",
+        },
+        minWidth: "0px",
+        bgcolor:
+          currentView === view
+            ? selectedViewBackgroundColor
+            : "background.paper",
+        color: "text.secondary",
+        borderRadius: "8px",
+      }}
+      onMouseDown={(e: React.MouseEvent) => {
+        e.stopPropagation();
+      }}
+      onClick={onClick}
+    >
+      {view === "grid" ? (
+        <GridViewIcon
+          sx={{
+            fontSize: {
+              xs: "14px",
+              sm: "18px",
+            },
+          }}
+        />
+      ) : (
+        <ListViewIcon sx={{ fontSize: { xs: "14px", sm: "18px" } }} />
+      )}
+    </Button>
+  );
+};
+
+export default function LayoutButton() {
+  const currentView = useSelector((state: RootState) => state.settings.view);
+  const dispatch = useDispatch();
+
   return (
     <Box
       sx={{
@@ -36,43 +78,20 @@ export default function LayoutButton() {
         gap: "5px",
       }}
     >
-      {["grid", "list"].map((view: string) => (
-        <Button
-          key={view}
-          sx={{
-            padding: {
-              sm: "4px 5px",
-            },
-            minWidth: "0px",
-            backgroundColor:
-              myDriveView === view
-                ? selectedViewBackgroundColor
-                : "background.paper",
-            color: "text.secondary",
-            borderRadius: "8px",
-          }}
-          onMouseDown={(e: React.MouseEvent) => {
-            e.stopPropagation();
-          }}
-          onClick={(_: React.MouseEvent) => {
-            if (view === "grid") dispatch(updateMyDrive({ view: "grid" }));
-            else dispatch(updateMyDrive({ view: "list" }));
-          }}
-        >
-          {view === "grid" ? (
-            <GridViewIcon
-              sx={{
-                fontSize: {
-                  xs: "14px",
-                  sm: "18px",
-                },
-              }}
-            />
-          ) : (
-            <ListViewIcon sx={{ fontSize: { xs: "14px", sm: "18px" } }} />
-          )}
-        </Button>
-      ))}
+      <ViewButton
+        currentView={currentView}
+        view="grid"
+        onClick={() => {
+          dispatch(updateSettings({ view: "grid" }));
+        }}
+      />
+      <ViewButton
+        currentView={currentView}
+        view="list"
+        onClick={() => {
+          dispatch(updateSettings({ view: "list" }));
+        }}
+      />
     </Box>
   );
 }

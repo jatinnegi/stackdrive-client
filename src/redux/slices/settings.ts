@@ -1,45 +1,44 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { ThemeType, LayoutType } from "@/types";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { ThemeType, LayoutType, ViewType } from "@/types";
 
 interface ISettings {
-  display: boolean;
   displayMobileMenu: boolean;
   theme: ThemeType;
   layout: LayoutType;
+  view: ViewType;
 }
 
 const initialState: ISettings = {
-  display: false,
   displayMobileMenu: false,
   theme: "dark",
   layout: "collapse",
+  view: "grid",
 };
 
-interface Payload {
-  display?: boolean;
+interface PayloadType {
   displayMobileMenu?: boolean;
   theme?: ThemeType;
   layout?: LayoutType;
+  view?: ViewType;
 }
 
 const settings = createSlice({
   name: "settings",
   initialState,
   reducers: {
-    toggleDisplay(state, { payload }: { payload: Payload }) {
-      const { display } = payload;
-      if (typeof display === "undefined") return;
-      state.display = display;
-    },
-    updateSettings(state, { payload }: { payload: Payload }) {
-      state.theme = payload.theme || state.theme;
-      state.layout = payload.layout || state.layout;
+    updateSettings(state, action: PayloadAction<PayloadType>) {
+      const { displayMobileMenu, theme, layout, view } = action.payload;
 
-      if (typeof payload.displayMobileMenu !== "undefined")
-        state.displayMobileMenu = payload.displayMobileMenu;
+      state.displayMobileMenu =
+        typeof displayMobileMenu !== "undefined"
+          ? displayMobileMenu
+          : state.displayMobileMenu;
+      state.theme = theme ? theme : state.theme;
+      state.layout = layout ? layout : state.layout;
+      state.view = view ? view : state.view;
     },
   },
 });
 
-export const { toggleDisplay, updateSettings } = settings.actions;
+export const { updateSettings } = settings.actions;
 export default settings.reducer;
