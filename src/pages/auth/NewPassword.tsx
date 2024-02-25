@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { addToastMessage } from "@/utils/helper";
 import { Box, Typography } from "@mui/material";
 import { ChevronLeftRounded as ChevronLeftIcon } from "@mui/icons-material";
-import PaperPlane from "@/components/Art/PaperPlane";
+import PaperPlane from "@/illustrations/PaperPlane";
 import Button from "@/components/Button";
 import { ErrorAlert } from "@/components/Alerts";
 import { PasswordField, OtpField } from "@/components/Inputs";

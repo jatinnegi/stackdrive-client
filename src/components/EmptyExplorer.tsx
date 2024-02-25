@@ -4,7 +4,7 @@ import { RootState } from "@/redux/reducers";
 import { lightTheme, darkTheme } from "@/theme";
 import { ViewType } from "@/types";
 import { Box, Typography } from "@mui/material";
-import WorkspaceArt from "@/components/Art/Workspace";
+import WorkspaceArt from "@/illustrations/Workspace";
 
 interface Props {
   view: ViewType;

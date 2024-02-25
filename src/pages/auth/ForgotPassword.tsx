@@ -3,7 +3,7 @@ import { v4 } from "uuid";
 import { useNavigate, Link } from "react-router-dom";
 import { Box, Typography } from "@mui/material";
 import { ChevronLeftRounded as ChevronLeftIcon } from "@mui/icons-material";
-import Lock from "@/components/Art/Lock";
+import Lock from "@/illustrations/Lock";
 import { TextField } from "@/components/Inputs";
 import Button from "@/components/Button";
 import { ErrorAlert } from "@/components/Alerts";
