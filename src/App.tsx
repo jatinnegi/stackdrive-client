@@ -8,7 +8,8 @@ import { CssBaseline } from "@mui/material";
 import ToastMessages from "@/components/Toast";
 
 // Layouts
-import DashboardLayout from "./layout/DashboardLayout";
+import GuestLayout from "@/layout/GuestLayout";
+import DashboardLayout from "@/layout/DashboardLayout";
 import AuthLayout from "@/layout/AuthLayout";
 
 // Pages
@@ -50,13 +51,15 @@ export default function App() {
       <ToastMessages />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/auth" element={<AuthLayout />}>
-            <Route path="login" element={<Login />} />
-            <Route path="register" element={<Register />} />
+          <Route path="/" element={<GuestLayout />}>
+            <Route index element={<Home />} />
+            <Route path="auth" element={<AuthLayout />}>
+              <Route path="login" element={<Login />} />
+              <Route path="register" element={<Register />} />
+            </Route>
+            <Route path="auth/forgot-password" element={<ForgotPassword />} />
+            <Route path="auth/new-password" element={<NewPassword />} />
           </Route>
-          <Route path="/auth/forgot-password" element={<ForgotPassword />} />
-          <Route path="/auth/new-password" element={<NewPassword />} />
           <Route path="/dashboard" element={<DashboardLayout />}>
             <Route index element={<MyDrive />} />
             <Route path="folders/:folderId" element={<MyDrive />} />

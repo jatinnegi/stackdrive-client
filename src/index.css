@@ -14,10 +14,6 @@ body {
   border-radius: 8px;
 }
 
-a:hover {
-  text-decoration: underline !important;
-}
-
 input[type="text"] {
   font-family: "Public sans", sans-serif;
 }

@@ -10,6 +10,7 @@ import PaperPlane from "@/illustrations/PaperPlane";
 import Button from "@/components/Button";
 import { ErrorAlert } from "@/components/Alerts";
 import { PasswordField, OtpField } from "@/components/Inputs";
+import constants from "@/constants";
 
 interface FormProps {
   otp: string;
@@ -112,6 +113,7 @@ const NewPassword: FC = () => {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
+        padding: `${constants.appbar - 10}px 0px`,
       }}
     >
       <Box component="div" sx={{ height: "100px", width: "100px" }}>

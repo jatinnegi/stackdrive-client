@@ -1,17 +1,15 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/reducers";
-import { useNavigate } from "react-router-dom";
 import { useResize } from "@/hooks";
 import { Outlet } from "react-router-dom";
 import { Box } from "@mui/material";
 import { lightTheme, darkTheme } from "@/theme";
+import constants from "@/constants";
 import OverlayImg from "../../public/assets/overlay_2.jpg";
 import IllustrationImg from "../../public/assets/illustration.png";
-import StackdriveLogo from "../../public/stackdrive-logo.png";
 
 export default function AuthLayout() {
-  const navigate = useNavigate();
   const { width: viewportWidth } = useResize();
   const [illustrationWidth, setIllustrationWidth] = useState<string>("60%");
   const authContentRef = useRef<HTMLDivElement | null>(null);
@@ -56,32 +54,6 @@ export default function AuthLayout() {
       }}
     >
       <Box
-        component="span"
-        sx={{
-          position: "fixed",
-          top: 20,
-          left: 20,
-          width: "30px",
-          zIndex: 5,
-          cursor: "pointer",
-          display: {
-            xs: "none",
-            lg: "block",
-          },
-        }}
-        onClick={() => {
-          navigate("/");
-        }}
-      >
-        <img
-          src={StackdriveLogo}
-          alt="stackdrive-logo"
-          style={{
-            width: "100%",
-          }}
-        />
-      </Box>
-      <Box
         component="div"
         sx={{
           background: illustrationBackground,
@@ -123,37 +95,11 @@ export default function AuthLayout() {
             lg: "450px",
           },
           padding: {
-            xs: "none",
-            lg: "20px 10px",
+            xs: `${constants.appbar - 20}px 0px`,
+            lg: `${constants.appbar - 15}px 0px`,
           },
         }}
       >
-        <Box
-          component="span"
-          sx={{
-            width: "30px",
-            cursor: "pointer",
-            margin: {
-              xs: "20px 15px",
-              md: "20px",
-            },
-            display: {
-              xs: "block",
-              lg: "none",
-            },
-          }}
-          onClick={() => {
-            navigate("/");
-          }}
-        >
-          <img
-            src={StackdriveLogo}
-            alt="stackdrive-logo"
-            style={{
-              width: "100%",
-            }}
-          />
-        </Box>
         <Outlet />
       </Box>
     </Box>

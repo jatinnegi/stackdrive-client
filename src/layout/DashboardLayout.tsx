@@ -3,8 +3,8 @@ import { Outlet, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { resetSelectedIds } from "@/redux/actions";
 import { Box } from "@mui/material";
+import { DashboardAppbar } from "@/components/Appbar";
 import Sidebar from "@/components/Sidebar/Sidebar";
-import Appbar from "@/components/Appbar/Appbar";
 import MobileMenu from "@/components/MobileMenu";
 import ContextMenu from "@/components/ContextMenu";
 import SelectionBox from "@/components/SelectionBox";
@@ -28,7 +28,7 @@ export default function DashboardLayout() {
         userSelect: "none",
       }}
     >
-      <Appbar />
+      <DashboardAppbar />
       <MobileMenu />
       <Sidebar />
       <ContextMenu />

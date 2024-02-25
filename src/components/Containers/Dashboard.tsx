@@ -19,11 +19,11 @@ const Dashboard: FC<PropsWithChildren> = ({ children }) => {
         })`,
       }}
       margin={{
-        xs: `${constants.appbar}px auto 30px auto`,
+        xs: `${constants.dashboardAppbar}px auto 30px auto`,
         lg:
           layout === "full"
-            ? `${constants.appbar}px 0px 30px ${constants.sidebar.full}px`
-            : `${constants.appbar}px 0px 30px ${constants.sidebar.collapse}px`,
+            ? `${constants.dashboardAppbar}px 0px 30px ${constants.sidebar.full}px`
+            : `${constants.dashboardAppbar}px 0px 30px ${constants.sidebar.collapse}px`,
       }}
     >
       {children}

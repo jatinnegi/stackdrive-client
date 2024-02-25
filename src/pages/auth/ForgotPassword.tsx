@@ -1,14 +1,15 @@
 import { FC, useState } from "react";
-import { v4 } from "uuid";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/reducers";
 import { useNavigate, Link } from "react-router-dom";
+import { v4 } from "uuid";
 import { Box, Typography } from "@mui/material";
 import { ChevronLeftRounded as ChevronLeftIcon } from "@mui/icons-material";
 import Lock from "@/illustrations/Lock";
 import { TextField } from "@/components/Inputs";
 import Button from "@/components/Button";
 import { ErrorAlert } from "@/components/Alerts";
-import { useSelector } from "react-redux";
-import { RootState } from "@/redux/reducers";
+import constants from "@/constants";
 
 const ForgotPassword: FC = () => {
   const navigate = useNavigate();
@@ -65,6 +66,7 @@ const ForgotPassword: FC = () => {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
+        padding: `${constants.appbar - 10}px 0px`,
       }}
     >
       <Box component="div" sx={{ height: "100px", width: "100px" }}>

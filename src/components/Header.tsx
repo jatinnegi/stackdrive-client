@@ -16,7 +16,7 @@ export default function Header() {
       sx={{
         bgcolor: "background.default",
         position: "sticky",
-        top: constants.appbar,
+        top: constants.dashboardAppbar,
         width: "100%",
         zIndex: 5,
         paddingBottom: "5px",

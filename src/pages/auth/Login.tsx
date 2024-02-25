@@ -80,6 +80,9 @@ const Login: FC = () => {
           color: "text.secondary",
           fontWeight: 500,
           textDecoration: "none",
+          ":hover": {
+            textDecoration: "underline",
+          },
         },
       }}
     >
