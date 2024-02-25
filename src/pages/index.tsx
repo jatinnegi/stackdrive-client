@@ -19,7 +19,12 @@ export default function Home() {
   return (
     <Box
       component="div"
-      sx={{ padding: `${constants.appbar + 40}px 0px 280px 0px` }}
+      sx={{
+        padding: {
+          xs: `${constants.appbar + 40}px 0px`,
+          md: `${constants.appbar + 40}px 0px 280px 0px`,
+        },
+      }}
     >
       <Container>
         <Box
