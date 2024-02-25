@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import Container from "@/components/Container";
+import Container from "@/components/Containers";
 
 export default function Home() {
   return (

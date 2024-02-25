@@ -5,11 +5,11 @@ import ContextMenu from "./ContextMenu";
 import ContextMenuFixedView from "./ContextMenuFixedView";
 
 interface Props {
-  fixedView: boolean;
   title?: string;
+  fixedView?: boolean;
 }
 
-const ContextMenuMain: FC<Props> = ({ fixedView, title }) => {
+const ContextMenuMain: FC<Props> = ({ fixedView = false, title = "" }) => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const folderInputRef = useRef<HTMLInputElement | null>(null);
   const dispatch = useDispatch();
@@ -36,7 +36,7 @@ const ContextMenuMain: FC<Props> = ({ fixedView, title }) => {
   };
 
   const Context = fixedView ? (
-    <ContextMenuFixedView title={title || ""} handleClick={handleClick} />
+    <ContextMenuFixedView title={title} handleClick={handleClick} />
   ) : (
     <ContextMenu handleClick={handleClick} />
   );

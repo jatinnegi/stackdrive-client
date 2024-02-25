@@ -15,6 +15,7 @@ import {
   ArrowUpwardRounded as ArrowUpwardIcon,
   ArrowDownwardRounded as ArrowDownwardIcon,
 } from "@mui/icons-material";
+import constants from "@/constants";
 
 const FONT_SIZE = 13;
 const FONT_WEIGHT = 600;
@@ -91,10 +92,10 @@ const Header: FC<Props> = ({
           width: headerWidth,
           bgcolor: "background.default",
           top: {
-            xs: "164px",
-            sm: "160px",
-            md: "175px",
-            lg: "174px",
+            xs: 94 + constants.appbar,
+            sm: 90 + constants.appbar,
+            md: 105 + constants.appbar,
+            lg: 104 + constants.appbar,
           },
           height: "45px",
           display: "grid",

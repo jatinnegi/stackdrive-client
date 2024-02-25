@@ -2,17 +2,17 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { ThemeType, LayoutType, ViewType } from "@/types";
 
 interface ISettings {
-  displayMobileMenu: boolean;
   theme: ThemeType;
   layout: LayoutType;
   view: ViewType;
+  displayMobileMenu: boolean;
 }
 
 const initialState: ISettings = {
-  displayMobileMenu: false,
   theme: "dark",
   layout: "collapse",
   view: "grid",
+  displayMobileMenu: false,
 };
 
 interface PayloadType {

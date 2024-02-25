@@ -6,7 +6,7 @@ import { ResourceProps, NavigationProps } from "@/types";
 import { Box, CircularProgress } from "@mui/material";
 import Header from "@/components/Header";
 import Explorer from "@/components/Explorer";
-import Container from "@/components/Container";
+import Container from "@/components/Containers";
 import withMyDriveLoading, {
   FetchDataFunction,
   FetchDataFunctionReturn,

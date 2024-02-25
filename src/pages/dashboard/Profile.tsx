@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { Box, Typography } from "@mui/material";
-import Container from "@/components/Container";
+import Container from "@/components/Containers";
 import ProfileImage from "@/components/Profile/ProfileImage";
 import MainSection from "@/components/Profile/MainSection";
 import Usage from "@/components/Profile/Usage";

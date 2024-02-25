@@ -3,8 +3,10 @@ import { useResize } from "@/hooks";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/reducers";
 import { Box } from "@mui/material";
+import constants from "@/constants";
 import Header from "./Header";
 import Main from "./Main";
+import Toggle from "./Toggle";
 
 export default function Sidebar() {
   const headerRef = useRef<HTMLDivElement | null>(null);
@@ -24,27 +26,32 @@ export default function Sidebar() {
   const mainHeight: string = `calc(100svh - ${headerHeight}px)`;
 
   return (
-    <Box
-      display={{ xs: "none", lg: "block" }}
-      position="fixed"
-      top="0px"
-      left="0px"
-      zIndex={20}
-      width={fullDisplay ? "260px" : "85px"}
-      onMouseDown={(e: React.MouseEvent) => {
-        e.stopPropagation();
-      }}
-      sx={{
-        backgroundColor: "background.default",
-        borderRightColor: "border.primary",
-        borderRightStyle: "dashed",
-        borderRightWidth: "1px",
-        backdropFilter: "blur(20px)",
-        px: "5px",
-      }}
-    >
-      <Header ref={headerRef} fullDisplay={fullDisplay} />
-      <Main height={mainHeight} layout={layout} fullDisplay={fullDisplay} />
-    </Box>
+    <>
+      <Box
+        display={{ xs: "none", lg: "block" }}
+        position="fixed"
+        top="0px"
+        left="0px"
+        zIndex={20}
+        width={
+          fullDisplay ? constants.sidebar.full : constants.sidebar.collapse
+        }
+        onMouseDown={(e: React.MouseEvent) => {
+          e.stopPropagation();
+        }}
+        sx={{
+          backgroundColor: "background.default",
+          borderRightColor: "border.primary",
+          borderRightStyle: "dashed",
+          borderRightWidth: "1px",
+          backdropFilter: "blur(20px)",
+          px: "5px",
+        }}
+      >
+        <Header ref={headerRef} fullDisplay={fullDisplay} />
+        <Main height={mainHeight} layout={layout} fullDisplay={fullDisplay} />
+      </Box>
+      <Toggle />
+    </>
   );
 }

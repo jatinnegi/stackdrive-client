@@ -1,20 +1,17 @@
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "@/redux/reducers";
 import { updateSettings } from "@/redux/actions";
-import { IconButton, styled } from "@mui/material";
+import { IconButton } from "@mui/material";
 import {
   ChevronLeft as ChevronLeftIcon,
   ChevronRight as ChevronRightIcon,
 } from "@mui/icons-material";
+import constants from "@/constants";
 
-const ResponsiveIconButton = styled(IconButton)(({ theme }) => ({
-  display: "none",
-  [theme.breakpoints.up("lg")]: {
-    display: "flex",
-  },
-}));
+const HEIGHT = 28;
+const WIDTH = 28;
 
-const Toggle = () => {
+export default function Toggle() {
   const { layout } = useSelector((state: RootState) => state.settings);
   const dispatch = useDispatch();
 
@@ -31,17 +28,26 @@ const Toggle = () => {
       />
     );
 
+  const left =
+    layout === "full"
+      ? constants.sidebar.full - WIDTH / 2
+      : constants.sidebar.collapse - WIDTH / 2;
+
   return (
-    <ResponsiveIconButton
+    <IconButton
       key={`toggle-${layout}`}
       sx={{
+        display: {
+          xs: "none",
+          lg: "flex",
+        },
         transition: "none",
         backgroundColor: "background.default",
         position: "fixed",
-        height: "28px",
-        width: "28px",
+        height: HEIGHT,
+        width: WIDTH,
         top: "40px",
-        left: layout === "full" ? "245px" : "71px",
+        left,
         borderWidth: "1px",
         borderStyle: "dashed",
         borderColor: "border.primary",
@@ -58,8 +64,6 @@ const Toggle = () => {
       }}
     >
       {icon}
-    </ResponsiveIconButton>
+    </IconButton>
   );
-};
-
-export default Toggle;
+}

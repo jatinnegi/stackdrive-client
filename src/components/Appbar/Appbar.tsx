@@ -1,38 +1,39 @@
-import { useMemo } from "react";
-import { RootState } from "@/redux/reducers";
 import { useSelector } from "react-redux";
-import { Box, IconButton, styled } from "@mui/material";
+import { RootState } from "@/redux/reducers";
+import { Box, IconButton } from "@mui/material";
 import { Search as SearchIcon } from "@mui/icons-material";
 import ProfileIcon from "./ProfileIcon";
 import Hamburger from "@/components/Hamburger";
+import constants from "@/constants";
 
 export default function Appbar() {
   const { layout } = useSelector((state: RootState) => state.settings);
 
-  const ResponsiveBox = useMemo(
-    () =>
-      styled(Box)(({ theme }) => ({
-        width: "100%",
-        left: "0px",
-        [theme.breakpoints.up("lg")]: {
-          left: layout === "full" ? "261px" : "86px",
-          width: `calc(100% - ${layout === "full" ? "261px" : "86px"})`,
-        },
-      })),
-    [layout]
-  );
-
   return (
-    <ResponsiveBox
+    <Box
       component="nav"
       sx={{
         position: "fixed",
         top: "0px",
-        height: "70px",
+        height: constants.appbar,
         display: "flex",
         alignItems: "center",
         backgroundColor: "background.default",
         zIndex: 10,
+        width: {
+          xs: "100%",
+          lg:
+            layout === "full"
+              ? `calc(100% - ${constants.sidebar.full + 1}px)`
+              : `calc(100% - ${constants.sidebar.collapse + 1}px)`,
+        },
+        left: {
+          xs: "0px",
+          lg:
+            layout === "full"
+              ? `${constants.sidebar.full + 1}px`
+              : `${constants.sidebar.collapse + 1}px`,
+        },
       }}
     >
       <Box
@@ -83,6 +84,6 @@ export default function Appbar() {
           <ProfileIcon />
         </Box>
       </Box>
-    </ResponsiveBox>
+    </Box>
   );
 }
