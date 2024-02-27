@@ -2,6 +2,7 @@ import {
   CreateNewFolder as CreateNewFolderIcon,
   UploadFile as UploadFileIcon,
   DriveFolderUpload as DriveFolderUploadIcon,
+  FileOpenRounded as FileOpenIcon,
   Download as DownloadIcon,
   Create as RenameIcon,
   GroupAdd as ShareIcon,
@@ -36,26 +37,31 @@ export const createOperations: OperationProps[] = [
 export const mainOperations: OperationProps[] = [
   {
     id: 4,
+    text: "Open",
+    icon: <FileOpenIcon fontSize="small" />,
+  },
+  {
+    id: 5,
     text: "Download",
     icon: <DownloadIcon fontSize="small" />,
   },
   {
-    id: 5,
+    id: 6,
     text: "Rename",
     icon: <RenameIcon fontSize="small" />,
   },
   {
-    id: 6,
+    id: 7,
     text: "Share",
     icon: <ShareIcon fontSize="small" />,
   },
   {
-    id: 7,
+    id: 8,
     text: "Information",
     icon: <InfoIcon fontSize="small" />,
   },
   {
-    id: 8,
+    id: 9,
     text: "Move to trash",
     icon: <DeleteIcon fontSize="small" />,
   },

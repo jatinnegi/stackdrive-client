@@ -1,6 +1,14 @@
 import { FC, useRef } from "react";
-import { useDispatch } from "react-redux";
-import { updateTrash, updateOperations } from "@/redux/actions";
+import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "@/redux/reducers";
+import {
+  updateTrash,
+  updateOperations,
+  appendNavigation,
+} from "@/redux/actions";
+import { ResourceProps } from "@/types";
+import { getResourceById } from "@/utils/helper";
 import ContextMenu from "./ContextMenu";
 import ContextMenuFixedView from "./ContextMenuFixedView";
 
@@ -12,6 +20,9 @@ interface Props {
 const ContextMenuMain: FC<Props> = ({ fixedView = false, title = "" }) => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const folderInputRef = useRef<HTMLInputElement | null>(null);
+
+  const navigate = useNavigate();
+  const { selected, data } = useSelector((state: RootState) => state.resources);
   const dispatch = useDispatch();
 
   const handleClick = (operationId: number) => {
@@ -22,14 +33,30 @@ const ContextMenuMain: FC<Props> = ({ fixedView = false, title = "" }) => {
     } else if (operationId === 3 && folderInputRef.current) {
       folderInputRef.current.click();
     } else if (operationId === 4) {
-      console.log("handle download");
+      const item: ResourceProps | undefined = getResourceById(
+        selected[0],
+        data
+      );
+
+      if (!item) {
+        return;
+      }
+
+      if (item.type === "folder") {
+        navigate(`/dashboard/folders/${item.id}`);
+        dispatch(appendNavigation({ id: item.id, name: item.name }));
+      } else {
+        dispatch(updateOperations({ information: true }));
+      }
     } else if (operationId === 5) {
-      dispatch(updateOperations({ rename: true }));
+      console.log("handle download");
     } else if (operationId === 6) {
-      dispatch(updateOperations({ share: true }));
+      dispatch(updateOperations({ rename: true }));
     } else if (operationId === 7) {
-      dispatch(updateOperations({ information: true }));
+      dispatch(updateOperations({ share: true }));
     } else if (operationId === 8) {
+      dispatch(updateOperations({ information: true }));
+    } else if (operationId === 9) {
       dispatch(updateTrash());
       dispatch(updateOperations({ trash: true }));
     }

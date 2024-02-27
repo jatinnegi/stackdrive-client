@@ -9,6 +9,7 @@ import {
   appendNavigation,
 } from "@/redux/actions";
 import { ResourceProps } from "@/types";
+import { getResourceById } from "@/utils/helper";
 import { Box } from "@mui/material";
 import { BoxProps } from "@mui/material";
 
@@ -49,9 +50,7 @@ const ResourceWrapper: FC<Props> = ({ id, name, children, ...props }) => {
   };
 
   const handleDoubleClick = (id: string) => {
-    const item: ResourceProps | undefined = data.find(
-      (resource: ResourceProps) => resource.id === id
-    );
+    const item: ResourceProps | undefined = getResourceById(id, data);
 
     if (!item) {
       return;

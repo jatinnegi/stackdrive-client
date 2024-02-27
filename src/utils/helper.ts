@@ -1,6 +1,14 @@
 import { Dispatch } from "redux";
 import { v4 } from "uuid";
-import { addMessage, removeMessage } from "@/redux/actions";
+import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "@/redux/reducers";
+import {
+  addMessage,
+  removeMessage,
+  appendNavigation,
+  updateOperations,
+} from "@/redux/actions";
 import supportedFileTypes, {
   SupportedTypes,
   Supported,
@@ -118,4 +126,12 @@ export const addToastMessage = (
   setTimeout(() => {
     dispatch(removeMessage({ id: toastId }));
   }, duration);
+};
+
+export const getResourceById = (id: string, data: ResourceProps[]) => {
+  const item: ResourceProps | undefined = data.find(
+    (resource: ResourceProps) => resource.id === id
+  );
+
+  return item;
 };
