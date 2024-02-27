@@ -1,4 +1,5 @@
-import { FC } from "react";
+import { FC, useState, useEffect, useRef } from "react";
+import { useResize } from "@/hooks";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/reducers";
@@ -9,11 +10,25 @@ import MobileLight from "../../../public/assets/mobile_light.png";
 import MobileDark from "../../../public/assets/mobile_dark.png";
 
 const HeroSection: FC = () => {
+  const desktopIllustrationRef = useRef<HTMLDivElement | null>(null);
+  const [desktopIllustrationWidth, setDesktopIllustrationWidth] =
+    useState<number>(0);
+
   const navigate = useNavigate();
   const theme = useSelector((state: RootState) => state.settings.theme);
+  const { width: viewportWidth } = useResize();
 
   const boxShadow =
     theme === "light" ? "0px 0px 10px #F0F0F0" : "0px 0px 10px #0f1217";
+
+  useEffect(() => {
+    if (!desktopIllustrationRef.current) {
+      return;
+    }
+
+    const { x } = desktopIllustrationRef.current.getBoundingClientRect();
+    setDesktopIllustrationWidth(Math.min(1085, viewportWidth - x));
+  }, [viewportWidth]);
 
   return (
     <Box
@@ -101,14 +116,15 @@ const HeroSection: FC = () => {
         }}
       >
         <Box
+          ref={desktopIllustrationRef}
           component="div"
           sx={{
             position: "absolute",
             background: `url("${
               theme === "light" ? DesktopLight : DesktopDark
-            }") no-repeat center center/cover`,
+            }") no-repeat center left/cover`,
             height: "475px",
-            width: "1085px",
+            width: desktopIllustrationWidth,
             border:
               theme === "light"
                 ? "1px solid hsla(0, 0%, 84%, 0.4)"
