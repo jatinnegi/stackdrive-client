@@ -1,8 +1,14 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { NavigationProps, ResourceProps } from "@/types";
+import { v4 } from "uuid";
+import { NavigationProps, ResourceProps, SupportedTypes } from "@/types";
 import { sortResources } from "@/utils/helper";
 
 export type SortBy = "name" | "owner" | "size" | "lastModified";
+export interface NewResourceProps {
+  parentId: string | null;
+  name: string;
+  type: SupportedTypes;
+}
 
 interface IResources {
   init: boolean;
@@ -42,6 +48,7 @@ interface UpdateResourceDataPayload {
   loading?: boolean;
   navigation?: NavigationProps[];
   data?: ResourceProps[];
+  newResource?: NewResourceProps;
 }
 
 interface AppendNavigationPayload {
@@ -61,7 +68,7 @@ const resources = createSlice({
       state,
       action: PayloadAction<UpdateResourceDataPayload>
     ) {
-      const { loading, data, navigation } = action.payload;
+      const { loading, data, navigation, newResource } = action.payload;
 
       if (typeof loading === "boolean") {
         state.loading = loading;
@@ -75,6 +82,21 @@ const resources = createSlice({
 
       if (typeof navigation === "object") {
         state.navigation = navigation;
+      }
+
+      if (typeof newResource === "object") {
+        const resource: ResourceProps = {
+          parentId: newResource.parentId,
+          id: v4(),
+          name: newResource.name,
+          imgSrc: null,
+          lastModified: "February 28, 2024",
+          owner: "Jaydon Frankie",
+          size: "0 KB",
+          starred: false,
+          type: newResource.type,
+        };
+        state.data.push(resource);
       }
     },
     appendNavigation(state, action: PayloadAction<AppendNavigationPayload>) {

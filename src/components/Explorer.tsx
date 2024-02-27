@@ -41,7 +41,8 @@ const Explorer: FC<Props> = ({ resources }) => {
   if (view === "list")
     return (
       <ListView
-        resources={resources}
+        folders={folders}
+        files={files}
         sortBy={sortBy}
         isOrderAsc={isOrderAsc}
         handleSortUpdate={handleSortUpdate}

@@ -31,11 +31,12 @@ const RowCell: FC<PropsWithChildren> = ({ children }) => (
 
 interface Props {
   bodyRef: ForwardedRef<HTMLDivElement>;
-  resources: ResourceProps[];
+  folders: ResourceProps[];
+  files: ResourceProps[];
   handleScroll: () => void;
 }
 
-const Body: FC<Props> = ({ bodyRef, resources, handleScroll }) => {
+const Body: FC<Props> = ({ bodyRef, files, folders, handleScroll }) => {
   const { selected } = useSelector((state: RootState) => state.resources);
   const dispatch = useDispatch();
 
@@ -73,7 +74,100 @@ const Body: FC<Props> = ({ bodyRef, resources, handleScroll }) => {
           },
         }}
       >
-        {resources.map((row: ResourceProps) => (
+        {folders.map((row: ResourceProps) => (
+          <ResourceWrapper
+            key={row.id}
+            id={row.id}
+            name={row.name}
+            sx={{
+              backgroundColor:
+                selected.indexOf(row.id) === -1
+                  ? "background.primary"
+                  : "selected.primary",
+              width: "100%",
+              display: "grid",
+              gridTemplateColumns:
+                "minmax(250px, 5fr) minmax(150px, 2fr) minmax(150px, 2fr) minmax(150px, 2fr) minmax(80px, 1fr)",
+            }}
+          >
+            <RowCell>
+              <img
+                src={getFileImage(row.type)}
+                alt={row.name}
+                style={{ height: "60%" }}
+              />
+              <Typography
+                sx={{
+                  fontSize: FONT_SIZE,
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                {row.name}
+              </Typography>
+            </RowCell>
+            <RowCell>
+              <img
+                src={dummyUsers[0].img}
+                alt={dummyUsers[0].name}
+                style={{ height: "26px", width: "26px", borderRadius: "50%" }}
+              />
+              <Typography
+                sx={{
+                  fontSize: FONT_SIZE,
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                {row.owner}
+              </Typography>
+            </RowCell>
+            <RowCell>
+              <Typography
+                sx={{
+                  fontSize: FONT_SIZE,
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                {row.lastModified}
+              </Typography>
+            </RowCell>
+            <RowCell>
+              <Typography
+                sx={{
+                  fontSize: FONT_SIZE,
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                {row.size}
+              </Typography>
+            </RowCell>
+            <RowCell>
+              <IconButton
+                sx={{ border: "none", cursor: "default" }}
+                onClick={(e: React.MouseEvent) => {
+                  e.stopPropagation();
+                  dispatch(
+                    handleContextMenu({
+                      resourceContextMenu: true,
+                      anchorX: e.clientX,
+                      anchorY: e.clientY,
+                    })
+                  );
+                }}
+              >
+                <MoreVertIcon fontSize="small" />
+              </IconButton>
+            </RowCell>
+          </ResourceWrapper>
+        ))}
+        {files.map((row: ResourceProps) => (
           <ResourceWrapper
             key={row.id}
             id={row.id}

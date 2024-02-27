@@ -1,8 +1,11 @@
 import { FC, useState } from "react";
+import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { updateOperations } from "@/redux/actions";
+import { updateOperations, updateResourcesData } from "@/redux/actions";
 import { RootState } from "@/redux/reducers";
-import { TextField } from "@mui/material";
+import { NewResourceProps } from "@/redux/slices/resources";
+// import { TextField } from "@mui/material";
+import { TextField } from "@/components/Inputs";
 import {
   Modal,
   ModalBody,
@@ -14,6 +17,7 @@ import {
 } from "@/components/Modal";
 
 const NewFolder: FC = () => {
+  const { folderId } = useParams();
   const { newFolder: open } = useSelector(
     (state: RootState) => state.operations
   );
@@ -30,15 +34,12 @@ const NewFolder: FC = () => {
         <ModalTitle>Create New Folder</ModalTitle>
         <ModalMain>
           <TextField
-            variant="outlined"
-            label="Folder Name"
+            name="name"
             value={value}
+            error=""
+            label="Folder Name"
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-              setValue(e.currentTarget.value);
-            }}
-            sx={{
-              width: "100%",
-              my: "10px",
+              setValue(e.target.value);
             }}
           />
         </ModalMain>
@@ -51,7 +52,20 @@ const NewFolder: FC = () => {
           >
             Cancel
           </ModalCancel>
-          <ModalSave>Create</ModalSave>
+          <ModalSave
+            onClick={() => {
+              const newResource: NewResourceProps = {
+                parentId: folderId ? folderId : null,
+                name: value,
+                type: "folder",
+              };
+              dispatch(updateResourcesData({ newResource }));
+              setValue("");
+              handleClose();
+            }}
+          >
+            Create
+          </ModalSave>
         </ModalActions>
       </ModalBody>
     </Modal>

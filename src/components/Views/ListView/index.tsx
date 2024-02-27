@@ -5,14 +5,16 @@ import Header from "./Header";
 import Body from "./Body";
 
 interface Props {
-  resources: ResourceProps[];
+  folders: ResourceProps[];
+  files: ResourceProps[];
   sortBy: SortBy | null;
   isOrderAsc: boolean;
   handleSortUpdate: (sort: SortBy) => void;
 }
 
 export const ListView: FC<Props> = ({
-  resources,
+  folders,
+  files,
   sortBy,
   isOrderAsc,
   handleSortUpdate,
@@ -37,7 +39,8 @@ export const ListView: FC<Props> = ({
       <Body
         bodyRef={bodyRef}
         handleScroll={handleScroll}
-        resources={resources}
+        folders={folders}
+        files={files}
       />
     </>
   );

@@ -21,7 +21,7 @@ export const TextField: FC<Props> = ({
   onChange,
 }) => {
   return (
-    <FormControl>
+    <FormControl sx={{ width: "100%" }}>
       <MuiTextField
         variant="outlined"
         name={name}
