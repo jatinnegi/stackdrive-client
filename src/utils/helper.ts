@@ -1,14 +1,6 @@
 import { Dispatch } from "redux";
 import { v4 } from "uuid";
-import { useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { RootState } from "@/redux/reducers";
-import {
-  addMessage,
-  removeMessage,
-  appendNavigation,
-  updateOperations,
-} from "@/redux/actions";
+import { addMessage, removeMessage } from "@/redux/actions";
 import supportedFileTypes, {
   SupportedTypes,
   Supported,

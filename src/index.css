@@ -18,6 +18,66 @@ input[type="text"] {
   font-family: "Public sans", sans-serif;
 }
 
+.window-features-background {
+  width: 55%;
+  height: 80svh;
+  min-height: 480px;
+  max-height: 480px;
+  display: flex;
+  border-radius: 20px;
+  transform-origin: center top;
+  transition: transform 50ms linear;
+}
+
+.window-features-background.left {
+  animation: window-features-background-left 550ms ease-in-out forwards;
+}
+.window-features-background.right {
+  animation: window-features-background-right 550ms ease-in-out forwards;
+}
+
+.window-features-background.left .features-container {
+  left: 50px;
+  transition: left ease-in-out 300ms;
+}
+.window-features-background.right .features-container {
+  left: -30px;
+  transition: left ease-in-out 300ms;
+}
+
+@keyframes window-features-background-left {
+  0% {
+    transform: translate(80%, 0px) rotateY(-15deg) rotateX(10deg);
+  }
+
+  40% {
+    transform: translate(-7%, -0px) rotateY(15deg) rotateX(10deg);
+  }
+
+  70% {
+    transform: translate(2%, 0px) rotateY(15deg) rotateX(10deg);
+  }
+
+  100% {
+    transform: translate(0%, 0px) rotateY(15deg) rotateX(10deg);
+  }
+}
+
+@keyframes window-features-background-right {
+  0% {
+    transform: translate(0%, 0px) rotateY(15deg) rotateX(10deg);
+  }
+  40% {
+    transform: translate(87%, 0px) rotateY(-15deg) rotateX(10deg);
+  }
+  70% {
+    transform: translate(78%, 0px) rotateY(-15deg) rotateX(10deg);
+  }
+  100% {
+    transform: translate(80%, 0px) rotateY(-15deg) rotateX(10deg);
+  }
+}
+
 @keyframes display-toast-message {
   0% {
     right: -100%;
