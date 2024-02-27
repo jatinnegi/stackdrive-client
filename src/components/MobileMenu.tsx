@@ -1,8 +1,8 @@
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "@/redux/reducers";
-import { updateSettings } from "@/redux/actions";
+import { updateSettings, removeNavigation } from "@/redux/actions";
 import { lightTheme, darkTheme } from "@/theme";
 import { isActiveLink } from "@/utils/helper";
 import dashboardLinks, { LinkProps } from "@/utils/dashboardLinks";
@@ -84,6 +84,7 @@ export default function MobileMenu() {
             }}
             onClick={() => {
               navigate("/dashboard");
+              dispatch(removeNavigation({ id: null }));
               closeMobileMenu();
             }}
           >
@@ -139,6 +140,9 @@ export default function MobileMenu() {
               }}
               onClick={() => {
                 navigate(link.href);
+                if (link.name === "My Drive") {
+                  dispatch(removeNavigation({ id: null }));
+                }
                 closeMobileMenu();
               }}
             >
