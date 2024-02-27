@@ -107,7 +107,13 @@ const ContextMenu: FC<Props> = ({ handleClick }) => {
       }}
     >
       {operations.map((operation: OperationProps) => (
-        <Box key={operation.id} component="div">
+        <Box
+          key={operation.id}
+          component="div"
+          onMouseDown={(e: React.MouseEvent) => {
+            e.stopPropagation();
+          }}
+        >
           <MenuItem
             key={operation.id}
             sx={{ width: "250px", py: "10px", pointerEvents: "all" }}
@@ -117,7 +123,7 @@ const ContextMenu: FC<Props> = ({ handleClick }) => {
               dispatch(onContextMenuClose());
             }}
             disabled={
-              [5, 7].includes(operation.id) && selectedResources.length !== 1
+              [6, 8].includes(operation.id) && selectedResources.length !== 1
             }
           >
             <ListItemIcon sx={{ fontSize: "12px" }}>

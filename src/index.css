@@ -3,8 +3,8 @@
   padding: 0px;
   box-sizing: border-box;
 }
-html {
-  overflow: hidden scroll;
+body {
+  overflow-x: hidden;
 }
 
 .autocomplete-selected {
