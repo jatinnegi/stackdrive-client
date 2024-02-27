@@ -1,4 +1,5 @@
 import { FC } from "react";
+import ReactDOM from "react-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/reducers";
 import { IMessage } from "@/redux/slices/messages";
@@ -33,7 +34,10 @@ const ToastMessages: FC = () => {
     return output;
   };
 
-  return <>{renderMessages(messages)}</>;
+  return ReactDOM.createPortal(
+    <>{renderMessages(messages)}</>,
+    document.getElementById("messages-root")!
+  );
 };
 
 export default ToastMessages;

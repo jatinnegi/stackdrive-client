@@ -38,7 +38,7 @@ export const SuccessToast: FC<Props> = ({ id, top, display, message }) => {
         gap: "10px",
         boxShadow,
         transition: "all 100ms ease-out 125ms",
-        zIndex: 20,
+        zIndex: 50,
         borderWidth: "1px",
         borderStyle: "solid",
         borderColor: "border.primary",
