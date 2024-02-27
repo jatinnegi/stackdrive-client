@@ -1,6 +1,13 @@
 import React, { FC, useState } from "react";
 import { SortBy } from "@/redux/slices/resources";
-import { Box, Button, IconButton, Menu, MenuItem } from "@mui/material";
+import {
+  Box,
+  Button,
+  IconButton,
+  Menu,
+  MenuItem,
+  Typography,
+} from "@mui/material";
 import {
   KeyboardArrowDown as KeyboardArrowDownIcon,
   ArrowUpwardRounded as ArrowUpwordIcon,
@@ -90,23 +97,28 @@ const Sort: FC<Props> = ({ sortBy, isOrderAsc, handleSortUpdate }) => {
         sx={{
           textTransform: "capitalize",
           color: "text.primary",
-          borderRadius: "20px",
+          borderRadius: "6px",
           borderWidth: "1px",
           borderStyle: "solid",
           borderColor: "border.primary",
-          py: "5px",
-          width: {
-            xs: "140px",
-            md: "150px",
-          },
-          fontSize: {
-            xs: "12px",
-            md: "14px",
-          },
+          py: 1,
           ":hover": { borderColor: "border.secondary" },
         }}
       >
-        {sortBy ? format(sortBy) : "Sort By"}
+        <Typography
+          sx={{
+            fontSize: {
+              xs: "12px",
+              md: "13px",
+            },
+            width: "50px",
+            overflow: "hidden",
+            whiteSpace: "nowrap",
+            textOverflow: "ellipsis",
+          }}
+        >
+          {sortBy ? format(sortBy) : "Sort By"}
+        </Typography>
       </Button>
       <Menu
         anchorEl={anchorEl}
