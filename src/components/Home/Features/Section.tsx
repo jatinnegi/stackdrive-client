@@ -1,4 +1,4 @@
-import { FC, useEffect } from "react";
+import { FC, useEffect, useState } from "react";
 import { Box, Typography } from "@mui/material";
 import { useInView } from "react-intersection-observer";
 
@@ -17,6 +17,7 @@ const Section: FC<Props> = ({
   cb,
   right = true,
 }) => {
+  const [rendered, setRendered] = useState<boolean>(false);
   const { ref, inView } = useInView({
     threshold: 0.5,
   });
@@ -24,6 +25,7 @@ const Section: FC<Props> = ({
   useEffect(() => {
     if (inView) {
       cb(number);
+      setRendered(true);
     }
   }, [inView]);
 
@@ -56,24 +58,46 @@ const Section: FC<Props> = ({
       >
         <Typography
           sx={{
+            position: "relative",
             fontSize: {
               xs: "24px",
-              lg: "32px",
+              md: "32px",
+              lg: "36px",
             },
-            fontWeight: 600,
+            fontWeight: 400,
+            opacity: {
+              xs: 1,
+              md: rendered ? 1 : 0,
+            },
+            transform: {
+              xs: "none",
+              md: rendered ? "translateY(0px)" : "translateY(60px)",
+            },
+            transition: "all 250ms ease-in 30ms",
           }}
         >
           {title}
         </Typography>
         <Typography
           sx={{
+            position: "relative",
             fontSize: {
               xs: "13px",
-              lg: "16px",
+              md: "16px",
+              lg: "18px",
             },
             mt: 2,
             fontWeight: 500,
             color: "text.secondary",
+            opacity: {
+              xs: 1,
+              md: rendered ? 1 : 0,
+            },
+            transform: {
+              xs: "none",
+              md: rendered ? "translateY(0px)" : "translateY(60px)",
+            },
+            transition: "all 250ms ease-in 30ms",
           }}
         >
           {description}
