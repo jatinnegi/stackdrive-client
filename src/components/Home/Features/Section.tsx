@@ -6,8 +6,7 @@ interface Props {
   title: string;
   description: string;
   number: number;
-  add: (num: number) => void;
-  remove: (num: number) => void;
+  cb: (number: number) => void;
   right?: boolean;
 }
 
@@ -15,19 +14,16 @@ const Section: FC<Props> = ({
   title,
   description,
   number,
-  add,
-  remove,
+  cb,
   right = true,
 }) => {
   const { ref, inView } = useInView({
-    threshold: 0.05,
+    threshold: 0.4,
   });
 
   useEffect(() => {
     if (inView) {
-      add(number);
-    } else {
-      remove(number);
+      cb(number);
     }
   }, [inView]);
 

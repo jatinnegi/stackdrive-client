@@ -3,43 +3,83 @@ import { Box } from "@mui/material";
 import Section from "./Section";
 import FeaturesBackground from "./FeaturesBackground";
 
+interface FeatureProps {
+  id: number;
+  title: string;
+  description: string;
+}
+
+const featuresData: FeatureProps[] = [
+  {
+    id: 1,
+    title: "Centralized workspace.",
+    description:
+      "Centralize your workspace and streamline collaboration with our SaaS file storage app, ensuring organized access anytime, anywhere for enhanced productivity.",
+  },
+  {
+    id: 2,
+    title: "Upload your files and folders to the cloud.",
+    description:
+      "Effortlessly upload files and folders to the cloud, streamlining data management and accessibility. Securely store and access your data from anywhere, ensuring peace of mind and flexibility. Simplify collaboration and sharing, empowering users with seamless file management and efficient workflows for enhanced productivity and convenience.",
+  },
+  {
+    id: 3,
+    title: "Share with other people.",
+    description:
+      "Effortlessly share files with others while maintaining seamless organization on-the-go with our SaaS file storage app, accessible anytime, anywhere.",
+  },
+  {
+    id: 4,
+    title: "Analytics and report.",
+    description:
+      "Access detailed analytics and generate reports effortlessly, ensuring informed decisions and organized data management with our versatile SaaS file storage solution.",
+  },
+  {
+    id: 5,
+    title: "Download anywhere anytime and stay organized.",
+    description:
+      "Access files anywhere, anytime, and maintain seamless organization with StackDrive, ensuring your digital workspace stays tidy and efficient.",
+  },
+];
+
 const Features: FC = () => {
-  const [prevScrollPos, setPrevScrollPos] = useState<number>(window.scrollY);
-  const [inViews, setInViews] = useState<number[]>([1]);
+  const [current, setCurrent] = useState<number>(1);
+  // const [prevScrollPos, setPrevScrollPos] = useState<number>(window.scrollY);
+  // const [inViews, setInViews] = useState<number[]>([1]);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollPos = window.scrollY;
-      setPrevScrollPos(currentScrollPos);
-    };
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     const currentScrollPos = window.scrollY;
+  //     setPrevScrollPos(currentScrollPos);
+  //   };
 
-    window.addEventListener("scroll", handleScroll);
+  //   window.addEventListener("scroll", handleScroll);
 
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [prevScrollPos]);
+  //   return () => {
+  //     window.removeEventListener("scroll", handleScroll);
+  //   };
+  // }, [prevScrollPos]);
 
-  const add = (number: number) => {
-    const index = inViews.indexOf(number);
-    let newInViews = inViews;
+  // const add = (number: number) => {
+  //   const index = inViews.indexOf(number);
+  //   let newInViews = inViews;
 
-    if (index !== -1) {
-      newInViews.splice(index, 1);
-    }
+  //   if (index !== -1) {
+  //     newInViews.splice(index, 1);
+  //   }
 
-    newInViews.push(number);
-    setInViews(newInViews);
-  };
+  //   newInViews.push(number);
+  //   setInViews(newInViews);
+  // };
 
-  const remove = (numToRemove: number) => {
-    const newInViews = inViews.filter(
-      (number: number) => number !== numToRemove
-    );
-    setInViews(newInViews);
-  };
+  // const remove = (numToRemove: number) => {
+  //   const newInViews = inViews.filter(
+  //     (number: number) => number !== numToRemove
+  //   );
+  //   setInViews(newInViews);
+  // };
 
-  const current = inViews[inViews.length - 1];
+  // const current = inViews[inViews.length - 1] || 1;
 
   return (
     <Box
@@ -52,31 +92,19 @@ const Features: FC = () => {
         },
       }}
     >
-      <FeaturesBackground number={current} left={current !== 2} />
-      <Section
-        title="Upload your files and folders to the cloud."
-        description="
-        Effortlessly upload files and folders to the cloud, streamlining data management and accessibility. Securely store and access your data from anywhere, ensuring peace of mind and flexibility. Simplify collaboration and sharing, empowering users with seamless file management and efficient workflows for enhanced productivity and convenience."
-        number={1}
-        add={add}
-        remove={remove}
-      />
-      <Section
-        title="Collaborate with other people."
-        description="Easily collaborate with others, fostering teamwork and productivity. Streamline communication, file sharing, and task management in a unified platform, promoting synergy and efficiency among team members for successful project outcomes."
-        number={2}
-        add={add}
-        remove={remove}
-        right={false}
-      />
-      <Section
-        title="Download anywhere anytime."
-        description="
-        Download files anytime, ensuring flexibility and accessibility. Retrieve your data whenever needed, empowering users with seamless access to their resources for increased convenience and productivity."
-        number={3}
-        add={add}
-        remove={remove}
-      />
+      <FeaturesBackground number={current} left={current % 2 === 1} />
+      {featuresData.map((featureData: FeatureProps) => (
+        <Section
+          key={featureData.id}
+          number={featureData.id}
+          title={featureData.title}
+          description={featureData.description}
+          cb={(number: number) => {
+            setCurrent(number);
+          }}
+          right={featureData.id % 2 === 1}
+        />
+      ))}
     </Box>
   );
 };

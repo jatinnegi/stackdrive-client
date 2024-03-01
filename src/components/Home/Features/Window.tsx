@@ -3,8 +3,10 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/redux/reducers";
 import { darkTheme } from "@/theme";
 import { Box } from "@mui/material";
+import CentralizeFeature from "./CentralizeFeature";
 import UploadFeature from "./UploadFeature";
-import CollaborateFeature from "./CollaborateFeature";
+import ShareFeature from "./ShareFeature";
+import AnalyticsFeature from "./AnalyticsFeature";
 import DownloadFeature from "./DownloadFeature";
 
 interface Props {
@@ -229,8 +231,10 @@ const Window: FC<Props> = ({ number, left }) => {
           width: "98%",
         }}
       >
+        <CentralizeFeature number={number} boxShadow={boxShadow} />
         <UploadFeature number={number} boxShadow={boxShadow} />
-        <CollaborateFeature number={number} boxShadow={boxShadow} />
+        <ShareFeature number={number} boxShadow={boxShadow} />
+        <AnalyticsFeature number={number} boxShadow={boxShadow} />
         <DownloadFeature number={number} boxShadow={boxShadow} />
       </Box>
     </Box>
