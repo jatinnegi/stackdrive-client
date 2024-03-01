@@ -1,4 +1,4 @@
-import { FC, useState, useEffect } from "react";
+import { FC, useState } from "react";
 import { Box } from "@mui/material";
 import Section from "./Section";
 import FeaturesBackground from "./FeaturesBackground";
