@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect } from "react";
 import { Box, Typography } from "@mui/material";
 import { useInView } from "react-intersection-observer";
 

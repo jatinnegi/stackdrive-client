@@ -1,19 +1,15 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useState, useEffect } from "react";
 import { Box } from "@mui/material";
 import Section from "./Section";
 import FeaturesBackground from "./FeaturesBackground";
 
 const Features: FC = () => {
   const [prevScrollPos, setPrevScrollPos] = useState<number>(window.scrollY);
-  const [isScrollUp, setIsScrollUp] = useState<boolean>(false);
   const [inViews, setInViews] = useState<number[]>([1]);
 
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollPos = window.scrollY;
-      const isScrollUp = prevScrollPos > currentScrollPos;
-
-      setIsScrollUp(isScrollUp);
       setPrevScrollPos(currentScrollPos);
     };
 
