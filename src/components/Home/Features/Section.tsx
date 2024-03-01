@@ -6,7 +6,8 @@ interface Props {
   title: string;
   description: string;
   number: number;
-  cb: (num: number) => void;
+  add: (num: number) => void;
+  remove: (num: number) => void;
   right?: boolean;
 }
 
@@ -14,18 +15,19 @@ const Section: FC<Props> = ({
   title,
   description,
   number,
-  cb,
+  add,
+  remove,
   right = true,
 }) => {
-  const [rendered, setRendered] = useState<boolean>(false);
   const { ref, inView } = useInView({
-    threshold: 0.5,
+    threshold: 0.05,
   });
 
   useEffect(() => {
     if (inView) {
-      cb(number);
-      setRendered(true);
+      add(number);
+    } else {
+      remove(number);
     }
   }, [inView]);
 
@@ -65,15 +67,6 @@ const Section: FC<Props> = ({
               lg: "36px",
             },
             fontWeight: 400,
-            opacity: {
-              xs: 1,
-              md: rendered ? 1 : 0,
-            },
-            transform: {
-              xs: "none",
-              md: rendered ? "translateY(0px)" : "translateY(60px)",
-            },
-            transition: "all 250ms ease-in 30ms",
           }}
         >
           {title}
@@ -89,15 +82,6 @@ const Section: FC<Props> = ({
             mt: 2,
             fontWeight: 500,
             color: "text.secondary",
-            opacity: {
-              xs: 1,
-              md: rendered ? 1 : 0,
-            },
-            transform: {
-              xs: "none",
-              md: rendered ? "translateY(0px)" : "translateY(60px)",
-            },
-            transition: "all 250ms ease-in 30ms",
           }}
         >
           {description}
