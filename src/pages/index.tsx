@@ -1,8 +1,9 @@
+import constants from "@/constants";
 import { Box } from "@mui/material";
 import Container from "@/components/Containers";
 import HeroSection from "@/components/Home/HeroSection";
 import Features from "@/components/Home/Features";
-import constants from "@/constants";
+import Pricing from "@/components/Home/Pricing";
 
 export default function Home() {
   return (
@@ -18,6 +19,7 @@ export default function Home() {
       <Container>
         <HeroSection />
         <Features />
+        <Pricing />
       </Container>
     </Box>
   );

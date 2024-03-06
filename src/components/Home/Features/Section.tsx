@@ -72,10 +72,14 @@ const Section: FC<Props> = ({
             position: "relative",
             fontSize: {
               xs: "13px",
+              sm: "15px",
               md: "16px",
               lg: "18px",
             },
-            mt: 2,
+            mt: {
+              xs: 1,
+              md: 2,
+            },
             fontWeight: 500,
             color: "text.secondary",
           }}

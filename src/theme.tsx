@@ -65,6 +65,7 @@ interface MyPaletteExtensions {
     background?: string;
     hover?: string;
   };
+  plan?: { background?: string };
 }
 
 declare module "@mui/material/styles" {
@@ -177,6 +178,7 @@ const darkThemeOptions: ThemeOptions = {
       background: "rgba(145, 158, 171, 0.08)",
       hover: "#27313C",
     },
+    plan: { background: "#2c3642" },
     ...MY_EXTENSIONS,
   },
 };
@@ -241,6 +243,7 @@ const lightThemeOptions: ThemeOptions = {
       background: "rgba(145, 158, 171, 0.08)",
       hover: "rgba(145, 158, 171, 0.2)",
     },
+    plan: { background: "#EAEAEA" },
     ...MY_EXTENSIONS,
   },
 };

@@ -21,7 +21,7 @@ const FeaturesBackground: FC<Props> = ({ number, left = true }) => {
         top: constants.appbar + 20,
         left: 0,
         pointerEvents: "none",
-        zIndex: 50,
+        zIndex: 40,
       }}
     >
       <Box component="div" sx={{ perspective: 1800 }}>
