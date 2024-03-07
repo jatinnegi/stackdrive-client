@@ -44,42 +44,6 @@ const featuresData: FeatureProps[] = [
 
 const Features: FC = () => {
   const [current, setCurrent] = useState<number>(1);
-  // const [prevScrollPos, setPrevScrollPos] = useState<number>(window.scrollY);
-  // const [inViews, setInViews] = useState<number[]>([1]);
-
-  // useEffect(() => {
-  //   const handleScroll = () => {
-  //     const currentScrollPos = window.scrollY;
-  //     setPrevScrollPos(currentScrollPos);
-  //   };
-
-  //   window.addEventListener("scroll", handleScroll);
-
-  //   return () => {
-  //     window.removeEventListener("scroll", handleScroll);
-  //   };
-  // }, [prevScrollPos]);
-
-  // const add = (number: number) => {
-  //   const index = inViews.indexOf(number);
-  //   let newInViews = inViews;
-
-  //   if (index !== -1) {
-  //     newInViews.splice(index, 1);
-  //   }
-
-  //   newInViews.push(number);
-  //   setInViews(newInViews);
-  // };
-
-  // const remove = (numToRemove: number) => {
-  //   const newInViews = inViews.filter(
-  //     (number: number) => number !== numToRemove
-  //   );
-  //   setInViews(newInViews);
-  // };
-
-  // const current = inViews[inViews.length - 1] || 1;
 
   return (
     <Box
