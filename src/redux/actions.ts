@@ -15,3 +15,4 @@ export {
 } from "./slices/resources";
 export { addMessage, removeMessage } from "./slices/messages";
 export { updateOperations } from "./slices/operations";
+export { setCredentials, logout as clearCredentials } from "./slices/auth";

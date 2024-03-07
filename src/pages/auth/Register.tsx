@@ -5,6 +5,7 @@ import { registerValidation } from "@/validation/auth";
 import { Typography, Box } from "@mui/material";
 import { TextField, PasswordField } from "@/components/Inputs";
 import Button from "@/components/Button";
+import withGuest from "@/hoc/withGuest";
 
 interface FormProps {
   firstName: string;
@@ -177,4 +178,4 @@ const Register: FC = () => {
   );
 };
 
-export default Register;
+export default withGuest(Register);

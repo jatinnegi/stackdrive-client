@@ -11,6 +11,7 @@ import withMyDriveLoading, {
   FetchDataFunction,
   FetchDataFunctionReturn,
 } from "@/hoc/withMyDriveLoading";
+import withAuth from "@/hoc/withAuth";
 
 const Loader: FC<{ view: "list" | "grid" }> = ({ view }) => {
   return (
@@ -90,4 +91,4 @@ const fetchData: FetchDataFunction = async (folderId: string | undefined) => {
 
 const MyDriveWithLoading = withMyDriveLoading(MyDrive, fetchData);
 
-export default MyDriveWithLoading;
+export default withAuth(MyDriveWithLoading);

@@ -1,11 +1,13 @@
+import { FC } from "react";
 import constants from "@/constants";
 import { Box } from "@mui/material";
 import Container from "@/components/Containers";
 import HeroSection from "@/components/Home/HeroSection";
 import Features from "@/components/Home/Features";
 import Pricing from "@/components/Home/Pricing";
+import withGuest from "@/hoc/withGuest";
 
-export default function Home() {
+const Home: FC = () => {
   return (
     <Box
       component="div"
@@ -23,4 +25,6 @@ export default function Home() {
       </Container>
     </Box>
   );
-}
+};
+
+export default withGuest(Home);

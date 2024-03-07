@@ -11,6 +11,7 @@ import Button from "@/components/Button";
 import { ErrorAlert } from "@/components/Alerts";
 import { PasswordField, OtpField } from "@/components/Inputs";
 import constants from "@/constants";
+import withGuest from "@/hoc/withGuest";
 
 interface FormProps {
   otp: string;
@@ -228,4 +229,4 @@ const NewPassword: FC = () => {
   );
 };
 
-export default NewPassword;
+export default withGuest(NewPassword);

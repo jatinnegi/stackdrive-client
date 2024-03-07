@@ -10,6 +10,7 @@ import { TextField } from "@/components/Inputs";
 import Button from "@/components/Button";
 import { ErrorAlert } from "@/components/Alerts";
 import constants from "@/constants";
+import withGuest from "@/hoc/withGuest";
 
 const ForgotPassword: FC = () => {
   const navigate = useNavigate();
@@ -139,4 +140,4 @@ const ForgotPassword: FC = () => {
   );
 };
 
-export default ForgotPassword;
+export default withGuest(ForgotPassword);

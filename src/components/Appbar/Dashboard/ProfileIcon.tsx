@@ -2,10 +2,12 @@ import { FC, PropsWithChildren, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "@/redux/reducers";
+import { useLogoutMutation } from "@/redux/slices/api/usersApiSlice";
 import {
   updateSettings,
   removeNavigation,
   resetResources,
+  clearCredentials,
 } from "@/redux/actions";
 import {
   SxProps,
@@ -32,6 +34,7 @@ export default function ProfileIcon() {
   const { theme } = useSelector((state: RootState) => state.settings);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [logoutAPICall] = useLogoutMutation();
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -169,9 +172,15 @@ export default function ProfileIcon() {
                 color: "rgb(255, 86, 48)",
                 fontWeight: 600,
               }}
-              onClick={(e: React.MouseEvent) => {
-                handleClose(e, "/auth/login");
-                dispatch(resetResources());
+              onClick={async (e: React.MouseEvent) => {
+                try {
+                  await logoutAPICall({}).unwrap();
+                  dispatch(resetResources());
+                  dispatch(clearCredentials());
+                  handleClose(e, "/auth/login");
+                } catch (error) {
+                  console.log(error);
+                }
               }}
             >
               Logout

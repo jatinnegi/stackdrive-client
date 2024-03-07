@@ -1,11 +1,15 @@
 import { FC, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { useLoginMutation } from "@/redux/slices/api/usersApiSlice";
+import { useDispatch } from "react-redux";
+import { setCredentials } from "@/redux/actions";
 import { loginValidation } from "@/validation/auth";
 import { Typography, Box } from "@mui/material";
 import { TextField, PasswordField } from "@/components/Inputs";
 import { InfoAlert, ErrorAlert } from "@/components/Alerts";
 import Button from "@/components/Button";
+import withGuest from "@/hoc/withGuest";
 
 interface FormProps {
   email: string;
@@ -14,10 +18,15 @@ interface FormProps {
 
 const Login: FC = () => {
   const navigate = useNavigate();
-  const [loading, setLoading] = useState<boolean>(false);
-  const [form, setForm] = useState<FormProps>({ email: "", password: "" });
+  const dispatch = useDispatch();
+
+  const [form, setForm] = useState<FormProps>({
+    email: "demo@stackdrive.com",
+    password: "demo1234",
+  });
   const [errors, setErrors] = useState<FormProps>({ email: "", password: "" });
   const [formError, setFormError] = useState<string>("");
+  const [login, { isLoading }] = useLoginMutation();
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -29,38 +38,24 @@ const Login: FC = () => {
     const { hasErrors, errors }: { hasErrors: boolean; errors: FormProps } =
       loginValidation(form.email, form.password);
 
+    setErrors(errors);
+
     if (hasErrors) {
-      setErrors(errors);
       return;
     }
 
     try {
-      setLoading(true);
       setFormError("");
 
-      await new Promise((resolve, reject) => {
-        setTimeout(() => {
-          if (
-            form.email === "demo@stackdrive.com" &&
-            form.password === "demo1234"
-          ) {
-            resolve(form);
-          } else {
-            setErrors({ email: "", password: "" });
-            reject(new Error("Invalid credentials"));
-          }
-        }, 3000);
-      });
-      setFormError("");
+      const res = await login(form).unwrap();
+      dispatch(setCredentials({ userInfo: res }));
       navigate("/dashboard");
-    } catch (error) {
-      if (error instanceof Error) {
-        setFormError(error.message);
+    } catch (err: any) {
+      if (err.data.error) {
+        setFormError(err.data.error);
       } else {
-        console.error(error);
+        console.log(err);
       }
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -167,10 +162,10 @@ const Login: FC = () => {
             Forgot Password?
           </Link>
         </Box>
-        <Button type="submit" value="Login" loading={loading} />
+        <Button type="submit" value="Login" loading={isLoading} />
       </form>
     </Box>
   );
 };
 
-export default Login;
+export default withGuest(Login);
