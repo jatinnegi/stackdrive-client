@@ -21,8 +21,8 @@ const Login: FC = () => {
   const dispatch = useDispatch();
 
   const [form, setForm] = useState<FormProps>({
-    email: "demo@stackdrive.com",
-    password: "demo1234",
+    email: "",
+    password: "",
   });
   const [errors, setErrors] = useState<FormProps>({ email: "", password: "" });
   const [formError, setFormError] = useState<string>("");
