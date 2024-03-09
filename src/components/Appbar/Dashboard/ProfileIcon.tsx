@@ -32,6 +32,7 @@ const ProfileMenuItem: FC<
 
 export default function ProfileIcon() {
   const { theme } = useSelector((state: RootState) => state.settings);
+  const userInfo = useSelector((state: RootState) => state.auth.userInfo);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [logoutAPICall] = useLogoutMutation();
@@ -59,6 +60,10 @@ export default function ProfileIcon() {
       return;
     }
   };
+
+  if (!userInfo) {
+    return <></>;
+  }
 
   return (
     <>
@@ -104,10 +109,10 @@ export default function ProfileIcon() {
             }}
           >
             <Typography fontWeight={600} fontSize="14px">
-              Jaydon Frankie
+              {userInfo.firstName} {userInfo.lastName}
             </Typography>
             <Typography fontWeight={400} color="text.secondary" fontSize="13px">
-              minimals@demo.com
+              {userInfo.email}
             </Typography>
           </Box>
           <Box
@@ -209,7 +214,7 @@ export default function ProfileIcon() {
         onMouseDown={handleMouseDown}
       >
         <img
-          src="https://api-prod-minimal-v510.vercel.app/assets/images/avatar/avatar_5.jpg"
+          src={userInfo.profilePicture}
           alt="profile"
           height="100%"
           width="100%"

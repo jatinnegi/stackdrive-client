@@ -1,11 +1,20 @@
 import { FC } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/reducers";
 import { Box, Typography } from "@mui/material";
 import Container from "@/components/Containers";
 import ProfileImage from "@/components/Profile/ProfileImage";
 import MainSection from "@/components/Profile/MainSection";
 import Usage from "@/components/Profile/Usage";
+// import withAuth from "@/hoc/withAuth";
 
 const Profile: FC = () => {
+  const userInfo = useSelector((state: RootState) => state.auth.userInfo);
+
+  if (!userInfo) {
+    return <></>;
+  }
+
   return (
     <Container>
       <Typography
@@ -24,7 +33,7 @@ const Profile: FC = () => {
           pb: 1,
         }}
       >
-        Avery Langef
+        {`${userInfo.firstName} ${userInfo.lastName}`}
       </Typography>
       <Box
         component="div"
@@ -47,7 +56,7 @@ const Profile: FC = () => {
             width: { xs: "100%", md: "450px" },
           }}
         >
-          <ProfileImage />
+          <ProfileImage imgSrc={userInfo.profilePicture} />
           <Box
             component="div"
             sx={{
@@ -62,7 +71,7 @@ const Profile: FC = () => {
             <Usage />
           </Box>
         </Box>
-        <MainSection />
+        <MainSection userInfo={userInfo} />
         <Box
           sx={{
             display: { xs: "flex", md: "none" },
@@ -78,4 +87,5 @@ const Profile: FC = () => {
   );
 };
 
+// export default withAuth(Profile);
 export default Profile;

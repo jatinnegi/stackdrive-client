@@ -5,7 +5,11 @@ import { Box, Typography } from "@mui/material";
 import { AddAPhoto as AddPhotoIcon } from "@mui/icons-material";
 import CardBody from "./CardBody";
 
-const ProfileImage: FC = () => {
+interface Props {
+  imgSrc: string;
+}
+
+const ProfileImage: FC<Props> = ({ imgSrc }) => {
   const [profileHover, setProfileHover] = useState<boolean>(false);
   const ref = useRef<HTMLInputElement | null>(null);
 
@@ -70,8 +74,7 @@ const ProfileImage: FC = () => {
               position: "relative",
               height: "120px",
               width: "120px",
-              background:
-                'url("https://api-prod-minimal-v510.vercel.app/assets/images/avatar/avatar_1.jpg") no-repeat center center/cover',
+              background: `url("${imgSrc}") no-repeat center center/cover`,
               borderRadius: "50%",
             }}
           />

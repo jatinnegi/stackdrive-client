@@ -5,9 +5,7 @@ interface IAuth {
 }
 
 const initialState: IAuth = {
-  userInfo: localStorage.getItem("userInfo")
-    ? JSON.parse(localStorage.getItem("userInfo") || "{}")
-    : null,
+  userInfo: null,
 };
 
 interface SetCredentialsPayload {
@@ -21,11 +19,9 @@ const auth = createSlice({
     setCredentials(state, action: PayloadAction<SetCredentialsPayload>) {
       const { userInfo } = action.payload;
       state.userInfo = userInfo;
-      localStorage.setItem("userInfo", JSON.stringify(state.userInfo));
     },
     logout(state) {
       state.userInfo = null;
-      localStorage.removeItem("userInfo");
     },
   },
 });

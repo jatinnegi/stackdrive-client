@@ -1,6 +1,5 @@
 import { FC, PropsWithChildren, useState } from "react";
 import { Box, TextField, Button } from "@mui/material";
-import { CountrySelect } from "@/components/Inputs";
 import CardBody from "./CardBody";
 
 const Row: FC<PropsWithChildren> = ({ children }) => (
@@ -23,7 +22,8 @@ const Row: FC<PropsWithChildren> = ({ children }) => (
 );
 
 interface FormProps {
-  fullName: string;
+  firstName: string;
+  lastName: string;
   email: string;
   phoneNumber: string;
   state: string;
@@ -32,15 +32,20 @@ interface FormProps {
   zipCode: string;
 }
 
-const MainSection: FC = () => {
+interface Props {
+  userInfo: Record<string, string>;
+}
+
+const MainSection: FC<Props> = ({ userInfo }) => {
   const [values, setValues] = useState<FormProps>({
-    fullName: "Avery Langef",
-    email: "avery@hotmail.com",
-    phoneNumber: "9876543210",
-    state: "Las Vegas",
-    city: "Nevada",
-    address: "402 Street",
-    zipCode: "900016",
+    firstName: userInfo.firstName,
+    lastName: userInfo.lastName,
+    email: userInfo.email,
+    phoneNumber: userInfo.phoneNumber,
+    state: userInfo.state,
+    city: userInfo.city,
+    address: userInfo.address,
+    zipCode: userInfo.zipCode,
   });
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -61,12 +66,22 @@ const MainSection: FC = () => {
         <Row>
           <TextField
             variant="outlined"
-            name="fullName"
-            label="Full Name"
-            value={values.fullName}
+            name="firstName"
+            label="First Name"
+            value={values.firstName}
             onChange={onChange}
             autoComplete="off"
           />
+          <TextField
+            variant="outlined"
+            name="lastName"
+            label="Last Name"
+            value={values.lastName}
+            onChange={onChange}
+            autoComplete="off"
+          />
+        </Row>
+        <Row>
           <TextField
             variant="outlined"
             name="email"
@@ -79,20 +94,11 @@ const MainSection: FC = () => {
         <Row>
           <TextField
             variant="outlined"
-            name="phoneNumber"
-            label="Phone Number"
-            value={values.phoneNumber}
-            onChange={onChange}
-          />
-          <CountrySelect />
-        </Row>
-        <Row>
-          <TextField
-            variant="outlined"
             name="state"
             label="State/Region"
             value={values.state}
             onChange={onChange}
+            autoComplete="off"
           />
           <TextField
             variant="outlined"
@@ -100,6 +106,7 @@ const MainSection: FC = () => {
             label="City"
             value={values.city}
             onChange={onChange}
+            autoComplete="off"
           />
         </Row>
         <Row>
@@ -109,6 +116,7 @@ const MainSection: FC = () => {
             label="Address"
             value={values.address}
             onChange={onChange}
+            autoComplete="off"
           />
           <TextField
             variant="outlined"
@@ -116,6 +124,7 @@ const MainSection: FC = () => {
             label="Zip/Code"
             value={values.zipCode}
             onChange={onChange}
+            autoComplete="off"
           />
         </Row>
       </Box>

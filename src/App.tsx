@@ -38,7 +38,7 @@ const underConstructionLinks: LinkProps[] = [
 ];
 
 export default function App() {
-  const { theme } = useSelector((state: RootState) => state.settings);
+  const theme = useSelector((state: RootState) => state.settings.theme);
 
   const currentTheme = useMemo(() => {
     if (theme === "light") return lightTheme;
