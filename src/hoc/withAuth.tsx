@@ -10,7 +10,7 @@ const withAuth = (WrappedComponent: React.ComponentType) => () => {
   const dispatch = useDispatch();
   const userInfo = useSelector((state: RootState) => state.auth.userInfo);
   const [getUserApiCall] = useAuthMutation();
-  const [loading, setLoading] = useState<boolean>(userInfo === null);
+  const [loading, setLoading] = useState<boolean>(userInfo !== null);
 
   useEffect(() => {
     const fetchUser = async () => {

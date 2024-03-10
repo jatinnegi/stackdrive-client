@@ -9,7 +9,7 @@ import Blank from "@/components/Blank";
 const withGuest = (WrappedComponent: React.ComponentType) => () => {
   const userInfo = useSelector((state: RootState) => state.auth.userInfo);
   const dispatch = useDispatch();
-  const [loading, setLoading] = useState<boolean>(userInfo !== null);
+  const [loading, setLoading] = useState<boolean>(userInfo === null);
   const [getUserApiCall] = useAuthMutation();
 
   useEffect(() => {
