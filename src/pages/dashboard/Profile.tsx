@@ -6,7 +6,7 @@ import Container from "@/components/Containers";
 import ProfileImage from "@/components/Profile/ProfileImage";
 import MainSection from "@/components/Profile/MainSection";
 import Usage from "@/components/Profile/Usage";
-// import withAuth from "@/hoc/withAuth";
+import withAuth from "@/hoc/withAuth";
 
 const Profile: FC = () => {
   const userInfo = useSelector((state: RootState) => state.auth.userInfo);
@@ -87,5 +87,4 @@ const Profile: FC = () => {
   );
 };
 
-// export default withAuth(Profile);
-export default Profile;
+export default withAuth(Profile);

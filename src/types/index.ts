@@ -28,4 +28,11 @@ export interface CoordinateProps {
   endY: number;
 }
 
+export interface CountryType {
+  code: string;
+  label: string;
+  phone: string;
+  suggested?: boolean;
+}
+
 export type { SupportedTypes };

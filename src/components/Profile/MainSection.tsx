@@ -1,5 +1,16 @@
 import { FC, PropsWithChildren, useState } from "react";
-import { Box, TextField, Button } from "@mui/material";
+import { useDispatch } from "react-redux";
+import { setCredentials } from "@/redux/actions";
+import { useUpdateMutation } from "@/redux/slices/api/usersApiSlice";
+import { addToastMessage } from "@/utils/helper";
+import {
+  Box,
+  TextField,
+  Button,
+  Typography,
+  CircularProgress,
+} from "@mui/material";
+import { Phone as PhoneField } from "@/components/Inputs/Phone";
 import CardBody from "./CardBody";
 
 const Row: FC<PropsWithChildren> = ({ children }) => (
@@ -21,10 +32,61 @@ const Row: FC<PropsWithChildren> = ({ children }) => (
   </Box>
 );
 
+const FormButton: FC<
+  {
+    type: "save" | "delete";
+    isLoading: boolean;
+    onClick: () => void;
+  } & PropsWithChildren
+> = ({ type, isLoading, onClick, children }) => (
+  <Button
+    onClick={onClick}
+    variant="contained"
+    disableElevation
+    sx={{
+      height: "35px",
+      fontSize: "14px",
+      textTransform: "capitalize",
+      bgcolor:
+        type === "save"
+          ? "button.primary.background"
+          : "button.danger.background",
+      color: type === "save" ? "button.primary.text" : "button.danger.text",
+      fontWeight: 600,
+      ":hover": {
+        bgcolor:
+          type === "save" ? "button.primary.hover" : "button.danger.hover",
+      },
+    }}
+    disabled={isLoading}
+  >
+    <CircularProgress
+      size="35px"
+      style={{
+        opacity: isLoading ? 1 : 0,
+        position: "absolute",
+        color: "rgba(145, 158, 171, 0.5)",
+        padding: "8px",
+      }}
+    />
+    <Typography
+      sx={{
+        opacity: isLoading ? 0 : 1,
+        textTransform: "capitalize",
+        fontWeight: 700,
+        fontSize: "0.875rem",
+      }}
+    >
+      {children}
+    </Typography>
+  </Button>
+);
+
 interface FormProps {
   firstName: string;
   lastName: string;
   email: string;
+  countryCode: string;
   phoneNumber: string;
   state: string;
   city: string;
@@ -37,10 +99,14 @@ interface Props {
 }
 
 const MainSection: FC<Props> = ({ userInfo }) => {
+  const dispatch = useDispatch();
+  const [updateUserApiCall, { isLoading: isSaveLoading }] = useUpdateMutation();
+
   const [values, setValues] = useState<FormProps>({
     firstName: userInfo.firstName,
     lastName: userInfo.lastName,
     email: userInfo.email,
+    countryCode: userInfo.countryCode,
     phoneNumber: userInfo.phoneNumber,
     state: userInfo.state,
     city: userInfo.city,
@@ -50,6 +116,16 @@ const MainSection: FC<Props> = ({ userInfo }) => {
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValues({ ...values, [e.target.name]: e.target.value });
+  };
+
+  const handleSave = async () => {
+    try {
+      const res = await updateUserApiCall(values).unwrap();
+      dispatch(setCredentials({ userInfo: res }));
+      addToastMessage(dispatch, "User updated successfully!");
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -71,6 +147,7 @@ const MainSection: FC<Props> = ({ userInfo }) => {
             value={values.firstName}
             onChange={onChange}
             autoComplete="off"
+            disabled
           />
           <TextField
             variant="outlined"
@@ -79,6 +156,7 @@ const MainSection: FC<Props> = ({ userInfo }) => {
             value={values.lastName}
             onChange={onChange}
             autoComplete="off"
+            disabled
           />
         </Row>
         <Row>
@@ -89,6 +167,21 @@ const MainSection: FC<Props> = ({ userInfo }) => {
             value={values.email}
             onChange={onChange}
             autoComplete="off"
+            disabled
+          />
+          <PhoneField
+            name="phoneNumber"
+            countryCode={values.countryCode}
+            setCountryCode={(newCountryCode: string) => {
+              setValues({ ...values, countryCode: newCountryCode });
+            }}
+            value={values.phoneNumber}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              if (isNaN(+e.target.value)) {
+                return;
+              }
+              setValues({ ...values, phoneNumber: e.target.value });
+            }}
           />
         </Row>
         <Row>
@@ -138,38 +231,12 @@ const MainSection: FC<Props> = ({ userInfo }) => {
           gap: "10px",
         }}
       >
-        <Button
-          variant="contained"
-          disableElevation
-          sx={{
-            fontSize: "14px",
-            textTransform: "capitalize",
-            bgcolor: "button.primary.background",
-            color: "button.primary.text",
-            fontWeight: 600,
-            ":hover": {
-              bgcolor: "button.primary.hover",
-            },
-          }}
-        >
+        <FormButton type="save" isLoading={isSaveLoading} onClick={handleSave}>
           Save Changes
-        </Button>
-        <Button
-          variant="contained"
-          disableElevation
-          sx={{
-            fontSize: "14px",
-            textTransform: "capitalize",
-            bgcolor: "button.danger.background",
-            color: "button.danger.text",
-            fontWeight: 700,
-            ":hover": {
-              bgcolor: "button.danger.hover",
-            },
-          }}
-        >
+        </FormButton>
+        <FormButton type="delete" isLoading={false} onClick={() => {}}>
           Delete My Account
-        </Button>
+        </FormButton>
       </Box>
     </CardBody>
   );

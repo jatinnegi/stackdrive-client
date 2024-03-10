@@ -180,11 +180,12 @@ export default function ProfileIcon() {
               onClick={async (e: React.MouseEvent) => {
                 try {
                   await logoutAPICall({}).unwrap();
-                  dispatch(resetResources());
-                  dispatch(clearCredentials());
-                  handleClose(e, "/auth/login");
                 } catch (error) {
                   console.log(error);
+                } finally {
+                  dispatch(clearCredentials());
+                  dispatch(resetResources());
+                  handleClose(e, "/auth/login");
                 }
               }}
             >
