@@ -35,6 +35,12 @@ const ViewButton: FC<{
             : "background.paper",
         color: "text.secondary",
         borderRadius: "8px",
+        ":hover": {
+          bgcolor:
+            currentView === view
+              ? selectedViewBackgroundColor
+              : "background.paper",
+        },
       }}
       onMouseDown={(e: React.MouseEvent) => {
         e.stopPropagation();
