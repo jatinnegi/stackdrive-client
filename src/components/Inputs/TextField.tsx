@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect, useRef } from "react";
 import {
   FormControl,
   FormHelperText,
@@ -10,6 +10,7 @@ interface Props {
   value: string;
   label: string;
   error: string;
+  autoFocus: boolean;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -18,11 +19,21 @@ export const TextField: FC<Props> = ({
   value,
   label,
   error,
+  autoFocus = false,
   onChange,
 }) => {
+  const ref = useRef<HTMLInputElement | null>(null);
+
+  useEffect(() => {
+    if (autoFocus && ref.current) {
+      ref.current.focus();
+    }
+  }, [autoFocus]);
+
   return (
     <FormControl sx={{ width: "100%" }}>
       <MuiTextField
+        inputRef={ref}
         variant="outlined"
         name={name}
         label={label}

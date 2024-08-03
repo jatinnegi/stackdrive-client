@@ -3,6 +3,6 @@ export default {
   dashboardAppbar: 70,
   sidebar: {
     full: 260,
-    collapse: 85,
+    collapse: 60,
   },
 };

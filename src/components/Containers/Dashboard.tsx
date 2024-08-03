@@ -10,20 +10,16 @@ const Dashboard: FC<PropsWithChildren> = ({ children }) => {
   return (
     <Box
       aria-label="main-container"
-      width={{
-        xs: "100%",
-        lg: `calc(100% - ${
-          layout === "full"
-            ? `${constants.sidebar.full}px`
-            : `${constants.sidebar.collapse}px`
-        })`,
-      }}
       margin={{
         xs: `${constants.dashboardAppbar}px auto 30px auto`,
         lg:
           layout === "full"
             ? `${constants.dashboardAppbar}px 0px 30px ${constants.sidebar.full}px`
             : `${constants.dashboardAppbar}px 0px 30px ${constants.sidebar.collapse}px`,
+      }}
+      style={{
+        width: "100%",
+        transition: "margin 75ms ease-out",
       }}
     >
       {children}

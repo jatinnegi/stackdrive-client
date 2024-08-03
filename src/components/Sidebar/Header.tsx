@@ -35,13 +35,14 @@ const Header: FC<Props> = forwardRef(
           style={{
             display: "flex",
             alignItems: "center",
-            justifyContent: fullDisplay ? "flex-start" : "center",
+            justifyContent: "flex-start",
             cursor: "pointer",
             color: "inherit",
-            width: "90%",
+            width: "100%",
             margin: "0px auto",
             userSelect: "none",
             textDecoration: "none",
+            padding: "0px 10px",
           }}
         >
           <img
@@ -51,7 +52,9 @@ const Header: FC<Props> = forwardRef(
           />
           <Typography
             sx={{
-              display: fullDisplay ? "block" : "none",
+              flex: 1,
+              opacity: fullDisplay ? 1 : 0,
+              transition: "opacity 105ms ease-in",
               marginLeft: "15px",
               fontSize: "15px",
               fontWeight: 500,

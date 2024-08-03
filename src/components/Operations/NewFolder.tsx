@@ -38,6 +38,7 @@ const NewFolder: FC = () => {
             value={value}
             error=""
             label="Folder Name"
+            autoFocus={open}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
               setValue(e.target.value);
             }}

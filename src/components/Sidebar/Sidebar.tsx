@@ -9,6 +9,7 @@ import Main from "./Main";
 import Toggle from "./Toggle";
 
 export default function Sidebar() {
+  const [activeHover, setActiveHover] = useState<boolean>(false);
   const headerRef = useRef<HTMLDivElement | null>(null);
   const [headerHeight, setHeaderHeight] = useState<number>(0);
   const { layout } = useSelector((state: RootState) => state.settings);
@@ -22,7 +23,7 @@ export default function Sidebar() {
   }, []);
 
   const isMobile: boolean = width < 1200;
-  const fullDisplay: boolean = isMobile || layout === "full";
+  const fullDisplay: boolean = activeHover || isMobile || layout === "full";
   const mainHeight: string = `calc(100svh - ${headerHeight}px)`;
 
   return (
@@ -40,18 +41,35 @@ export default function Sidebar() {
           e.stopPropagation();
         }}
         sx={{
-          backgroundColor: "background.default",
+          bgcolor: "filterBackgroundColor.primary",
+          backdropFilter: "blur(10px)",
           borderRightColor: "border.primary",
           borderRightStyle: "dashed",
           borderRightWidth: "1px",
-          backdropFilter: "blur(20px)",
           px: "5px",
+          transition: "width 200ms ease-in",
+        }}
+        onMouseEnter={() => {
+          setActiveHover(true);
+        }}
+        onMouseLeave={() => {
+          setActiveHover(false);
         }}
       >
         <Header ref={headerRef} fullDisplay={fullDisplay} />
-        <Main height={mainHeight} layout={layout} fullDisplay={fullDisplay} />
+        <Main
+          height={mainHeight}
+          layout={layout}
+          fullDisplay={fullDisplay}
+          hoverState={activeHover}
+        />
       </Box>
-      <Toggle />
+      <Toggle
+        hoverState={activeHover}
+        setHoverState={(newState: boolean) => {
+          setActiveHover(newState);
+        }}
+      />
     </>
   );
 }

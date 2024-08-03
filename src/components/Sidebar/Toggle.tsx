@@ -1,3 +1,4 @@
+import { FC } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "@/redux/reducers";
 import { updateSettings } from "@/redux/actions";
@@ -11,7 +12,12 @@ import constants from "@/constants";
 const HEIGHT = 28;
 const WIDTH = 28;
 
-export default function Toggle() {
+interface Props {
+  hoverState: boolean;
+  setHoverState: (newState: boolean) => void;
+}
+
+const Toggle: FC<Props> = ({ hoverState, setHoverState }) => {
   const { layout } = useSelector((state: RootState) => state.settings);
   const dispatch = useDispatch();
 
@@ -28,10 +34,11 @@ export default function Toggle() {
       />
     );
 
-  const left =
-    layout === "full"
-      ? constants.sidebar.full - WIDTH / 2
-      : constants.sidebar.collapse - WIDTH / 2;
+  const left = hoverState
+    ? constants.sidebar.full - WIDTH / 2
+    : layout === "full"
+    ? constants.sidebar.full - WIDTH / 2
+    : constants.sidebar.collapse - WIDTH / 2;
 
   return (
     <IconButton
@@ -41,7 +48,7 @@ export default function Toggle() {
           xs: "none",
           lg: "flex",
         },
-        transition: "none",
+        // transition: "none",
         backgroundColor: "background.default",
         position: "fixed",
         height: HEIGHT,
@@ -52,6 +59,7 @@ export default function Toggle() {
         borderStyle: "dashed",
         borderColor: "border.primary",
         zIndex: 25,
+        transition: "left 200ms ease-in",
         "&:hover": { backgroundColor: "background.default" },
         "&:focus": { backgroundColor: "background.default" },
       }}
@@ -62,8 +70,19 @@ export default function Toggle() {
         const newLayout = layout === "full" ? "collapse" : "full";
         dispatch(updateSettings({ layout: newLayout }));
       }}
+      onMouseMove={() => {
+        if (!hoverState && layout === "collapse") {
+          return;
+        }
+        setHoverState(true);
+      }}
+      onMouseLeave={() => {
+        setHoverState(false);
+      }}
     >
       {icon}
     </IconButton>
   );
-}
+};
+
+export default Toggle;

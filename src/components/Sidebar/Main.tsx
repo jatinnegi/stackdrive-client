@@ -11,11 +11,14 @@ interface Props {
   height: string;
   layout: LayoutType;
   fullDisplay: boolean;
+  hoverState: boolean;
 }
 
-const Main: FC<Props> = ({ height, layout, fullDisplay }) => {
+const Main: FC<Props> = ({ height, layout, fullDisplay, hoverState }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const displayTooltip = hoverState ? false : layout === "full";
 
   return (
     <Box
@@ -46,20 +49,18 @@ const Main: FC<Props> = ({ height, layout, fullDisplay }) => {
         {dashboardLinks.map((link: LinkProps) => (
           <Tooltip
             key={link.id}
-            title={layout === "collapse" ? link.name : ""}
+            title={displayTooltip ? link.name : ""}
             placement="right"
           >
             <MenuItem
               sx={{
                 borderRadius: "4px",
                 display: "flex",
-                flexDirection: fullDisplay ? "row" : "column",
-                textAlign: fullDisplay ? "start" : "center",
                 width: "100%",
                 color: isActiveLink(link.href)
                   ? "icon.selected"
                   : "icon.default",
-                padding: fullDisplay ? "10px" : "6px",
+                padding: "12px 10px",
                 backgroundColor: isActiveLink(link.href)
                   ? "link.selected"
                   : "none",
@@ -80,25 +81,29 @@ const Main: FC<Props> = ({ height, layout, fullDisplay }) => {
               <Box
                 component="span"
                 sx={{
+                  position: "absolute",
                   display: "block",
-                  height: fullDisplay ? "25px" : "22px",
-                  width: fullDisplay ? "25px" : "22px",
+                  height: "25px",
+                  width: "25px",
                 }}
               >
                 {link.icon}
               </Box>
               <Typography
-                fontSize={fullDisplay ? "13px" : "10px"}
+                fontSize="13px"
                 textTransform="capitalize"
                 fontWeight={600}
-                marginTop={fullDisplay ? "0px" : "3px"}
-                marginLeft={fullDisplay ? "10px" : "0px"}
+                marginLeft="10px"
                 sx={{
+                  flex: 1,
+                  marginLeft: "35px",
                   color: "inherit",
                   width: "100%",
                   overflow: "hidden",
                   whiteSpace: "nowrap",
                   textOverflow: "ellipsis",
+                  opacity: fullDisplay ? 1 : 0,
+                  transition: "opacity 105ms ease-in",
                 }}
               >
                 {link.name}

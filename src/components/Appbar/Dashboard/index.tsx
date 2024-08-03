@@ -36,6 +36,9 @@ export const DashboardAppbar: FC = () => {
               : `${constants.sidebar.collapse + 1}px`,
         },
       }}
+      style={{
+        transition: "left 75ms ease-out, width 75ms ease-out",
+      }}
     >
       <Box
         component="div"
