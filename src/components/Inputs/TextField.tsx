@@ -10,7 +10,7 @@ interface Props {
   value: string;
   label: string;
   error: string;
-  autoFocus: boolean;
+  autoFocus?: boolean;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 

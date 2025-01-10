@@ -6,6 +6,7 @@ interface IOperations {
   share: boolean;
   information: boolean;
   trash: boolean;
+  newFolderCreate: boolean;
 }
 
 const initialState: IOperations = {
@@ -14,6 +15,7 @@ const initialState: IOperations = {
   share: false,
   information: false,
   trash: false,
+  newFolderCreate: false,
 };
 
 interface PayloadType {
@@ -22,6 +24,7 @@ interface PayloadType {
   share?: boolean;
   information?: boolean;
   trash?: boolean;
+  newFolderCreate?: boolean;
 }
 
 const operations = createSlice({
@@ -29,7 +32,8 @@ const operations = createSlice({
   initialState,
   reducers: {
     updateOperations(state, action: PayloadAction<PayloadType>) {
-      const { newFolder, rename, share, information, trash } = action.payload;
+      const { newFolder, rename, share, information, trash, newFolderCreate } =
+        action.payload;
 
       if (typeof newFolder === "boolean") {
         state.newFolder = newFolder;
@@ -49,6 +53,10 @@ const operations = createSlice({
 
       if (typeof trash === "boolean") {
         state.trash = trash;
+      }
+
+      if (typeof newFolderCreate === "boolean") {
+        state.newFolderCreate = newFolderCreate;
       }
     },
   },

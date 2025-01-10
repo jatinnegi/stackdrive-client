@@ -4,6 +4,7 @@ import Rename from "./Rename";
 import Share from "./Share";
 import Information from "./Information";
 import MoveToTrash from "./MoveToTrash";
+import FolderCreated from "./FolderCreated";
 
 const Operations: FC = () => {
   return (
@@ -13,6 +14,7 @@ const Operations: FC = () => {
       <Share />
       <Information />
       <MoveToTrash />
+      <FolderCreated />
     </>
   );
 };

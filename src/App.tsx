@@ -1,10 +1,11 @@
-import { useMemo } from "react";
-import { useSelector } from "react-redux";
+import { useEffect, useMemo } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "./redux/reducers";
+import { updateSettings } from "./redux/actions";
 import { ThemeProvider } from "@emotion/react";
 import { darkTheme, lightTheme } from "@/theme";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { CssBaseline } from "@mui/material";
+import { CssBaseline, useMediaQuery } from "@mui/material";
 import ToastMessages from "@/components/Toast";
 
 // Layouts
@@ -38,10 +39,22 @@ const underConstructionLinks: LinkProps[] = [
 ];
 
 export default function App() {
+  const dispatch = useDispatch();
   const theme = useSelector((state: RootState) => state.settings.theme);
+  const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
+
+  useEffect(() => {
+    if (prefersDarkMode) {
+      dispatch(updateSettings({ theme: "dark" }));
+    } else {
+      dispatch(updateSettings({ theme: "light" }));
+    }
+  }, [prefersDarkMode]);
 
   const currentTheme = useMemo(() => {
-    if (theme === "light") return lightTheme;
+    if (theme === "light") {
+      return lightTheme;
+    }
     return darkTheme;
   }, [theme]);
 

@@ -61,6 +61,7 @@ const NewFolder: FC = () => {
                 type: "folder",
               };
               dispatch(updateResourcesData({ newResource }));
+              dispatch(updateOperations({ newFolderCreate: true }));
               setValue("");
               handleClose();
             }}
