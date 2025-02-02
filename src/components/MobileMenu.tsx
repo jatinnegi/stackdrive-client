@@ -7,7 +7,7 @@ import { lightTheme, darkTheme } from "@/theme";
 import { isActiveLink } from "@/utils/helper";
 import dashboardLinks, { LinkProps } from "@/utils/dashboardLinks";
 import { Box, Backdrop, Button, Typography, Link } from "@mui/material";
-import StackDriveLogo from "../../public/stackdrive-logo.png";
+import StackDriveLogo from "../../public/stack-drive-new-logo.svg";
 
 export default function MobileMenu() {
   const navigate = useNavigate();

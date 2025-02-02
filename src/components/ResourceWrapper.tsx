@@ -32,7 +32,9 @@ const ResourceWrapper: FC<Props> = ({ id, name, children, ...props }) => {
       }
     }
 
-    if (e.button === 2 && !isSelected) {
+    if (isSelected && selected.length > 0) {
+      return;
+    } else if (e.button === 2 && !isSelected) {
       dispatch(updateSelectedId({ id }));
     } else if (e.button === 2 && isSelected) {
       // Don't update selected values for this case
@@ -46,6 +48,8 @@ const ResourceWrapper: FC<Props> = ({ id, name, children, ...props }) => {
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.detail === 2) {
       handleDoubleClick(id);
+    } else {
+      dispatch(updateSelectedId({ id }));
     }
   };
 

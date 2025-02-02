@@ -43,7 +43,10 @@ export default function SelectionBox() {
       // Simple return on a right click event
       if (e.button === 2) return;
 
-      if (!contextMenuOpen) dispatch(resetSelectedIds());
+      if (!contextMenuOpen) {
+        dispatch(resetSelectedIds());
+      }
+
       setIsSelecting(true);
       setStart({ x: e.pageX, y: e.pageY });
       setCoordinates({

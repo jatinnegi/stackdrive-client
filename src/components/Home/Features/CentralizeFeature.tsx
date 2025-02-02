@@ -21,7 +21,7 @@ import WordPreview from "../../../../public/preview/word_preview.webp";
 import ExcelPreview from "../../../../public/preview/excel_preview.webp";
 import PngPreview from "../../../../public/preview/png_preview.webp";
 import PdfPreview from "../../../../public/preview/pdf_preview.webp";
-import StackDriveLogo from "../../../../public/stackdrive-logo.png";
+import StackDriveLogo from "../../../../public/stack-drive-new-logo.svg";
 
 interface Props {
   number: number;

@@ -11,7 +11,7 @@ import {
 } from "@mui/icons-material";
 import Container from "@/components/Containers";
 import constants from "@/constants";
-import StackDriveLogo from "../../../public/stackdrive-logo.png";
+import StackDriveLogo from "../../../public/stack-drive-new-logo.svg";
 
 export const Appbar: FC = () => {
   const navigate = useNavigate();

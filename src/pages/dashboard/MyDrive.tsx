@@ -13,6 +13,9 @@ import withMyDriveLoading, {
 } from "@/hoc/withMyDriveLoading";
 import withAuth from "@/hoc/withAuth";
 
+// const timeoutSimulation = 3000;
+const timeoutSimulation = 500;
+
 const Loader: FC<{ view: "list" | "grid" }> = ({ view }) => {
   return (
     <Box
@@ -83,7 +86,7 @@ const fetchData: FetchDataFunction = async (folderId: string | undefined) => {
         navigation.sort((item1, item2) => +item1.id - +item2.id);
         resolve({ data, navigation });
       }
-    }, 3000);
+    }, timeoutSimulation);
   });
 
   return result;
@@ -91,4 +94,5 @@ const fetchData: FetchDataFunction = async (folderId: string | undefined) => {
 
 const MyDriveWithLoading = withMyDriveLoading(MyDrive, fetchData);
 
-export default withAuth(MyDriveWithLoading);
+// export default withAuth(MyDriveWithLoading);
+export default MyDriveWithLoading;

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { removeNavigation } from "@/redux/actions";
 import { Box, Typography } from "@mui/material";
-import StackDriveLogo from "../../../public/stackdrive-logo.png";
+import StackDriveLogo from "../../../public/stack-drive-new-logo.svg";
 
 interface Props {
   ref: ForwardedRef<HTMLDivElement | null>;

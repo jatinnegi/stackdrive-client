@@ -142,7 +142,8 @@ const darkThemeOptions: ThemeOptions = {
       primary: "rgba(22, 28, 36, 0.9)",
     },
     selected: {
-      primary: "#2F3944",
+      // primary: "#2F3944",
+      primary: "#384452",
       secondary: "#1D242E",
     },
     button: {

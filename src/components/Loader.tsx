@@ -5,7 +5,7 @@ import {
   styled,
   linearProgressClasses,
 } from "@mui/material";
-import StackDriveLogo from "../../public/stackdrive-logo.png";
+import StackDriveLogo from "../../public/stack-drive-new-logo.svg";
 
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   height: 5,
