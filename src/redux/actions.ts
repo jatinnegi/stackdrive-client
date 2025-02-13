@@ -7,6 +7,7 @@ export {
   removeNavigation,
   resetSelectedIds,
   updateMultipleSelectedIds,
+  selectAll,
   updateMultipleSelectedIdsBySelectionBox,
   updateTrash,
   resetData,
@@ -16,3 +17,4 @@ export {
 export { addMessage, removeMessage } from "./slices/messages";
 export { updateOperations } from "./slices/operations";
 export { setCredentials, logout as clearCredentials } from "./slices/auth";
+export { updateAnimations } from "./slices/animations";

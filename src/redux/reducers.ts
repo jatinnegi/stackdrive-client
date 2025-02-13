@@ -1,11 +1,12 @@
 import { combineReducers } from "@reduxjs/toolkit";
+import { apiSlice } from "./slices/api/apiSlice";
 import settings from "./slices/settings";
 import resources from "./slices/resources";
 import contextMenu from "./slices/contextMenu";
 import messages from "./slices/messages";
 import operations from "./slices/operations";
 import auth from "./slices/auth";
-import { apiSlice } from "./slices/api/apiSlice";
+import animations from "./slices/animations";
 
 const rootReducer = combineReducers({
   settings,
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
   messages,
   operations,
   auth,
+  animations,
   [apiSlice.reducerPath]: apiSlice.reducer,
 });
 

@@ -32,7 +32,7 @@ const ResourceCard: FC<ResourceProps> = ({ id, name, type, imgSrc }) => {
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
-            padding: imgSrc ? "15px" : "10px 15px",
+            padding: "10px 15px",
           }}
         >
           <Box
@@ -84,7 +84,10 @@ const ResourceCard: FC<ResourceProps> = ({ id, name, type, imgSrc }) => {
           </IconButton>
         </Box>
         {imgSrc && (
-          <Box sx={{ padding: "5px 15px 15px 15px" }}>
+          <Box
+            className="preview-file-image"
+            sx={{ padding: "5px 15px 15px 15px" }}
+          >
             <Box
               sx={{
                 width: "100%",

@@ -5,6 +5,10 @@ interface MyPaletteExtensions {
     primary?: string;
     secondary?: string;
   };
+  borderSelected?: {
+    primary?: string;
+    shadow?: string;
+  };
   text?: {
     primary?: string;
     secondary?: string;
@@ -125,6 +129,10 @@ const darkThemeOptions: ThemeOptions = {
   },
   palette: {
     mode: "dark",
+    borderSelected: {
+      primary: "#2b3542",
+      shadow: "rgba(17, 17, 17, 1)",
+    },
     background: {
       default: "#161C24",
       paper: "#212B36",
@@ -142,7 +150,6 @@ const darkThemeOptions: ThemeOptions = {
       primary: "rgba(22, 28, 36, 0.9)",
     },
     selected: {
-      // primary: "#2F3944",
       primary: "#384452",
       secondary: "#1D242E",
     },
@@ -191,6 +198,10 @@ const lightThemeOptions: ThemeOptions = {
   },
   palette: {
     mode: "light",
+    borderSelected: {
+      primary: "#E0E0E0",
+      shadow: "#AFAFAF",
+    },
     background: {
       default: "#FFFFFF",
       paper: "#F9F9F9",

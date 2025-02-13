@@ -180,6 +180,9 @@ const resources = createSlice({
 
       state.selected = [];
     },
+    selectAll(state) {
+      state.selected = state.data.map((item: ResourceProps) => item.id);
+    },
     resetData(state) {
       state.data = state.initialData;
     },
@@ -214,6 +217,7 @@ export const {
   removeNavigation,
   resetSelectedIds,
   updateMultipleSelectedIds,
+  selectAll,
   updateMultipleSelectedIdsBySelectionBox,
   updateTrash,
   resetData,

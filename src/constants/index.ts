@@ -5,4 +5,5 @@ export default {
     full: 260,
     collapse: 60,
   },
+  stackAnimationTime: 225,
 };

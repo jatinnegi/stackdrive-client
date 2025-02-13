@@ -5,11 +5,13 @@ import { CoordinateProps, ResourceProps } from "@/types";
 import { RootState } from "@/redux/reducers";
 import {
   resetSelectedIds,
+  updateAnimations,
   updateMultipleSelectedIdsBySelectionBox,
 } from "@/redux/actions";
 import { isPathMatch } from "@/utils/helper";
 import { Box } from "@mui/material";
 import _ from "lodash";
+import constants from "@/constants";
 
 const initialCoordinates: CoordinateProps = {
   startX: 0,
@@ -32,6 +34,13 @@ export default function SelectionBox() {
     (state: RootState) => state.resources
   );
 
+  const {
+    resourceWrappersDrag,
+    resourceWrappersStackAnimate,
+    resourceWrappersStack,
+    resourceWrapperMirrorElSelected,
+  } = useSelector((state: RootState) => state.animations);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -43,7 +52,7 @@ export default function SelectionBox() {
       // Simple return on a right click event
       if (e.button === 2) return;
 
-      if (!contextMenuOpen) {
+      if (!contextMenuOpen && !resourceWrappersDrag) {
         dispatch(resetSelectedIds());
       }
 
@@ -58,7 +67,48 @@ export default function SelectionBox() {
     }
 
     function handleMouseMove(e: MouseEvent) {
-      if (!isSelecting) return;
+      let stackAnimationEnabled = resourceWrappersStack;
+
+      if (!isSelecting) {
+        return;
+      }
+
+      if (resourceWrappersDrag) {
+        const x = start.x - e.pageX;
+        const y = start.y - e.pageY;
+
+        const clientX = e.clientX;
+        const clientY = e.clientY;
+
+        const scrollX = window.scrollX;
+        const scrollY = window.scrollY;
+
+        const pageX = clientX + scrollX;
+        const pageY = clientY + scrollY;
+
+        if ((Math.abs(x) > 0 || Math.abs(y) > 0) && !stackAnimationEnabled) {
+          dispatch(
+            updateAnimations({
+              resourceWrappersStack: true,
+              resourceWrappersStackAnimate: true,
+              resourceWrappersStackOffsetX: pageX,
+              resourceWrappersStackOffsetY: pageY,
+            })
+          );
+          stackAnimationEnabled = true;
+        }
+
+        dispatch(
+          updateAnimations({
+            resourceWrappersOffsetX: x,
+            resourceWrappersOffsetY: y,
+            resourceWrappersResetX: pageX,
+            resourceWrappersResetY: pageY,
+          })
+        );
+
+        return;
+      }
 
       const updatedCoordinates: CoordinateProps = coordinates;
 
@@ -87,7 +137,9 @@ export default function SelectionBox() {
             targetElementId.toString()
           );
 
-          if (!targetElement) return false;
+          if (!targetElement) {
+            return false;
+          }
 
           const targetElementRect = targetElement.getBoundingClientRect();
 
@@ -115,6 +167,31 @@ export default function SelectionBox() {
       setIsSelecting(false);
       setStart({ x: 0, y: 0 });
       setCoordinates(initialCoordinates);
+
+      if (resourceWrappersDrag) {
+        dispatch(
+          updateAnimations({
+            resourceWrappersStackAnimateReset: true,
+          })
+        );
+      }
+
+      setTimeout(() => {
+        dispatch(
+          updateAnimations({
+            resourceWrappersDrag: false,
+            resourceWrappersStack: false,
+            resourceWrappersStackAnimate: false,
+            resourceWrappersStackAnimateReset: false,
+            resourceWrappersOffsetX: -1,
+            resourceWrappersOffsetY: -1,
+            resourceWrappersStackOffsetX: 0,
+            resourceWrappersStackOffsetY: 0,
+            resourceWrappersResetX: null,
+            resourceWrappersResetY: null,
+          })
+        );
+      }, constants.stackAnimationTime + 300);
     }
 
     window.addEventListener("mousedown", handleMouseDown);
@@ -126,7 +203,18 @@ export default function SelectionBox() {
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("mouseup", handleMouseUp);
     };
-  }, [isSelecting, coordinates, start, contextMenuOpen, selected, pathname]);
+  }, [
+    isSelecting,
+    coordinates,
+    start,
+    contextMenuOpen,
+    selected,
+    pathname,
+    resourceWrappersDrag,
+    resourceWrappersStack,
+    resourceWrappersStackAnimate,
+    resourceWrapperMirrorElSelected,
+  ]);
 
   return (
     <Box
