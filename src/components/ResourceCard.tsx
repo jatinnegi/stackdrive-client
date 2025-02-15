@@ -16,6 +16,7 @@ const ResourceCard: FC<ResourceProps> = ({ id, name, type, imgSrc }) => {
     <ResourceWrapper
       id={id}
       name={name}
+      type={type}
       sx={{
         backgroundColor:
           selected.indexOf(id) === -1 ? "background.paper" : "selected.primary",

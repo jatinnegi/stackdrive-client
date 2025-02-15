@@ -77,6 +77,7 @@ const Body: FC<Props> = ({ bodyRef, files, folders, handleScroll }) => {
         {folders.map((row: ResourceProps) => (
           <ResourceWrapper
             key={row.id}
+            type={row.type}
             id={row.id}
             name={row.name}
             sx={{
@@ -170,6 +171,7 @@ const Body: FC<Props> = ({ bodyRef, files, folders, handleScroll }) => {
         {files.map((row: ResourceProps) => (
           <ResourceWrapper
             key={row.id}
+            type={row.type}
             id={row.id}
             name={row.name}
             sx={{

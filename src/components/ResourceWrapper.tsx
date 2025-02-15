@@ -17,9 +17,10 @@ import {
   appendNavigation,
   updateAnimations,
 } from "@/redux/actions";
-import { ResourceProps } from "@/types";
-import { getResourceById } from "@/utils/helper";
-import { Box } from "@mui/material";
+import { ResourceProps, SupportedTypes } from "@/types";
+import { getFileImage, getResourceById } from "@/utils/helper";
+import { Box, IconButton, Typography } from "@mui/material";
+import { MoreVert as MoreVertIcon } from "@mui/icons-material";
 import { BoxProps } from "@mui/material";
 import constants from "@/constants";
 import { useResize } from "@/hooks";
@@ -36,10 +37,11 @@ interface ResourceWrapperMirror {
 type Props = {
   id: string;
   name: string;
+  type: SupportedTypes;
 } & PropsWithChildren &
   BoxProps;
 
-const ResourceWrapper: FC<Props> = ({ id, name, children, ...props }) => {
+const ResourceWrapper: FC<Props> = ({ id, name, type, children, ...props }) => {
   const { width: windowWidth, height: windowHeight } = useResize();
 
   const resourceWrapperEl = useRef<HTMLDivElement | null>(null);
@@ -84,7 +86,7 @@ const ResourceWrapper: FC<Props> = ({ id, name, children, ...props }) => {
         const y = rect.top + window.scrollY;
 
         const height = rect.height;
-        const width = rect.width;
+        const width = Math.min(280, rect.width);
 
         setResourceWrapperMirrorValues({
           defaultX: x + resourceWrappersOffsetX * -1,
@@ -246,9 +248,7 @@ const ResourceWrapper: FC<Props> = ({ id, name, children, ...props }) => {
         sx={{
           ...props.sx,
           position: "fixed",
-          bgcolor: resourceWrappersStackAnimateReset
-            ? "selected.primary"
-            : "selected.secondary",
+          bgcolor: "selected.secondary",
           top: enableDragAnimation
             ? `${
                 (resourceWrapperMirrorValues.defaultY || 0) + draggableElY * -1
@@ -267,6 +267,8 @@ const ResourceWrapper: FC<Props> = ({ id, name, children, ...props }) => {
             constants.stackAnimationTime
           }ms ${Math.min(20 * (elPosition - 1), 200)}ms`,
           width: `${resourceWrapperMirrorValues.width}px`,
+          maxWidth: resourceWrappersStackAnimateReset ? "none" : "280px",
+          borderRadius: "6px",
           zIndex: enableDragAnimation
             ? resourceWrapperMirrorElSelected === id
               ? 300
@@ -275,6 +277,7 @@ const ResourceWrapper: FC<Props> = ({ id, name, children, ...props }) => {
           opacity: enableDragAnimation ? 1 : 0,
           borderWidth: resourceWrappersStackAnimateReset ? "0px" : "1px",
           borderStyle: "solid",
+          borderColor: "borderSelected.primary",
           boxShadow: resourceWrappersStackAnimateReset
             ? "none"
             : resourceWrappersStack
@@ -282,11 +285,186 @@ const ResourceWrapper: FC<Props> = ({ id, name, children, ...props }) => {
               ? boxShadow
               : "none"
             : boxShadow,
-          borderColor: "borderSelected.primary",
           pointerEvents: "none",
         }}
       >
-        {children}
+        <Box component="div" className="resource_card">
+          <Box
+            component="div"
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              padding: "10px 15px",
+            }}
+          >
+            <Box
+              sx={{
+                height: "100%",
+                display: "flex",
+                alignItems: "center",
+                overflow: "hidden",
+              }}
+            >
+              <img
+                src={getFileImage(type)}
+                alt="file-icon"
+                style={{ height: "25px", width: "25px" }}
+              />
+              <Typography
+                fontSize={{
+                  xs: "12px",
+                  sm: "13px",
+                }}
+                sx={{
+                  fontWeight: 500,
+                  maxWidth: "170px",
+                  marginLeft: "10px",
+                  overflow: "hidden",
+                  whiteSpace: "nowrap",
+                  textOverflow: "ellipsis",
+                  margin: "0px 10px",
+                  width: "100%",
+                }}
+              >
+                {name}
+              </Typography>
+            </Box>
+            <IconButton
+              sx={{ opacity: 0, pointerEvents: "none", cursor: "default" }}
+            >
+              <MoreVertIcon fontSize="small" />
+            </IconButton>
+          </Box>
+        </Box>
+      </Box>
+      <Box
+        component="div"
+        className="resource-wrapper-mirror"
+        sx={{
+          ...props.sx,
+          position: "fixed",
+          bgcolor: "selected.secondary",
+          borderRadius: "6px",
+          width: `${resourceWrapperMirrorValues.width}px`,
+          maxWidth: resourceWrappersStackAnimateReset ? "none" : "280px",
+          top: `${
+            (resourceWrapperMirrorValues.defaultY || 0) + draggableElY * -1
+          }px`,
+          left: `${
+            (resourceWrapperMirrorValues.defaultX || 0) + draggableElX * -1
+          }px`,
+          transform:
+            enableDragAnimation && resourceWrappersStack
+              ? `translate(${diffX + 7}px, ${diffY + 7}px)`
+              : "translate(0px, 0px)",
+          zIndex: enableDragAnimation && resourceWrappersStack ? 1 : -1,
+          opacity:
+            enableDragAnimation && resourceWrappersStack
+              ? resourceWrappersStackAnimateReset
+                ? 0
+                : 1
+              : 0,
+          borderWidth: resourceWrappersStackAnimateReset ? "0px" : "1px",
+          borderStyle: "solid",
+          borderColor: "borderSelected.primary",
+          transition: "opacity 50ms ease-in 100ms",
+          pointerEvents: "none",
+        }}
+      >
+        <Box component="div" className="resource_card">
+          <Box
+            component="div"
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              padding: "10px 15px",
+            }}
+          >
+            <Box
+              sx={{
+                height: "100%",
+                display: "flex",
+                alignItems: "center",
+                overflow: "hidden",
+              }}
+            >
+              <img
+                src={getFileImage(type)}
+                alt="file-icon"
+                style={{ height: "25px", width: "25px" }}
+              />
+              <Typography
+                fontSize={{
+                  xs: "12px",
+                  sm: "13px",
+                }}
+                sx={{
+                  fontWeight: 500,
+                  maxWidth: "170px",
+                  marginLeft: "10px",
+                  overflow: "hidden",
+                  whiteSpace: "nowrap",
+                  textOverflow: "ellipsis",
+                  margin: "0px 10px",
+                  width: "100%",
+                }}
+              >
+                {name}
+              </Typography>
+            </Box>
+            <IconButton
+              sx={{ opacity: 0, pointerEvents: "none", cursor: "default" }}
+            >
+              <MoreVertIcon fontSize="small" />
+            </IconButton>
+          </Box>
+        </Box>
+      </Box>
+      <Box
+        component="div"
+        sx={{
+          position: "fixed",
+          bgcolor: "#0061D0",
+          top: `${
+            (resourceWrapperMirrorValues.defaultY || 0) + draggableElY * -1
+          }px`,
+          left: `${
+            (resourceWrapperMirrorValues.defaultX || 0) + draggableElX * -1
+          }px`,
+          transform:
+            enableDragAnimation && resourceWrappersStack
+              ? `translate(${
+                  diffX + resourceWrapperMirrorValues.width - 15
+                }px, ${diffY - 15}px)`
+              : "translate(0px, 0px)",
+          zIndex: enableDragAnimation && resourceWrappersStack ? 300 : -1,
+          height: "30px",
+          width: "30px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          borderRadius: "100%",
+          pointerEvents: "none",
+          opacity:
+            enableDragAnimation && resourceWrappersStack
+              ? resourceWrappersStackAnimateReset
+                ? 0
+                : 1
+              : 0,
+          border: "1px solid #AFAFAF30",
+        }}
+      >
+        <Typography
+          sx={{
+            fontSize: "12px",
+            color: "#FFF",
+            fontWeight: 500,
+          }}
+        >
+          {selected.length}
+        </Typography>
       </Box>
       <Box
         ref={resourceWrapperEl}
