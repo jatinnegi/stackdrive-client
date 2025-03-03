@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { GridView, ListView } from "@/components/Views";
 import { ResourceProps } from "@/data";
@@ -15,9 +15,14 @@ interface Props {
 }
 
 const Explorer: FC<Props> = ({ resources }) => {
+  const [renderId, setRenderId] = useState<number>(0);
+
   const { view } = useSelector((state: RootState) => state.settings);
   const { sortBy, isOrderAsc } = useSelector(
     (state: RootState) => state.resources
+  );
+  const { resourceWrappersStackAnimateReset } = useSelector(
+    (state: RootState) => state.animations
   );
 
   const dispatch = useDispatch();
@@ -33,6 +38,18 @@ const Explorer: FC<Props> = ({ resources }) => {
     if (resource.type === "folder") folders.push(resource);
     else files.push(resource);
   });
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (!resourceWrappersStackAnimateReset) {
+        setRenderId((prevState: number) => prevState + 1);
+      }
+    }, 50);
+
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [resourceWrappersStackAnimateReset]);
 
   if (folders.length === 0 && files.length === 0) {
     return <EmptyExplorer view={view} />;
@@ -51,8 +68,13 @@ const Explorer: FC<Props> = ({ resources }) => {
 
   return (
     <Box
+      key={renderId}
       component="div"
-      sx={{ display: "flex", flexDirection: "column", gap: "20px" }}
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "20px",
+      }}
     >
       <Box component="div">
         <Box

@@ -189,6 +189,7 @@ export default function SelectionBox() {
             resourceWrappersStackOffsetY: 0,
             resourceWrappersResetX: null,
             resourceWrappersResetY: null,
+            resourceWrapperMirrorElSelected: null,
           })
         );
       }, constants.stackAnimationTime + 300);
@@ -220,6 +221,7 @@ export default function SelectionBox() {
     <Box
       component="div"
       sx={{
+        display: resourceWrappersDrag ? "none" : "block",
         position: "absolute",
         top: `${coordinates.startY}px`,
         left: `${coordinates.startX}px`,

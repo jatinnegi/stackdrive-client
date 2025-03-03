@@ -1,4 +1,4 @@
-import {
+import React, {
   FC,
   PropsWithChildren,
   useEffect,
@@ -32,6 +32,7 @@ interface ResourceWrapperMirror {
   y: number;
   height: number;
   width: number;
+  originalWidth: number;
 }
 
 type Props = {
@@ -75,6 +76,7 @@ const ResourceWrapper: FC<Props> = ({ id, name, type, children, ...props }) => {
       y: 0,
       height: 0,
       width: 0,
+      originalWidth: 0,
     });
   const [differ, setDiffer] = useState<number[]>([0, 0]);
 
@@ -95,6 +97,7 @@ const ResourceWrapper: FC<Props> = ({ id, name, type, children, ...props }) => {
           y: y + resourceWrappersOffsetY * -1,
           height,
           width,
+          originalWidth: rect.width,
         });
         return;
       }
@@ -106,6 +109,7 @@ const ResourceWrapper: FC<Props> = ({ id, name, type, children, ...props }) => {
         y: 0,
         height: 0,
         width: 0,
+        originalWidth: 0,
       });
     }, 150);
   }, [windowWidth, windowHeight, layout, data]);
@@ -120,7 +124,7 @@ const ResourceWrapper: FC<Props> = ({ id, name, type, children, ...props }) => {
       }
     }
 
-    if (isSelected && selected.length > 0) {
+    if (isSelected && selected.length > 1) {
       dispatch(
         updateAnimations({
           resourceWrappersDrag: true,
@@ -146,6 +150,11 @@ const ResourceWrapper: FC<Props> = ({ id, name, type, children, ...props }) => {
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.detail === 2) {
       handleDoubleClick(id);
+    } else if (resourceWrappersDrag) {
+      // Drag animation is currently enabled
+      return;
+    } else if (e.shiftKey) {
+      return;
     } else {
       dispatch(updateSelectedId({ id }));
     }
@@ -266,8 +275,14 @@ const ResourceWrapper: FC<Props> = ({ id, name, type, children, ...props }) => {
           transition: `transform ease-out ${
             constants.stackAnimationTime
           }ms ${Math.min(20 * (elPosition - 1), 200)}ms`,
-          width: `${resourceWrapperMirrorValues.width}px`,
-          maxWidth: resourceWrappersStackAnimateReset ? "none" : "280px",
+          width: `${resourceWrapperMirrorValues.originalWidth}px`,
+          maxWidth: resourceWrappersStackAnimateReset
+            ? "none"
+            : resourceWrappersDrag
+            ? resourceWrappersStack
+              ? "280px"
+              : "none"
+            : "280px",
           borderRadius: "6px",
           zIndex: enableDragAnimation
             ? resourceWrapperMirrorElSelected === id
@@ -442,17 +457,23 @@ const ResourceWrapper: FC<Props> = ({ id, name, type, children, ...props }) => {
           zIndex: enableDragAnimation && resourceWrappersStack ? 300 : -1,
           height: "30px",
           width: "30px",
-          display: "flex",
           alignItems: "center",
           justifyContent: "center",
           borderRadius: "100%",
           pointerEvents: "none",
+          display:
+            enableDragAnimation && resourceWrappersStack
+              ? resourceWrappersStackAnimateReset
+                ? "none"
+                : "flex"
+              : 0,
           opacity:
             enableDragAnimation && resourceWrappersStack
               ? resourceWrappersStackAnimateReset
                 ? 0
                 : 1
               : 0,
+          transition: `opacity 0ms linear 50ms`,
           border: "1px solid #AFAFAF30",
         }}
       >
