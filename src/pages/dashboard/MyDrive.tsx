@@ -1,5 +1,5 @@
-import { FC, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { FC } from "react";
+import { useSelector } from "react-redux";
 import { RootState } from "@/redux/reducers";
 import { initialResourcesData } from "@/data";
 import { ResourceProps, NavigationProps } from "@/types";
@@ -12,7 +12,6 @@ import withMyDriveLoading, {
   FetchDataFunctionReturn,
 } from "@/hoc/withMyDriveLoading";
 import withAuth from "@/hoc/withAuth";
-import { selectAll } from "@/redux/actions";
 
 // const timeoutSimulation = 3000;
 const timeoutSimulation = 500;
@@ -35,31 +34,15 @@ const Loader: FC<{ view: "list" | "grid" }> = ({ view }) => {
 };
 
 const MyDrive: FC = () => {
-  const dispatch = useDispatch();
   const { data, loading } = useSelector((state: RootState) => state.resources);
   const view = useSelector((state: RootState) => state.settings.view);
 
   const myOptions = view === "list" ? "0px" : { xs: "25px", md: "30px" };
 
-  useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if ((event.metaKey || event.ctrlKey) && event.key === "a") {
-        event.preventDefault();
-        dispatch(selectAll());
-      }
-    };
-
-    window.addEventListener("keydown", handleKeyDown);
-
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, []);
-
   return (
     <Box component="div">
       <Header />
-      <Container>
+      <Container streched>
         <Box
           component="div"
           mx={{ xs: "0px", md: "22px" }}

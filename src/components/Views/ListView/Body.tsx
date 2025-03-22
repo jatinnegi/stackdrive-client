@@ -1,4 +1,10 @@
-import { FC, ForwardedRef, PropsWithChildren } from "react";
+import {
+  FC,
+  ForwardedRef,
+  PropsWithChildren,
+  useEffect,
+  useState,
+} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/reducers";
 import { handleContextMenu } from "@/redux/actions";
@@ -31,12 +37,19 @@ const RowCell: FC<PropsWithChildren> = ({ children }) => (
 
 interface Props {
   bodyRef: ForwardedRef<HTMLDivElement>;
+  bodyHeight: number;
   folders: ResourceProps[];
   files: ResourceProps[];
   handleScroll: () => void;
 }
 
-const Body: FC<Props> = ({ bodyRef, files, folders, handleScroll }) => {
+const Body: FC<Props> = ({
+  bodyRef,
+  bodyHeight,
+  files,
+  folders,
+  handleScroll,
+}) => {
   const { selected } = useSelector((state: RootState) => state.resources);
   const dispatch = useDispatch();
 
@@ -47,22 +60,23 @@ const Body: FC<Props> = ({ bodyRef, files, folders, handleScroll }) => {
       onScroll={handleScroll}
       sx={{
         width: "100%",
-        overflow: "scroll hidden",
+        height: bodyHeight,
+        overflow: "scroll",
         cursor: "default",
         userSelect: "none",
         paddingBottom: "10px",
-        "&::-webkit-scrollbar": {
-          width: "0px",
-          height: "4px",
-        },
-        "&::-webkit-scrollbar-track": {
-          boxShadow: `inset 0 0 6px rgba(0, 0, 0, 0)`,
-        },
-        "&::-webkit-scrollbar-thumb": {
-          backgroundColor: "darkgrey",
-          borderRadius: "10px",
-          outline: `1px solid slategrey`,
-        },
+        // "&::-webkit-scrollbar": {
+        //   width: "0px",
+        //   height: "4px",
+        // },
+        // "&::-webkit-scrollbar-track": {
+        //   boxShadow: `inset 0 0 6px rgba(0, 0, 0, 0)`,
+        // },
+        // "&::-webkit-scrollbar-thumb": {
+        //   backgroundColor: "darkgrey",
+        //   borderRadius: "10px",
+        //   outline: `1px solid slategrey`,
+        // },
       }}
     >
       <Box

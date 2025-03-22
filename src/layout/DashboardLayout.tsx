@@ -7,7 +7,6 @@ import { DashboardAppbar } from "@/components/Appbar";
 import Sidebar from "@/components/Sidebar/Sidebar";
 import MobileMenu from "@/components/MobileMenu";
 import ContextMenu from "@/components/ContextMenu";
-import SelectionBox from "@/components/SelectionBox";
 import Operations from "@/components/Operations";
 import DashboardContainer from "@/components/Containers/Dashboard";
 
@@ -33,7 +32,6 @@ export default function DashboardLayout() {
       <Sidebar />
       <ContextMenu />
       <Operations />
-      <SelectionBox />
       <DashboardContainer>
         <Outlet />
       </DashboardContainer>

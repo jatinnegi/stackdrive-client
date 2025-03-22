@@ -6,7 +6,8 @@ import { Box, Typography, IconButton } from "@mui/material";
 import { MoreVert as MoreVertIcon } from "@mui/icons-material";
 import { ResourceProps } from "@/types";
 import { getFileImage } from "@/utils/helper";
-import ResourceWrapper from "@/components/ResourceWrapper";
+// import ResourceWrapper from "@/components/ResourceWrapper";
+import ResourceWrapper from "@/components/ResourceWrapperNew";
 
 const ResourceCard: FC<ResourceProps> = ({ id, name, type, imgSrc }) => {
   const dispatch = useDispatch();

@@ -21,14 +21,15 @@ export const DefaultGridView: FC<PropsWithChildren> = ({ children }) => {
   return (
     <Box
       component="div"
-      gridTemplateColumns={{
-        md: "repeat(3, 1fr)",
-        lg: "repeat(4, 1fr)",
-      }}
+      // gridTemplateColumns={{
+      //   md: "repeat(3, 1fr)",
+      //   lg: "repeat(4, 1fr)",
+      // }}
       sx={{
         display: "grid",
         gap: "10px",
         margin: "10px 0px",
+        gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
       }}
     >
       {children}
