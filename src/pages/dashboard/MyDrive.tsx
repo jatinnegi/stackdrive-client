@@ -59,7 +59,7 @@ const MyDrive: FC = () => {
   return (
     <Box component="div">
       <Header />
-      <Container>
+      <Container streched>
         <Box
           component="div"
           mx={{ xs: "0px", md: "22px" }}

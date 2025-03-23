@@ -23,7 +23,7 @@ export default function Header() {
         userSelect: "none",
       }}
     >
-      <Container>
+      <Container streched>
         <Action title="My Drive" />
         <Box sx={{ height: "38px" }}>
           {selected.length ? <SelectedControls /> : <Filters />}

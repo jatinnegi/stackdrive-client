@@ -47,7 +47,12 @@ const ResourceCard: FC<ResourceProps> = ({ id, name, type, imgSrc }) => {
             <img
               src={getFileImage(type)}
               alt="file-icon"
-              style={{ height: "25px", width: "25px" }}
+              style={{
+                height: "25px",
+                width: "25px",
+                userSelect: "none",
+                pointerEvents: "none",
+              }}
             />
             <Typography
               fontSize={{
@@ -94,6 +99,8 @@ const ResourceCard: FC<ResourceProps> = ({ id, name, type, imgSrc }) => {
                 width: "100%",
                 height: "120px",
                 background: `url('${imgSrc}') no-repeat top center/cover`,
+                userSelect: "none",
+                pointerEvents: "none",
               }}
             />
           </Box>

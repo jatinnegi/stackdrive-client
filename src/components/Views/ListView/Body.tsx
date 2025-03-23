@@ -95,7 +95,11 @@ const Body: FC<Props> = ({ bodyRef, files, folders, handleScroll }) => {
               <img
                 src={getFileImage(row.type)}
                 alt={row.name}
-                style={{ height: "60%" }}
+                style={{
+                  height: "60%",
+                  userSelect: "none",
+                  pointerEvents: "none",
+                }}
               />
               <Typography
                 sx={{
@@ -112,7 +116,13 @@ const Body: FC<Props> = ({ bodyRef, files, folders, handleScroll }) => {
               <img
                 src={dummyUsers[0].img}
                 alt={dummyUsers[0].name}
-                style={{ height: "26px", width: "26px", borderRadius: "50%" }}
+                style={{
+                  height: "26px",
+                  width: "26px",
+                  borderRadius: "50%",
+                  userSelect: "none",
+                  pointerEvents: "none",
+                }}
               />
               <Typography
                 sx={{
@@ -189,7 +199,11 @@ const Body: FC<Props> = ({ bodyRef, files, folders, handleScroll }) => {
               <img
                 src={getFileImage(row.type)}
                 alt={row.name}
-                style={{ height: "60%" }}
+                style={{
+                  height: "60%",
+                  userSelect: "none",
+                  pointerEvents: "none",
+                }}
               />
               <Typography
                 sx={{
@@ -206,7 +220,13 @@ const Body: FC<Props> = ({ bodyRef, files, folders, handleScroll }) => {
               <img
                 src={dummyUsers[0].img}
                 alt={dummyUsers[0].name}
-                style={{ height: "26px", width: "26px", borderRadius: "50%" }}
+                style={{
+                  height: "26px",
+                  width: "26px",
+                  borderRadius: "50%",
+                  userSelect: "none",
+                  pointerEvents: "none",
+                }}
               />
               <Typography
                 sx={{
