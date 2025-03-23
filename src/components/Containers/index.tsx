@@ -1,7 +1,14 @@
 import { FC, PropsWithChildren } from "react";
 import { Box } from "@mui/material";
 
-const Container: FC<PropsWithChildren> = ({ children }) => {
+interface Props {
+  streched?: boolean;
+}
+
+const Container: FC<Props & PropsWithChildren> = ({
+  streched = false,
+  children,
+}) => {
   return (
     <Box
       sx={{
@@ -10,7 +17,7 @@ const Container: FC<PropsWithChildren> = ({ children }) => {
           xs: "95%",
           md: "98%",
         },
-        maxWidth: "1200px",
+        maxWidth: streched ? "none" : "1200px",
         margin: "0px auto",
       }}
     >
