@@ -80,7 +80,7 @@ const AnalyticsFeature: FC<Props> = ({ number, boxShadow }) => {
             strokeWidth={10}
             strokeLinecap="round"
             hasBackground
-            secondaryText="Used of 22.35GB / 50GB"
+            secondaryText="Used 22.35GB / 50GB"
             bgStrokeColor={theme === "dark" ? "#333D49" : "#D7D8D9"}
             primaryTextColor={theme === "dark" ? "#FFFFFF" : "#333333"}
             secondaryTextColor={theme === "dark" ? "#919EAB" : "#6F6F6F"}
