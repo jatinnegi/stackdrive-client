@@ -9,7 +9,7 @@ import {
 } from "@mui/icons-material";
 
 interface Props {
-  ref: ForwardedRef<HTMLDivElement | null>;
+  ref: ForwardedRef<HTMLDivElement | null> | string;
   type: SupportedTypes;
   name: string;
   current: InformationType;

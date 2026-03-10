@@ -6,7 +6,7 @@ import { Box, Typography } from "@mui/material";
 import StackDriveLogo from "../../../public/stack-drive-new-logo.svg";
 
 interface Props {
-  ref: ForwardedRef<HTMLDivElement | null>;
+  ref: ForwardedRef<HTMLDivElement | null> | string;
   fullDisplay: boolean;
 }
 
