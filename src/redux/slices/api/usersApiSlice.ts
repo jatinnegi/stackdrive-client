@@ -1,6 +1,6 @@
 import { apiSlice } from "./apiSlice";
 
-const USERS_URL = "/api/user";
+const USERS_URL = "https://stackdrive-express-js-server.onrender.com/api/user";
 
 const usersApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
